@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://github.com/MemoryCrash/MachineLearningPractice/blob/master/image/relu.png">
 <meta property="og:image" content="https://github.com/MemoryCrash/MachineLearningPractice/blob/master/image/numerical_no_padding_no_strides.gif">
 <meta property="og:image" content="https://github.com/MemoryCrash/MachineLearningPractice/blob/master/image/numerical_padding_strides.gif">
-<meta property="og:updated_time" content="2017-05-10T14:36:46.000Z">
+<meta property="og:updated_time" content="2017-05-10T14:57:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cnn学习笔记">
 <meta name="twitter:description" content="卷积神经网络简略笔记   卷积神经网络与神经网络的关系神经网络的关系和卷积神经网络的关系可以理解过卷积神经网络是为了可以更好处理图片而对神经网络进行了相应的改造和特殊化。这里的以卷积来为这个新的神经网络进行命名，这里主要是卷积神经网络的卷积层在对原始数据的处理上类似于卷积操作。如果本身对数学上的卷积操作不怎么了解，其实也不影响对卷积神经网络的具体理解。">
@@ -405,21 +405,7 @@
 <p>$$ C=-\frac{1}{n}\sum_{x}[ylna+(1-y)ln(1-a)] $$</p>
 <p>可以对w和b分别求导发现结果是和激活函数的导数没有关系的。</p>
 <h3 id="softmax-log-likelihood"><a href="#softmax-log-likelihood" class="headerlink" title="softmax+log-likelihood"></a>softmax+log-likelihood</h3><p>除了交叉熵以外还可以通过softmax的方式来解决学习速度衰减的问题。我们仅将输出层从普通的sigmod作为激活函数的层替换为softmax层。softmax输出层同样接受z=wx+b然后通过以下公式来计算输出结果</p>
-<script type="text/javascript">
-$(document).ready(function(){
-  $("code").map(function(){
-    match = /^\$(.*)\$$/.exec($(this).html());
-    if (match){
-      //$(this).after("<span class=mathjax_inline>" + match + "</span>");
-      //$(this).hide();
-      $(this).replaceWith("<span class=hpl_mathjax_inline>" + $(this).html() + "</span>");
-      MathJax.Hub.Queue(["Typeset",MathJax.Hub,$(this).get(0)]);
-    }
-  });
-});
-</script>
-
-<p><code>$$ a_j^L = \sum_{x}^n z $$</code></p>
+<p>$$ a_{j}^{L}=\frac{e^{z_{j}^{L}}}{\sum_{k}e^{z_{k}^{L}}} $$</p>
 <p>可以看出来这里得到的是某个值占总体的一个比例。配合softmax我们的代价函数需要替换成log-likelihood</p>
 <p>$$ C\equiv-lna_{y}^{L} $$</p>
 <p>这里表示的是单个输入样本的代价，如果有多个样本的可以对他们的代价求均值，作为总的代价函数。通过代价函数对w和b求导得到公式</p>
@@ -429,7 +415,7 @@ $(document).ready(function(){
 <p>$$ C=-\frac{1}{n}\sum_{xj}[y_{j}lna_{j}^{L}+(1-y_{j})ln(1-a_{j}^{L})]+\frac{\lambda}{2n}\sum_{w}w^{2} $$</p>
 <p>这样起到的作用使的优化这个代价函数，会更倾向于获取一个w并不是那么复杂的模型。一般直观的来看过拟合的模型都是在训练集中表现过于好的函数，而表现的过好的模型一般w都是比较复杂的。我们对于l1正则化不作解释。</p>
 <p>接下还有一种方式是dropout，可以理解为丢弃。处理的思想类似我们以前看的集成学习法。这dropout中会随机的丢弃一些神经元(非输入和输出层)，也就是我们每次迭代更新梯度只对模型中的部分神经元进行处理。在一个batch的样本训练并更新完w和b以后我们会重新再进行一次dropout。这样的感觉就像训练了多个子神经网络，最后将他们组合成一个大的神经元来进行使用。是不是和集成学习思想类似？</p>
-<h3 id="参数初始化"><a href="#参数初始化" class="headerlink" title="参数初始化"></a>参数初始化</h3><p>在先前的神经网络中一般采用的是符合一个均值是0，标准差是1的高斯分布的随机数去初始化w和b，但是这个并不适合初始化隐藏层比较多的神经网络。一般是将标准差表示为 $1\sqrt{n_{in}}$ 这里的 $n_{in}$ 表示具有输入权重的神经元个数。</p>
+<h3 id="参数初始化"><a href="#参数初始化" class="headerlink" title="参数初始化"></a>参数初始化</h3><p>在先前的神经网络中一般采用的是符合一个均值是0，标准差是1的高斯分布的随机数去初始化w和b，但是这个并不适合初始化隐藏层比较多的神经网络。一般是将标准差表示为 $1/\sqrt{n_{in}}$ 这里的 $n_{in}$ 表示具有输入权重的神经元个数。</p>
 <h3 id="卷积层"><a href="#卷积层" class="headerlink" title="卷积层"></a>卷积层</h3><p>卷积层是卷积神经网络不同于神经网络的一个重要特点。首先我们输入到卷积神经网络的依然是一个图片，但是作为接受这个数据的卷积层并不是如果神经网络一样将图片的所有像素信息都输入，而是使用一个比输入图片小的多的过滤器来扫描原始输入的图片数据。过滤器可以理解为将原始图片的一小部分作为输入并通过权值和偏移进行计算后输入激活函数得到在新的数据。这个过滤器会按照设置每次滑动并重复刚才的过程。最终得到的就是对应一个过滤器得到的一个特征map。这里需要特别说明单独过滤器滑动的任何区域计算使用的w和b都是一样的，一般的讲这个可以称为<strong>参数共享</strong>。这样的好处是识别某个特征将和这个特征在原始图片出现的位置无关。</p>
 <p><img src="https://github.com/MemoryCrash/MachineLearningPractice/blob/master/image/numerical_no_padding_no_strides.gif" width="50%" height="50%/"></p>
 <p>可以直观的看到经过过滤器处理以后的图像的大小变小了，同时多个过滤器也可以获得到图片的多种特征。同时可以看出来我们需要仔细设计过滤器的大小以及每次滑动的距离以使的在原始图像中每个像素都可以涉及到。但是可能真就存在冲突的情况或者我希望过滤器处理后图片的大小不发生改变，这个时候可以适当的在待过滤的图片边缘添加0来实现。</p>
