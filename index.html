@@ -132,13 +132,13 @@
     </header>
     <p class="post-meta">
         dailei 发表于
-        <time datetime="2017-05-10T04:00:44.000Z">2017-05-10</time>
+        <time datetime="2017-05-09T16:00:00.000Z">2017-05-10</time>
     </p>
 
     <div class="post-content">
         <div class="post-excerpt">
             
-                进行网页调试
+                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.<br>
             
             <p class="more">
                 <a href="http://yoursite.com/2017/05/10/hello-world/">阅读剩下更多</a>
@@ -210,40 +210,6 @@
     </section>
     
 
-    
-    <!-- 我的微博 -->
-    <section class="widget">
-        <h3 class="widget-hd"><strong>我的微博</strong></h3>
-        <div class="widget-bd" style="position: relative;">
-  <div id="myWeiboLoading" class="text-center" style="position:absolute;top:0;left:0;right:0;bottom:0;line-height:50px;font-size:12px;background-color:#fff;z-index:9;">微博加载中...</div>
-  <iframe id="myWeibo" width="100%" height="550" class="share_self"  frameborder="0" scrolling="no" src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=1&speed=0&skin=1&isTitle=0&noborder=0&isWeibo=1&isFans=0&uid=2376003112&verifier=796ea597&dpc=1"></iframe>
-  <script>
-  (function () {
-    var oMyWeibo = document.getElementById('myWeibo');
-    var oMyWeiboLoading = document.getElementById('myWeiboLoading');
-    var isIE = /msie/i.test(navigator.userAgent) && !window.opera;
-    var timer = null;
-    if (isIE) {
-      oMyWeibo.onreadystatechange = function(){
-        if(oMyWeibo.readyState === 'loaded' || oMyWeibo.readyState === 'complete'){
-          timer = setTimeout(function () {
-            oMyWeiboLoading.parentNode.removeChild(oMyWeiboLoading);
-            timer = null;
-          }, 300);
-        }
-      };
-    } else {
-      oMyWeibo.onload = function () {
-        timer = setTimeout(function () {
-          oMyWeiboLoading.parentNode.removeChild(oMyWeiboLoading);
-          timer = null;
-        }, 300);
-      };
-    }
-  })();
-  </script>
-</div>
-    </section>
     
 
     
