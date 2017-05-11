@@ -99,7 +99,7 @@
 <meta property="og:description" content="循环神经网络和卷积神经网络我们可以使用卷积神经网络来处理图片的分类，从目前看其包含的特点是输入到卷积层的图片是大小是固定的，待分类的图片与图片之间是相对独立的存在。通过对目前我们了解到的卷积神经网络的描述可以了解到它的模型处理的场景和我们的现实生活还有有比较大的差异。">
 <meta property="og:image" content="http://yoursite.com/image/rnnStru.png">
 <meta property="og:image" content="http://yoursite.com/image/rnnUnflod.jpg">
-<meta property="og:updated_time" content="2017-05-11T09:38:54.000Z">
+<meta property="og:updated_time" content="2017-05-11T09:42:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环神经网络简略笔记">
 <meta name="twitter:description" content="循环神经网络和卷积神经网络我们可以使用卷积神经网络来处理图片的分类，从目前看其包含的特点是输入到卷积层的图片是大小是固定的，待分类的图片与图片之间是相对独立的存在。通过对目前我们了解到的卷积神经网络的描述可以了解到它的模型处理的场景和我们的现实生活还有有比较大的差异。">
@@ -440,7 +440,7 @@
 <li>从左向右传递上一个结点状态s会传递给下一个结点。</li>
 <li>这里o在每个时刻都会依据当前的状态进行判断病输出。</li>
 </ul>
-<p>这里我们看看展开后的循环神经网络结构。这里的x可以理解为代表输入层，W代表循环层的权值矩阵，o表示最终的输出层。<br>$ o_{t}=g(Vs_{t}) $<br>$ s_{t}=f(Ux_{t}+Ws_{t-1}) $<br>一般会使用sigmoid或者relu作为激活函数，循环层中我们使用sigmoid作为激活函数，最终使用softmax作为输出层。</p>
+<p>这里我们看看展开后的循环神经网络结构。这里的x可以理解为代表输入层，W代表循环层的权值矩阵，o表示最终的输出层。一般会使用sigmoid或者relu作为激活函数，循环层中我们使用sigmoid作为激活函数，最终使用softmax作为输出层。<br>$ o_{t}=g(Vs_{t}) $<br>$ s_{t}=f(Ux_{t}+Ws_{t-1}) $</p>
 
       
     </div>
