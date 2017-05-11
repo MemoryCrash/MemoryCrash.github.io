@@ -99,7 +99,7 @@
 <meta property="og:description" content="循环神经网络和卷积神经网络我们可以使用卷积神经网络来处理图片的分类，从目前看其包含的特点是输入到卷积层的图片是大小是固定的，待分类的图片与图片之间是相对独立的存在。通过对目前我们了解到的卷积神经网络的描述可以了解到它的模型处理的场景和我们的现实生活还有有比较大的差异。">
 <meta property="og:image" content="http://yoursite.com/image/rnnStru.png">
 <meta property="og:image" content="http://yoursite.com/image/rnnUnflod.jpg">
-<meta property="og:updated_time" content="2017-05-11T09:06:30.000Z">
+<meta property="og:updated_time" content="2017-05-11T09:38:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环神经网络简略笔记">
 <meta name="twitter:description" content="循环神经网络和卷积神经网络我们可以使用卷积神经网络来处理图片的分类，从目前看其包含的特点是输入到卷积层的图片是大小是固定的，待分类的图片与图片之间是相对独立的存在。通过对目前我们了解到的卷积神经网络的描述可以了解到它的模型处理的场景和我们的现实生活还有有比较大的差异。">
@@ -435,6 +435,12 @@
 <h2 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h2><p>循环神经网络的基本机构如下图<br><img src="/image/rnnStru.png"><br>第一次看到这个图可能会感到很困惑，可以暂时不看w和它所在的圆形箭头那这个图便是一个常见的神经元模型，x作为输入进行权值矩阵U后输入到s，然后s通过激活函数激活后输出，输出后的值同样经过一个权值矩阵后输入到o。这里我们暂时忽略偏移bias，这不影响理解。</p>
 <p>现在我们来考虑w的存在，假设某一个t时刻，从x输入了一个数据，它经过了权值矩阵后进入s，然后同样是经过激活函数的激活。接着输出的数据会通过v传递下去，同时会经过w这个权值矩阵处理后保存下来。等到t+1时刻有数据从x传入的时候，s就会吸收新传入的数据和上一时刻通过w处理后的信息了。这样就构造了一个可以保存记忆基于记忆来进行处理的神经元模型。</p>
 <p>如上所述，在不同时刻数据通过这个结构都在影响着输入，下面按照时间将展开这个结构。<br><img src="/image/rnnUnflod.jpg" width="70%" height="70%"></p>
+<ul>
+<li>首先图中的W，V，U都是同一个，只是在时间维度上展开了。</li>
+<li>从左向右传递上一个结点状态s会传递给下一个结点。</li>
+<li>这里o在每个时刻都会依据当前的状态进行判断病输出。</li>
+</ul>
+<p>这里我们看看展开后的循环神经网络结构。这里的x可以理解为代表输入层，W代表循环层的权值矩阵，o表示最终的输出层。<br>$ o_{t}=g(Vs_{t}) $<br>$ s_{t}=f(Ux_{t}+Ws_{t-1}) $<br>一般会使用sigmoid或者relu作为激活函数，循环层中我们使用sigmoid作为激活函数，最终使用softmax作为输出层。</p>
 
       
     </div>
