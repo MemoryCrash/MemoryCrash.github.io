@@ -17,8 +17,8 @@
 <li>从左向右传递上一个结点状态s会传递给下一个结点。</li>
 <li>这里o在每个时刻都会依据当前的状态进行判断病输出。</li>
 </ul>
-<p>这里我们看看展开后的循环神经网络结构。这里的x可以理解为代表输入层，W代表循环层的权值矩阵，o表示最终的输出层。一般会使用sigmoid或者relu作为激活函数，循环层中我们使用sigmoid作为激活函数，最终使用softmax作为输出层。<br>$ o_{t}=g(Vs_{t}) $<br>$ s_{t}=f(Ux_{t}+Ws_{t-1}) $</p>
-<h2 id="循环神经网络实现"><a href="#循环神经网络实现" class="headerlink" title="循环神经网络实现"></a>循环神经网络实现</h2><p><img src="/image/rnnLayer.png"><br>如果我们要实现的是一个三层结构的循环神经网络</p>
+<p>这里我们看看展开后的循环神经网络结构。这里的x可以理解为代表输入层，W代表循环层的权值矩阵，o表示最终的输出层。一般会使用sigmoid,tanh或者relu作为激活函数，循环层中我们使用tanh作为激活函数，最终使用softmax作为输出层。<br>$ o_{t}=g(Vs_{t}) $<br>$ s_{t}=f(Ux_{t}+Ws_{t-1}) $</p>
+<h2 id="循环神经网络实现"><a href="#循环神经网络实现" class="headerlink" title="循环神经网络实现"></a>循环神经网络实现</h2><p><img src="/image/rnnLayer.png"><br>注意到这里多一个$ h_{t} $符号，它表示t时刻隐藏层的输入$ h_{t}=Ux_{t}+Ws_{t-1} $。还有$ \widehat{y}_{t} $表示t时候模型预测的最终输出值。如果我们要实现的是一个三层结构的循环神经网络并使用它来进行句子中词语的预测。并希望最终达到这样的效果。<br><img src="/image/rnnWords.png"></p>
 ]]></content>
       
         <categories>
