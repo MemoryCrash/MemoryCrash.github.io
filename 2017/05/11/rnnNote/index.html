@@ -101,7 +101,8 @@
 <meta property="og:image" content="http://yoursite.com/image/rnnUnflod.jpg">
 <meta property="og:image" content="http://yoursite.com/image/rnnLayer.png">
 <meta property="og:image" content="http://yoursite.com/image/rnnWords.png">
-<meta property="og:updated_time" content="2017-05-12T02:25:12.000Z">
+<meta property="og:image" content="http://yoursite.com/image/tanh.png">
+<meta property="og:updated_time" content="2017-05-12T03:19:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环神经网络简略笔记">
 <meta name="twitter:description" content="循环神经网络和卷积神经网络我们可以使用卷积神经网络来处理图片的分类，从目前看其包含的特点是输入到卷积层的图片是大小是固定的，待分类的图片与图片之间是相对独立的存在。通过对目前我们了解到的卷积神经网络的描述可以了解到它的模型处理的场景和我们的现实生活还有有比较大的差异。">
@@ -443,7 +444,13 @@
 <li>这里o在每个时刻都会依据当前的状态进行判断病输出。</li>
 </ul>
 <p>这里我们看看展开后的循环神经网络结构。这里的x可以理解为代表输入层，W代表循环层的权值矩阵，o表示最终的输出层。一般会使用sigmoid,tanh或者relu作为激活函数，循环层中我们使用tanh作为激活函数，最终使用softmax作为输出层。<br>$ o_{t}=g(Vs_{t}) $<br>$ s_{t}=f(Ux_{t}+Ws_{t-1}) $</p>
-<h2 id="循环神经网络实现"><a href="#循环神经网络实现" class="headerlink" title="循环神经网络实现"></a>循环神经网络实现</h2><p><img src="/image/rnnLayer.png"><br>注意到这里多一个$ h_{t} $符号，它表示t时刻隐藏层的输入$ h_{t}=Ux_{t}+Ws_{t-1} $。还有$ \widehat{y}_{t} $表示t时候模型预测的最终输出值。如果我们要实现的是一个三层结构的循环神经网络并使用它来进行句子中词语的预测。并希望最终达到这样的效果。<br><img src="/image/rnnWords.png"></p>
+<h2 id="循环神经网络实现"><a href="#循环神经网络实现" class="headerlink" title="循环神经网络实现"></a>循环神经网络实现</h2><p><img src="/image/rnnLayer.png"><br>注意到这里多一个$ h_{t} $符号，它表示t时刻隐藏层的输入$ h_{t}=Ux_{t}+Ws_{t-1} $。还有$ \widehat{y}_{t} $表示t时候模型预测的最终输出值。如果我们要实现的是一个三层结构的循环神经网络并使用它来进行句子中词语的预测。并希望最终达到这样的效果。<br><img src="/image/rnnWords.png"><br>这里的s和e代表一句话的开始和结束。上图展示出来的情况表达的含义是我在每个时间点输入一个句子中的单词然后模型会预测出我下一个单词是什么，比如在t2时刻我输入了x2(我)，这个时候我期望得到的单词是“昨天”。这里举例的这个场景是rnn应用的一个小点，其它还包括机器翻译等。下面基于预测单词的要求来看看完成循环神经网络是什么样的。</p>
+<h3 id="输入数据"><a href="#输入数据" class="headerlink" title="输入数据"></a>输入数据</h3><p>既然是预测单词，那我们的输入也是单词的内容。这里以一个句子作为一条训练样本，以句子中的单词作为具体的输入信息。可以看做单词是句子这个训练样本中的元素。按照上面的说法我们还需要给句子标注出开始和结束标志。我们把句子中的没有包含结束标志的部分可以当作是输入数据，把句子中没有包含开始标志的部分看做是验证模型预测输出数据是否正确的标准。因为我们并不能直接把一个单词作为输入或者输出。所以我们需要建立一个词汇表，就像是字典一样，在词汇表中将位置信息和具体的词汇进行映射。将映射后的信息比如[0 0 0 0 1 0 0]就代表“我”，传入到模型中去。</p>
+<h3 id="隐藏层"><a href="#隐藏层" class="headerlink" title="隐藏层"></a>隐藏层</h3><p>在隐藏层中我们包含了一个循环，处于隐藏层的神经元接受当前时候的输入$ x_{t} $和上一个时刻的神经元的状态$ s_{t-1} $作为本次的输入，然后经过tanh激活函数进行激活后输出，同时也作为下一个时刻神经元的输入$ s_{t} $。</p>
+<p>$ tanh(z) = \frac{e^{z}-e^{-z}}{e^{z}+e^{-z}}$<br>$ h_{t}=Ux_{t}+Ws_{t-1} $<br>$ s_{t}=tanh(Ux_{t}+Ws_{t-1}) $</p>
+<p>tanh函数的图像是这样，和sigmoid很类似，但是tanh是关于0旋转对称的，它的取值范围是[-1,1]而sigmoid的取值范围是[0,1]。sigmoid的导数是$ {f}’(z)=f(z)(1-f(z)) $而tanh的导数$ {f}’(z)=1-(f(z))^{2} $</p>
+<p><img src="/image/tanh.png"></p>
+<h3 id="输出层"><a href="#输出层" class="headerlink" title="输出层"></a>输出层</h3><p>输出层的输入信息是从隐藏层来的，隐藏层输出的状态通过权值矩阵V处理以后输入到输出层softmax，这里V的主要作用是将隐藏层输出的矩阵信息转换为输出层可以处理的向量信息信息，因为输出层输出的是向量。softmax的公式是<br>$ \sigma (z)_{j}=\frac{e^{z_{j}}}{\sum_{k=1}^{K}e^{z_{k}}} $<br>可以看出通过softmax层输出后的是模型认为在这个位置应该出现的单词的概率。也就是说softmax输出的数据中值最大的那个就是模型预测的值。</p>
 
       
     </div>
@@ -641,7 +648,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络和卷积神经网络"><span class="nav-number">1.</span> <span class="nav-text">循环神经网络和卷积神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络"><span class="nav-number">2.</span> <span class="nav-text">循环神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络实现"><span class="nav-number">3.</span> <span class="nav-text">循环神经网络实现</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络和卷积神经网络"><span class="nav-number">1.</span> <span class="nav-text">循环神经网络和卷积神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络"><span class="nav-number">2.</span> <span class="nav-text">循环神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络实现"><span class="nav-number">3.</span> <span class="nav-text">循环神经网络实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入数据"><span class="nav-number">3.1.</span> <span class="nav-text">输入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏层"><span class="nav-number">3.2.</span> <span class="nav-text">隐藏层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出层"><span class="nav-number">3.3.</span> <span class="nav-text">输出层</span></a></li></ol></li></ol></div>
             
 
           </div>
