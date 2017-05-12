@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://yoursite.com/image/rnnLayer.png">
 <meta property="og:image" content="http://yoursite.com/image/rnnWords.png">
 <meta property="og:image" content="http://yoursite.com/image/tanh.png">
-<meta property="og:updated_time" content="2017-05-12T03:19:34.000Z">
+<meta property="og:updated_time" content="2017-05-12T03:21:16.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环神经网络简略笔记">
 <meta name="twitter:description" content="循环神经网络和卷积神经网络我们可以使用卷积神经网络来处理图片的分类，从目前看其包含的特点是输入到卷积层的图片是大小是固定的，待分类的图片与图片之间是相对独立的存在。通过对目前我们了解到的卷积神经网络的描述可以了解到它的模型处理的场景和我们的现实生活还有有比较大的差异。">
@@ -450,7 +450,7 @@
 <p>$ tanh(z) = \frac{e^{z}-e^{-z}}{e^{z}+e^{-z}}$<br>$ h_{t}=Ux_{t}+Ws_{t-1} $<br>$ s_{t}=tanh(Ux_{t}+Ws_{t-1}) $</p>
 <p>tanh函数的图像是这样，和sigmoid很类似，但是tanh是关于0旋转对称的，它的取值范围是[-1,1]而sigmoid的取值范围是[0,1]。sigmoid的导数是$ {f}’(z)=f(z)(1-f(z)) $而tanh的导数$ {f}’(z)=1-(f(z))^{2} $</p>
 <p><img src="/image/tanh.png"></p>
-<h3 id="输出层"><a href="#输出层" class="headerlink" title="输出层"></a>输出层</h3><p>输出层的输入信息是从隐藏层来的，隐藏层输出的状态通过权值矩阵V处理以后输入到输出层softmax，这里V的主要作用是将隐藏层输出的矩阵信息转换为输出层可以处理的向量信息信息，因为输出层输出的是向量。softmax的公式是<br>$ \sigma (z)_{j}=\frac{e^{z_{j}}}{\sum_{k=1}^{K}e^{z_{k}}} $<br>可以看出通过softmax层输出后的是模型认为在这个位置应该出现的单词的概率。也就是说softmax输出的数据中值最大的那个就是模型预测的值。</p>
+<h3 id="输出层"><a href="#输出层" class="headerlink" title="输出层"></a>输出层</h3><p>输出层的输入信息是从隐藏层来的，隐藏层输出的状态通过权值矩阵V处理以后输入到输出层softmax，这里V的主要作用是将隐藏层输出的矩阵信息转换为输出层可以处理的向量信息信息，因为输出层输出的是向量。softmax的公式是<br>$$ \sigma (z)_{j}=\frac{e^{z_{j}}}{\sum_{k=1}^{K}e^{z_{k}}} $$<br>可以看出通过softmax层输出后的是模型认为在这个位置应该出现的单词的概率。也就是说softmax输出的数据中值最大的那个就是模型预测的值。</p>
 
       
     </div>
