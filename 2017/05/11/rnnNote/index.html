@@ -102,7 +102,8 @@
 <meta property="og:image" content="http://yoursite.com/image/rnnLayer.png">
 <meta property="og:image" content="http://yoursite.com/image/rnnWords.png">
 <meta property="og:image" content="http://yoursite.com/image/tanh.png">
-<meta property="og:updated_time" content="2017-05-12T06:24:08.000Z">
+<meta property="og:image" content="http://yoursite.com/image/rnnBptt.jpg">
+<meta property="og:updated_time" content="2017-05-12T14:11:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="循环神经网络简略笔记">
 <meta name="twitter:description" content="循环神经网络和卷积神经网络我们可以使用卷积神经网络来处理图片的分类，从目前看其包含的特点是输入到卷积层的图片是大小是固定的，待分类的图片与图片之间是相对独立的存在。通过对目前我们了解到的卷积神经网络的描述可以了解到它的模型处理的场景和我们的现实生活还有有比较大的差异。">
@@ -452,43 +453,53 @@
 <p><img src="/image/tanh.png"></p>
 <h3 id="输出层"><a href="#输出层" class="headerlink" title="输出层"></a>输出层</h3><p>输出层的输入信息是从隐藏层来的，隐藏层输出的状态通过权值矩阵V处理以后输入到输出层softmax，这里V的主要作用是将隐藏层输出的矩阵信息转换为输出层可以处理的向量信息信息，因为输出层输出的是向量。softmax的公式是<br>$$ \sigma (z)_{j}=\frac{e^{z_{j}}}{\sum_{k=1}^{K}e^{z_{k}}} $$<br>可以看出通过softmax层输出后的是模型认为在这个位置应该出现的单词的概率。也就是说softmax输出的数据中值最大的那个就是模型预测的值。</p>
 <h2 id="循环神经网络的训练"><a href="#循环神经网络的训练" class="headerlink" title="循环神经网络的训练"></a>循环神经网络的训练</h2><p>在训练循环神经网络的时候我们使用的是bptt(Backprogation Through Time)算法，基本思想和bp算法是一致的。bptt多考虑了在时间维度上进行循环的影响。一般来说训练一个神经网络我们先获取到经过模型的预测值和实际值之间的差异，这个过程属于一个前向传播的过程(这个差异就是代价函数我们这里使用交叉熵作为代价函数)。然后对预测值和实际值的差异从减小差异的方向来调整各个层的权值，这个过程属于一个后向传播的过程。之后重复这个过程直到模型预测结果复合要求。</p>
-<p>后续的进行bptt算法的推导可以参考<a href="http://www.cnblogs.com/wacc/p/5341670.html" target="_blank" rel="external">此篇文档</a></p>
+<p>后续的进行bptt算法的推导可以参考<a href="http://www.cnblogs.com/wacc/p/5341670.html" target="_blank" rel="external">此篇文档</a>这里只简单描述下，如上所述的</p>
+<blockquote>
+<p>“处于隐藏层的神经元接受当前时候的输入$ x_{t} $和上一个时刻的神经元的状态$ s_{t-1} $作为本次的输入”</p>
+</blockquote>
+<p>所以对于反向传播也会存在两个方向的传播，其实也好理解因为有两个方向的传播才能兼顾到U和W两个权值矩阵并对他们进行更新。而一般的非循环神经网络只有一个方向的传递路径。<br><img src="/image/rnnBptt.jpg"></p>
+<ul>
+<li>红色方向涉及权值矩阵U，表示将梯度传递到上一层网络(从隐藏层的角度看)</li>
+<li>绿色方向涉及到权值矩阵W，表示将梯度沿着时间方向传递</li>
+</ul>
+<p>推导bptt公式还可以参考<a href="https://zybuluo.com/hanbingtao/note/541458" target="_blank" rel="external">此篇文档</a>,这里直接给出来。<br>$ \frac{\partial E_{t}}{\partial V}=(\hat{y_{t}}-y_{t})\otimes h_{t} $<br>$ \frac{\partial E}{\partial V}=\sum_{t=0}^{T}(\hat{y_{t}}-y_{t})\otimes h_{t} $<br>以上表示的是权值矩阵V的导数计算公式，这里需要注意这个公式只是和当前的t时刻有关系。<br>$ \delta_{k}=(U^{T}\delta_{k+1})\odot (1-h_{k}\odot h_{k}) $<br>$ \delta_{t}=(V^{T}(\hat{y_{t}}-y_{t}))\odot (1-h_{t}\odot h_{t}) $<br>以上两个公式中$\delta_{k}$表示的是中间节点的误差(隐藏层到隐藏层或者隐藏层到输入层)，$\delta_{t}$表示起始位置的误差(从输出到隐藏层)。<br>$ \frac{\partial E_{t}}{\partial W}=\sum_{k=0}^{t}\delta_{k}\otimes h_{k-1} $<br>$ \frac{\partial E}{\partial W}=\sum_{t=0}^{T}\sum_{k=0}^{t}\delta_{k}\otimes h_{k-1} $<br>以上公式表示隐藏层到隐藏层在时间维度展开后计算导数。<br>$ \frac{\partial E_{t}}{\partial U}=\sum_{k=0}^{t}\delta_{k}\otimes x_{k} $<br>$ \frac{\partial E}{\partial U}=\sum_{t=0}^{T}\sum_{k=0}^{t}\delta_{k}\otimes x_{k} $<br>以上公式是表示隐藏层到输入层在时间维度展开后计算导数。<br>注意到W，U和V的计算公式的差异是W，U多了一个$\sum_{k=0}^{t}$的求和过程,这个是因为求W涉及到s，而s的公式是一个循环嵌套的公式所以必然会涉及到多个前一个时刻的W出来。<br>$s_{t}=Wh_{t-1}+Ux_{t}$ (1)<br>$ h_{t}=tanh(s_{t}) $ (2)<br>按照上面的(1)(2)公式我可以讲s在t时刻进行展开得到下面的公式<br>$ s_{t}=Wtanh(Wh_{t-2}+Ux_{t-1})+Ux_{t} $<br>所以就会出现当通过s求解t时刻关于W和U的导数的时候，是需要考虑到其它时刻的影响。</p>
 <h3 id="numpy矩阵操作"><a href="#numpy矩阵操作" class="headerlink" title="numpy矩阵操作"></a>numpy矩阵操作</h3><p>这里简单记录下numpy部分矩阵操作。其中A.dot(B)表示A和B进行矩阵乘法，A*B在numpy表示A和B的对应元素相乘，np.outer(A,B)表示A和B进行外积计算，np.dot(A,B)表示A和B进行点积计算</p>
 <table>
 <thead>
 <tr>
 <th>numpy操作</th>
-<th style="text-align:center">作用</th>
+<th style="text-align:left">作用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>A.dot(B)</td>
-<td style="text-align:center">A和B进行矩阵乘法</td>
+<td style="text-align:left">A和B进行矩阵乘法</td>
 </tr>
 <tr>
 <td>np.dot(A,B)</td>
-<td style="text-align:center">A和B进行矩阵乘法</td>
+<td style="text-align:left">A和B进行矩阵乘法</td>
 </tr>
 <tr>
 <td>A*B</td>
-<td style="text-align:center">A和B的对应元素相乘</td>
+<td style="text-align:left">A和B的对应元素相乘</td>
 </tr>
 <tr>
 <td>np.multiply(U3, U4)</td>
-<td style="text-align:center">A和B的对应元素相乘</td>
+<td style="text-align:left">A和B的对应元素相乘</td>
 </tr>
 <tr>
 <td>np.outer(A,B)</td>
-<td style="text-align:center">A和B进行外积计算</td>
+<td style="text-align:left">A和B进行外积计算</td>
 </tr>
 <tr>
 <td>A.T</td>
-<td style="text-align:center">A矩阵的转置</td>
+<td style="text-align:left">A矩阵的转置</td>
 </tr>
 </tbody>
 </table>
-
+<h3 id="梯度消失"><a href="#梯度消失" class="headerlink" title="梯度消失"></a>梯度消失</h3><p>梯度消失在循环神经网络中更容易出现，我们在进行反向传播的时候，如果传播的距离越长也就是时间维度展开越长传递过去的梯度就越小。</p>
+<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2>
       
     </div>
 
@@ -685,7 +696,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络和卷积神经网络"><span class="nav-number">1.</span> <span class="nav-text">循环神经网络和卷积神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络"><span class="nav-number">2.</span> <span class="nav-text">循环神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络实现"><span class="nav-number">3.</span> <span class="nav-text">循环神经网络实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入数据"><span class="nav-number">3.1.</span> <span class="nav-text">输入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏层"><span class="nav-number">3.2.</span> <span class="nav-text">隐藏层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出层"><span class="nav-number">3.3.</span> <span class="nav-text">输出层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络的训练"><span class="nav-number">4.</span> <span class="nav-text">循环神经网络的训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#numpy矩阵操作"><span class="nav-number">4.1.</span> <span class="nav-text">numpy矩阵操作</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络和卷积神经网络"><span class="nav-number">1.</span> <span class="nav-text">循环神经网络和卷积神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络"><span class="nav-number">2.</span> <span class="nav-text">循环神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络实现"><span class="nav-number">3.</span> <span class="nav-text">循环神经网络实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入数据"><span class="nav-number">3.1.</span> <span class="nav-text">输入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隐藏层"><span class="nav-number">3.2.</span> <span class="nav-text">隐藏层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出层"><span class="nav-number">3.3.</span> <span class="nav-text">输出层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络的训练"><span class="nav-number">4.</span> <span class="nav-text">循环神经网络的训练</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#numpy矩阵操作"><span class="nav-number">4.1.</span> <span class="nav-text">numpy矩阵操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#梯度消失"><span class="nav-number">4.2.</span> <span class="nav-text">梯度消失</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LSTM"><span class="nav-number">5.</span> <span class="nav-text">LSTM</span></a></li></ol></div>
             
 
           </div>
