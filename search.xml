@@ -72,7 +72,8 @@
 </tbody>
 </table>
 <h3 id="梯度消失"><a href="#梯度消失" class="headerlink" title="梯度消失"></a>梯度消失</h3><p>梯度消失在循环神经网络中更容易出现，我们在进行反向传播的时候，如果传播的距离越长也就是时间维度展开越长传递过去的梯度就越小。</p>
-<h2 id="LSTM"><a href="#LSTM" class="headerlink" title="LSTM"></a>LSTM</h2>]]></content>
+<h2 id="Long-Short-Term-Memory-LSTM"><a href="#Long-Short-Term-Memory-LSTM" class="headerlink" title="Long Short Term Memory(LSTM)"></a>Long Short Term Memory(LSTM)</h2><p>Long Short Term Memory(LSTM)可以很好的解决上面提到的循环神经网络中梯度消失问题。他是他你</p>
+]]></content>
       
         <categories>
             
