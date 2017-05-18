@@ -3,6 +3,26 @@
   
     
     <entry>
+      <title><![CDATA[pytorch学习笔记]]></title>
+      <url>/2017/05/18/pytorch/</url>
+      <content type="html"></content>
+      
+        <categories>
+            
+            <category> frame </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[循环神经网络简略笔记]]></title>
       <url>/2017/05/11/rnnNote/</url>
       <content type="html"><![CDATA[<h2 id="循环神经网络和卷积神经网络"><a href="#循环神经网络和卷积神经网络" class="headerlink" title="循环神经网络和卷积神经网络"></a>循环神经网络和卷积神经网络</h2><p>我们可以使用卷积神经网络来处理图片的分类，从目前看其包含的特点是输入到卷积层的图片是大小是固定的，待分类的图片与图片之间是相对独立的存在。通过对目前我们了解到的卷积神经网络的描述可以了解到它的模型处理的场景和我们的现实生活还有有比较大的差异。</p>
