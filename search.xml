@@ -5,7 +5,38 @@
     <entry>
       <title><![CDATA[pytorch学习笔记]]></title>
       <url>/2017/05/18/pytorch/</url>
-      <content type="html"></content>
+      <content type="html"><![CDATA[<h2 id="pytorch基本操作"><a href="#pytorch基本操作" class="headerlink" title="pytorch基本操作"></a>pytorch基本操作</h2><p>在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> torch   </div><div class="line">x = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个未初始化的矩阵，注意是未初始化的矩阵.    </span></div><div class="line"><span class="comment">#矩阵加法</span></div><div class="line">x = torch.rand(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个使用随机数初始化的矩阵，注意返回的这个矩阵是Tensor</span></div><div class="line">y = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line"><span class="comment">#以下两种方式都可以</span></div><div class="line">x + y</div><div class="line">torch.add(x, y)</div><div class="line"><span class="comment">#如果需要输出tensor</span></div><div class="line">result = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line">torch.add(x, y, out=result)</div><div class="line"><span class="comment">#这种方法就会直接将y和x相加后的值更新到y中</span></div><div class="line"><span class="comment">#其中带有“_”的运算上的操作都带有相似的含义</span></div><div class="line">y.add_(x)</div></pre></td></tr></table></figure></p>
+<p><em>注意：如果是维数相同的矩阵相加那么就是矩阵对应元素相加，如果是矩阵和标量相加那么就是矩阵每个元素都和这个标量相加。</em></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">操作</th>
+<th style="text-align:left">含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">x+y</td>
+<td style="text-align:left">相加，需要定义另外的变量接受返回值</td>
+</tr>
+<tr>
+<td style="text-align:left">torch_add(x, y)</td>
+<td style="text-align:left">含义同上</td>
+</tr>
+<tr>
+<td style="text-align:left">x.add_(y)</td>
+<td style="text-align:left">将y加到x上并更新x的值</td>
+</tr>
+<tr>
+<td style="text-align:left">torch.add(x, y, out=result)</td>
+<td style="text-align:left">相加后的值更新到自定义的Tensor变量result</td>
+</tr>
+</tbody>
+</table>
+<h3 id="Tensor与array转换"><a href="#Tensor与array转换" class="headerlink" title="Tensor与array转换"></a>Tensor与array转换</h3><p>在Torch中进行tensor和numpy的array的转换非常方便。转换后两者会共享同一块存储空间，意思是<strong>一个发生改变另外一个也会改变</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> torch</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="comment">#生成一个tensor矩阵a</span></div><div class="line">a = torch.ones(<span class="number">5</span>)</div><div class="line"><span class="comment"># 利用Tensor对象a的numpy()方法，完成tensor到numpy的转换</span></div><div class="line">b = a.numpy()</div><div class="line"><span class="comment">#生成一个numpy矩阵c</span></div><div class="line">c = np.ones(<span class="number">5</span>)</div><div class="line"><span class="comment"># 完成从numpy array到tensor的转换</span></div><div class="line">d = torch.from_numpy(c)</div></pre></td></tr></table></figure>
+<p><em>注意：使用x.cuda()可以将tensor移动到GPU上进行运算，这个是说得通过这样才能保障这个部分在GPU上进行运算吗？</em></p>
+<h2 id="自动求导"><a href="#自动求导" class="headerlink" title="自动求导"></a>自动求导</h2>]]></content>
       
         <categories>
             
