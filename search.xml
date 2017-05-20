@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title><![CDATA[Learning PyTorch with Example(翻译)]]></title>
+      <url>/2017/05/20/pytorch1/</url>
+      <content type="html"><![CDATA[<p><a href="http://pytorch.org/tutorials/beginner/pytorch_with_examples.html" target="_blank" rel="external">原文链接</a><br><a id="more"></a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> frame </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> pytorch </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[pytorch学习笔记]]></title>
       <url>/2017/05/18/pytorch/</url>
       <content type="html"><![CDATA[<h2 id="pytorch基本操作"><a href="#pytorch基本操作" class="headerlink" title="pytorch基本操作"></a>pytorch基本操作</h2><p>在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> torch   </div><div class="line">x = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个未初始化的矩阵，注意是未初始化的矩阵.    </span></div><div class="line"><span class="comment">#矩阵加法</span></div><div class="line">x = torch.rand(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个使用随机数初始化的矩阵，注意返回的这个矩阵是Tensor</span></div><div class="line">y = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line"><span class="comment">#以下两种方式都可以</span></div><div class="line">x + y</div><div class="line">torch.add(x, y)</div><div class="line"><span class="comment">#如果需要输出tensor</span></div><div class="line">result = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line">torch.add(x, y, out=result)</div><div class="line"><span class="comment">#这种方法就会直接将y和x相加后的值更新到y中</span></div><div class="line"><span class="comment">#其中带有“_”的运算上的操作都带有相似的含义</span></div><div class="line">y.add_(x)</div></pre></td></tr></table></figure></p>
