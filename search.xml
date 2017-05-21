@@ -9,7 +9,13 @@
 <blockquote>
 <p>在实践中，很少人会从零开始训练一个卷积神经网络(使用随机初始化)，因为拥有一个相当数量的训练数据是不常见的。作为替代，通常做法是对一个卷积神经网络在大数据上(e.g. ImageNet，包括了120万图片和1000分类)做预训练，然后使用这个卷积神经网络作为权值初始化使用或者任务关注的固定特征提取器。</p>
 </blockquote>
-<a id="more"></a>]]></content>
+<a id="more"></a>
+<p>迁移学习包含了下面两个重点：   </p>
+<ul>
+<li><strong>卷积网络微调</strong>：不是随机的去初始化神经网络，我们使用那些就像在imagenet的1000个数据集上预训练的神经网络去初始化。剩下的训练过程和正常训练过程一致。   </li>
+<li><strong>卷积神经网络作为固定特征提取器</strong>：这里，我们将除最后一个全连接层的神经网络其它层权值参数都固定。将最后的全连接层替换为一个随机初始化权值后的层，也就只有这个层被训练。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># License: BSD</span></div><div class="line"><span class="comment"># Author: Sasank Chilamkurthy</span></div><div class="line"><span class="comment"># from __future__是在当前版本到处一些未来会定型的特性出来使用比如变成函数的print</span></div><div class="line"><span class="comment"># print_function 和 真实世界的除法 division 不会进行向下取整，如果需要向下取整</span></div><div class="line"><span class="comment"># 就使用//</span></div><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function, division</div><div class="line"></div><div class="line"><span class="keyword">import</span> torch</div><div class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</div><div class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</div><div class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> torchvision</div><div class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets, models, transforms</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">import</span> copy</div><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line">plt.ion()   <span class="comment"># interactive mode</span></div></pre></td></tr></table></figure>]]></content>
       
         <categories>
             
