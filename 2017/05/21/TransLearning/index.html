@@ -97,10 +97,12 @@
 <meta property="og:url" content="http://yoursite.com/2017/05/21/TransLearning/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="原文链接：Transfer Learning tutorial作者：Sasank Chilamkurthy在这篇文章中，你将会学到如何通过迁移学习训练你的神经网络。你可以在cs231n notes上了解更过关于迁移学习的内容。引用这个笔记：  在实践中，很少人会从零开始训练一个卷积神经网络(使用随机初始化)，因为拥有一个相当数量的训练数据是不常见的。作为替代，通常做法是对一个卷积神经网络在大数据上">
-<meta property="og:updated_time" content="2017-05-21T09:32:39.000Z">
+<meta property="og:image" content="http://yoursite.com/image/transLearn/translenVisimage.png">
+<meta property="og:updated_time" content="2017-05-21T13:31:37.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Transfer Learning tutorial(翻译)">
 <meta name="twitter:description" content="原文链接：Transfer Learning tutorial作者：Sasank Chilamkurthy在这篇文章中，你将会学到如何通过迁移学习训练你的神经网络。你可以在cs231n notes上了解更过关于迁移学习的内容。引用这个笔记：  在实践中，很少人会从零开始训练一个卷积神经网络(使用随机初始化)，因为拥有一个相当数量的训练数据是不常见的。作为替代，通常做法是对一个卷积神经网络在大数据上">
+<meta name="twitter:image" content="http://yoursite.com/image/transLearn/translenVisimage.png">
 
 
 
@@ -436,6 +438,15 @@
 <li><strong>卷积神经网络作为固定特征提取器</strong>：这里，我们将除最后一个全连接层外的其它层权值参数都固定。将最后的全连接层替换为一个随机初始化权值后的层，也就只有这个层被训练。</li>
 </ul>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># License: BSD</span></div><div class="line"><span class="comment"># Author: Sasank Chilamkurthy</span></div><div class="line"><span class="comment"># from __future__是在当前版本到处一些未来会定型的特性出来使用比如变成函数的print</span></div><div class="line"><span class="comment"># print_function 和 真实世界的除法 division 不会进行向下取整，如果需要向下取整</span></div><div class="line"><span class="comment"># 就使用//</span></div><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> print_function, division</div><div class="line"></div><div class="line"><span class="keyword">import</span> torch</div><div class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</div><div class="line"><span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim</div><div class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> torchvision</div><div class="line"><span class="keyword">from</span> torchvision <span class="keyword">import</span> datasets, models, transforms</div><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> time</div><div class="line"><span class="keyword">import</span> copy</div><div class="line"><span class="keyword">import</span> os</div><div class="line"></div><div class="line">plt.ion()   <span class="comment"># interactive mode</span></div></pre></td></tr></table></figure>
+<h2 id="加载数据"><a href="#加载数据" class="headerlink" title="加载数据"></a>加载数据</h2><p>我们会使用torchvision和torch.utils.data包来加载数据。<br>我们现在的任务是训练一个蚂蚁和蜜蜂的分类模型。我们对于每个蚂蚁和蜜蜂的分类各有120个训练图片。对应每个分类有75个验证图片。如果是从头开始训练的话，这点数据显得很少。因此我们使用迁移学习，这样可以达到一个好的效果。</p>
+<p>这是imagenet的一非常小的数据集。<br><strong>Note</strong></p>
+<blockquote>
+<p>通过<a href="https://download.pytorch.org/tutorial/hymenoptera_data.zip" target="_blank" rel="external">这里</a>来下载数据并解压到当前文件。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Data augmentation and normalization for training</span></div><div class="line"><span class="comment"># Just normalization for validation</span></div><div class="line">data_transforms = &#123;</div><div class="line">    <span class="string">'train'</span>: transforms.Compose([</div><div class="line">        transforms.RandomSizedCrop(<span class="number">224</span>),</div><div class="line">        transforms.RandomHorizontalFlip(),</div><div class="line">        transforms.ToTensor(),</div><div class="line">        transforms.Normalize([<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>], [<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])</div><div class="line">    ]),</div><div class="line">    <span class="string">'val'</span>: transforms.Compose([</div><div class="line">        transforms.Scale(<span class="number">256</span>),</div><div class="line">        transforms.CenterCrop(<span class="number">224</span>),</div><div class="line">        transforms.ToTensor(),</div><div class="line">        transforms.Normalize([<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>], [<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])</div><div class="line">    ]),</div><div class="line">&#125;</div><div class="line"></div><div class="line">data_dir = <span class="string">'hymenoptera_data'</span></div><div class="line">dsets = &#123;x: datasets.ImageFolder(os.path.join(data_dir, x), data_transforms[x])</div><div class="line">         <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="string">'train'</span>, <span class="string">'val'</span>]&#125;</div><div class="line">dset_loaders = &#123;x: torch.utils.data.DataLoader(dsets[x], batch_size=<span class="number">4</span>,</div><div class="line">                                               shuffle=<span class="keyword">True</span>, num_workers=<span class="number">4</span>)</div><div class="line">                <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="string">'train'</span>, <span class="string">'val'</span>]&#125;</div><div class="line">dset_sizes = &#123;x: len(dsets[x]) <span class="keyword">for</span> x <span class="keyword">in</span> [<span class="string">'train'</span>, <span class="string">'val'</span>]&#125;</div><div class="line">dset_classes = dsets[<span class="string">'train'</span>].classes</div><div class="line"></div><div class="line">use_gpu = torch.cuda.is_available()</div></pre></td></tr></table></figure>
+<h2 id="可视化一些图片"><a href="#可视化一些图片" class="headerlink" title="可视化一些图片"></a>可视化一些图片</h2><p>让我们可视化一些训练数据以便理解数据。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">imshow</span><span class="params">(inp, title=None)</span>:</span></div><div class="line">    <span class="string">"""Imshow for Tensor."""</span></div><div class="line">    inp = inp.numpy().transpose((<span class="number">1</span>, <span class="number">2</span>, <span class="number">0</span>))</div><div class="line">    mean = np.array([<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>])</div><div class="line">    std = np.array([<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])</div><div class="line">    inp = std * inp + mean</div><div class="line">    plt.imshow(inp)</div><div class="line">    <span class="keyword">if</span> title <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:</div><div class="line">        plt.title(title)</div><div class="line">    plt.pause(<span class="number">0.001</span>)  <span class="comment"># pause a bit so that plots are updated</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment"># Get a batch of training data</span></div><div class="line">inputs, classes = next(iter(dset_loaders[<span class="string">'train'</span>]))</div><div class="line"></div><div class="line"><span class="comment"># Make a grid from batch</span></div><div class="line">out = torchvision.utils.make_grid(inputs)</div><div class="line"></div><div class="line">imshow(out, title=[dset_classes[x] <span class="keyword">for</span> x <span class="keyword">in</span> classes])</div></pre></td></tr></table></figure></p>
+<p><img src="/image/transLearn/translenVisimage.png"></p>
+
       
     </div>
 
@@ -539,8 +550,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/storm-soldier.png"
@@ -613,6 +633,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#加载数据"><span class="nav-number">1.</span> <span class="nav-text">加载数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可视化一些图片"><span class="nav-number">2.</span> <span class="nav-text">可视化一些图片</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
