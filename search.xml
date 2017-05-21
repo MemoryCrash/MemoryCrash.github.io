@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title><![CDATA[Transfer Learning tutorial(翻译)]]></title>
+      <url>/2017/05/21/TransLearning/</url>
+      <content type="html"><![CDATA[<p>原文链接：<a href="http://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html" target="_blank" rel="external">Transfer Learning tutorial</a><br>作者：<a href="https://chsasank.github.io" target="_blank" rel="external">Sasank Chilamkurthy</a><br><a id="more"></a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> deep learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> transfer learning </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Learning PyTorch with Example(翻译)]]></title>
       <url>/2017/05/20/pytorch1/</url>
       <content type="html"><![CDATA[<p>Learning PyTorch with Examples:<a href="http://pytorch.org/tutorials/beginner/pytorch_with_examples.html" target="_blank" rel="external">原文链接</a><br>作者：<a href="https://github.com/jcjohnson/pytorch-examples" target="_blank" rel="external">Justin Johnos</a></p>
