@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title><![CDATA[Classifying Names with a Character-Level RNN(翻译)]]></title>
+      <url>/2017/05/22/classifyName/</url>
+      <content type="html"><![CDATA[<p>原文链接：<a href="http://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html" target="_blank" rel="external">Classifying Names with a Character-Level RNN</a><br>作者：<a href="https://github.com/spro/practical-pytorch" target="_blank" rel="external">Sean Robertson</a></p>
+<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> deep learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> rnn </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Transfer Learning tutorial(翻译)]]></title>
       <url>/2017/05/21/TransLearning/</url>
       <content type="html"><![CDATA[<p>原文链接：<a href="http://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html" target="_blank" rel="external">Transfer Learning tutorial</a><br>作者：<a href="https://chsasank.github.io" target="_blank" rel="external">Sasank Chilamkurthy</a><br>在这篇文章中，你将会学到如何通过迁移学习训练你的神经网络。你可以在<a href="http://cs231n.github.io/transfer-learning/" target="_blank" rel="external">cs231n notes</a>上了解更过关于迁移学习的内容。<br>引用这个笔记：</p>
@@ -127,7 +148,9 @@
     <entry>
       <title><![CDATA[pytorch学习笔记]]></title>
       <url>/2017/05/18/pytorch/</url>
-      <content type="html"><![CDATA[<h2 id="pytorch基本操作"><a href="#pytorch基本操作" class="headerlink" title="pytorch基本操作"></a>pytorch基本操作</h2><p>在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> torch   </div><div class="line">x = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个未初始化的矩阵，注意是未初始化的矩阵.    </span></div><div class="line"><span class="comment">#矩阵加法</span></div><div class="line">x = torch.rand(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个使用随机数初始化的矩阵，注意返回的这个矩阵是Tensor</span></div><div class="line">y = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line"><span class="comment">#以下两种方式都可以</span></div><div class="line">x + y</div><div class="line">torch.add(x, y)</div><div class="line"><span class="comment">#如果需要输出tensor</span></div><div class="line">result = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line">torch.add(x, y, out=result)</div><div class="line"><span class="comment">#这种方法就会直接将y和x相加后的值更新到y中</span></div><div class="line"><span class="comment">#其中带有“_”的运算上的操作都带有相似的含义</span></div><div class="line">y.add_(x)</div></pre></td></tr></table></figure></p>
+      <content type="html"><![CDATA[<h2 id="pytorch基本操作"><a href="#pytorch基本操作" class="headerlink" title="pytorch基本操作"></a>pytorch基本操作</h2><p>在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> torch   </div><div class="line">x = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个未初始化的矩阵，注意是未初始化的矩阵.    </span></div><div class="line"><span class="comment">#矩阵加法</span></div><div class="line">x = torch.rand(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个使用随机数初始化的矩阵，注意返回的这个矩阵是Tensor</span></div><div class="line">y = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line"><span class="comment">#以下两种方式都可以</span></div><div class="line">x + y</div><div class="line">torch.add(x, y)</div><div class="line"><span class="comment">#如果需要输出tensor</span></div><div class="line">result = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line">torch.add(x, y, out=result)</div><div class="line"><span class="comment">#这种方法就会直接将y和x相加后的值更新到y中</span></div><div class="line"><span class="comment">#其中带有“_”的运算上的操作都带有相似的含义</span></div><div class="line">y.add_(x)</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p><em>注意：如果是维数相同的矩阵相加那么就是矩阵对应元素相加，如果是矩阵和标量相加那么就是矩阵每个元素都和这个标量相加。</em></p>
 <table>
 <thead>

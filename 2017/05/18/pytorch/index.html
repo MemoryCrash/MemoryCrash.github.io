@@ -90,21 +90,21 @@
 
 
 
-<meta name="description" content="pytorch基本操作在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。">
+<meta name="description" content="pytorch基本操作在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。 1234567891011121314import torch   x = torch.Tensor(5, 3) #构造一个未初始化的矩阵，注意是未初始化的矩阵.    #矩阵加法x = torch.rand(5, 3) #构造一个使用随机数初始化的矩阵，注意返回的这个矩阵">
 <meta name="keywords" content="pytorch">
 <meta property="og:type" content="article">
 <meta property="og:title" content="pytorch学习笔记">
 <meta property="og:url" content="http://yoursite.com/2017/05/18/pytorch/index.html">
 <meta property="og:site_name" content="MemoryCrash">
-<meta property="og:description" content="pytorch基本操作在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。">
+<meta property="og:description" content="pytorch基本操作在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。 1234567891011121314import torch   x = torch.Tensor(5, 3) #构造一个未初始化的矩阵，注意是未初始化的矩阵.    #矩阵加法x = torch.rand(5, 3) #构造一个使用随机数初始化的矩阵，注意返回的这个矩阵">
 <meta property="og:image" content="http://yoursite.com/image/Variable.png">
 <meta property="og:image" content="http://yoursite.com/image/autograd.png">
 <meta property="og:image" content="http://yoursite.com/image/pytorchCnn.png">
 <meta property="og:image" content="http://yoursite.com/image/cifar10.png">
-<meta property="og:updated_time" content="2017-05-20T03:54:11.000Z">
+<meta property="og:updated_time" content="2017-05-22T10:17:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="pytorch学习笔记">
-<meta name="twitter:description" content="pytorch基本操作在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。">
+<meta name="twitter:description" content="pytorch基本操作在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。 1234567891011121314import torch   x = torch.Tensor(5, 3) #构造一个未初始化的矩阵，注意是未初始化的矩阵.    #矩阵加法x = torch.rand(5, 3) #构造一个使用随机数初始化的矩阵，注意返回的这个矩阵">
 <meta name="twitter:image" content="http://yoursite.com/image/Variable.png">
 
 
@@ -430,7 +430,9 @@
       
 
       
-        <h2 id="pytorch基本操作"><a href="#pytorch基本操作" class="headerlink" title="pytorch基本操作"></a>pytorch基本操作</h2><p>在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。<br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> torch   </div><div class="line">x = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个未初始化的矩阵，注意是未初始化的矩阵.    </span></div><div class="line"><span class="comment">#矩阵加法</span></div><div class="line">x = torch.rand(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个使用随机数初始化的矩阵，注意返回的这个矩阵是Tensor</span></div><div class="line">y = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line"><span class="comment">#以下两种方式都可以</span></div><div class="line">x + y</div><div class="line">torch.add(x, y)</div><div class="line"><span class="comment">#如果需要输出tensor</span></div><div class="line">result = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line">torch.add(x, y, out=result)</div><div class="line"><span class="comment">#这种方法就会直接将y和x相加后的值更新到y中</span></div><div class="line"><span class="comment">#其中带有“_”的运算上的操作都带有相似的含义</span></div><div class="line">y.add_(x)</div></pre></td></tr></table></figure></p>
+        <h2 id="pytorch基本操作"><a href="#pytorch基本操作" class="headerlink" title="pytorch基本操作"></a>pytorch基本操作</h2><p>在pytorch中会使用到Tensor张量，它可以用来表示多维数组并且如果存在GPU的话可以进行利用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> torch   </div><div class="line">x = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个未初始化的矩阵，注意是未初始化的矩阵.    </span></div><div class="line"><span class="comment">#矩阵加法</span></div><div class="line">x = torch.rand(<span class="number">5</span>, <span class="number">3</span>) <span class="comment">#构造一个使用随机数初始化的矩阵，注意返回的这个矩阵是Tensor</span></div><div class="line">y = torch.rand(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line"><span class="comment">#以下两种方式都可以</span></div><div class="line">x + y</div><div class="line">torch.add(x, y)</div><div class="line"><span class="comment">#如果需要输出tensor</span></div><div class="line">result = torch.Tensor(<span class="number">5</span>, <span class="number">3</span>)</div><div class="line">torch.add(x, y, out=result)</div><div class="line"><span class="comment">#这种方法就会直接将y和x相加后的值更新到y中</span></div><div class="line"><span class="comment">#其中带有“_”的运算上的操作都带有相似的含义</span></div><div class="line">y.add_(x)</div></pre></td></tr></table></figure>
+<a id="more"></a>
 <p><em>注意：如果是维数相同的矩阵相加那么就是矩阵对应元素相加，如果是矩阵和标量相加那么就是矩阵每个元素都和这个标量相加。</em></p>
 <table>
 <thead>
@@ -633,7 +635,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
