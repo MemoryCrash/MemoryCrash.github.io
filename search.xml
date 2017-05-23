@@ -6,7 +6,24 @@
       <title><![CDATA[Classifying Names with a Character-Level RNN(翻译)]]></title>
       <url>/2017/05/22/classifyName/</url>
       <content type="html"><![CDATA[<p>原文链接：<a href="http://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html" target="_blank" rel="external">Classifying Names with a Character-Level RNN</a><br>作者：<a href="https://github.com/spro/practical-pytorch" target="_blank" rel="external">Sean Robertson</a></p>
-<a id="more"></a>]]></content>
+<p>我们将构建和训练一个基础的字符级别的RNN网络去进行词汇分类。一个字符级别的RNN将词汇作为字符序列读入-在每步输出预测值和“隐藏状态”，将上一步的隐藏状态传递给下一步。我们将最后的预测作为输出，i.e.就是词汇所属的分类。<br><a id="more"></a><br>具体来说，我们会从18种语言中训练几千个姓，然后通过一个姓的拼写来预测它属于哪种语言：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ python predict.py Hinton</div><div class="line">(<span class="number">-0.47</span>) Scottish</div><div class="line">(<span class="number">-1.52</span>) English</div><div class="line">(<span class="number">-3.57</span>) Irish</div><div class="line"></div><div class="line">$ python predict.py Schmidhuber</div><div class="line">(<span class="number">-0.19</span>) German</div><div class="line">(<span class="number">-2.48</span>) Czech</div><div class="line">(<span class="number">-2.68</span>) Dutch</div></pre></td></tr></table></figure></p>
+<h3 id="推荐阅读"><a href="#推荐阅读" class="headerlink" title="推荐阅读"></a>推荐阅读</h3><p>我假设你目前至少安装来PyTorch，了解Python，并且理解Tensor：  </p>
+<ul>
+<li><a href="http://pytorch.org" target="_blank" rel="external">http://pytorch.org</a>从这里获取安装指导</li>
+<li><a href="http://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html" target="_blank" rel="external">Deep Learning with PyTorch: A 60 Minute Blitz</a>一般从这里开始PyToch</li>
+<li><a href="http://pytorch.org/tutorials/beginner/pytorch_with_examples.html" target="_blank" rel="external">Learning PyTorch with Examples</a>获取更有广度和深度的概述</li>
+<li><a href="http://pytorch.org/tutorials/beginner/former_torchies_tutorial.html" target="_blank" rel="external">PyTorch for former Torch users</a>如果你是Lua Torch用户</li>
+</ul>
+<p>下面对你了解RNNs和它们如何工作很有用：</p>
+<ul>
+<li><a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/" target="_blank" rel="external">The Unreasonable Effectiveness of Recurrent Neural Networks</a>展示了一些实际生活中的例子</li>
+<li><a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="external">Understanding LSTM Networks</a>是重点关于LSTMs的但也提供了RNNs的一般信息</li>
+</ul>
+<h2 id="Preparing-the-Data"><a href="#Preparing-the-Data" class="headerlink" title="Preparing the Data"></a>Preparing the Data</h2><p><strong>Note</strong></p>
+<blockquote>
+<p>从<a href="https://download.pytorch.org/tutorial/data.zip" target="_blank" rel="external">这里</a>下载数据并解压到当前文件</p>
+</blockquote>
+]]></content>
       
         <categories>
             
