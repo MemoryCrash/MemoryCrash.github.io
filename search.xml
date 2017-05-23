@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title><![CDATA[Generating Names with a Character-Level RNN(翻译)]]></title>
+      <url>/2017/05/23/GeneratName/</url>
+      <content type="html"><![CDATA[<p>原文链接：<a href="http://pytorch.org/tutorials/intermediate/char_rnn_generation_tutorial.html" target="_blank" rel="external">Generating Names with a Character-Level RNN</a><br>作者：<a href="https://github.com/spro/practical-pytorch" target="_blank" rel="external">Sean Robertson</a><br><a id="more"></a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> deep learning </category>
+            
+            <category> translate </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> rnn </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Classifying Names with a Character-Level RNN(翻译)]]></title>
       <url>/2017/05/22/classifyName/</url>
       <content type="html"><![CDATA[<p>原文链接：<a href="http://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html" target="_blank" rel="external">Classifying Names with a Character-Level RNN</a><br>作者：<a href="https://github.com/spro/practical-pytorch" target="_blank" rel="external">Sean Robertson</a></p>
@@ -122,6 +145,8 @@
             
             <category> deep learning </category>
             
+            <category> translate </category>
+            
         </categories>
         
         
@@ -180,6 +205,8 @@
         <categories>
             
             <category> deep learning </category>
+            
+            <category> translate </category>
             
         </categories>
         
@@ -243,6 +270,8 @@
         <categories>
             
             <category> frame </category>
+            
+            <category> translate </category>
             
         </categories>
         
