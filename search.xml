@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title><![CDATA[Translation with a Sequence to Sequence Network and Attention(翻译)]]></title>
+      <url>/2017/05/24/TransRnn/</url>
+      <content type="html"><![CDATA[<p>原文链接：<a href="http://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html" target="_blank" rel="external">Translation with a Sequence to Sequence Network and Attention</a><br>作者：<a href="https://github.com/spro/practical-pytorch" target="_blank" rel="external">Sean Robertson</a></p>
+<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> deep learning </category>
+            
+            <category> translate </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> rnn </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Generating Names with a Character-Level RNN(翻译)]]></title>
       <url>/2017/05/23/GeneratName/</url>
       <content type="html"><![CDATA[<p>原文链接：<a href="http://pytorch.org/tutorials/intermediate/char_rnn_generation_tutorial.html" target="_blank" rel="external">Generating Names with a Character-Level RNN</a><br>作者：<a href="https://github.com/spro/practical-pytorch" target="_blank" rel="external">Sean Robertson</a><br>在上一篇<a href="http://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html" target="_blank" rel="external">指导</a>我们使用RNN来进行名字所属语言的分类。这次我们换一个方向来根据语言生成名字。<br><a id="more"></a><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&gt; python sample.py Russian RUS</div><div class="line">Rovakov</div><div class="line">Uantov</div><div class="line">Shavakov</div><div class="line"></div><div class="line">&gt; python sample.py German GER</div><div class="line">Gerren</div><div class="line">Ereng</div><div class="line">Rosher</div><div class="line"></div><div class="line">&gt; python sample.py Spanish SPA</div><div class="line">Salla</div><div class="line">Parer</div><div class="line">Allan</div><div class="line"></div><div class="line">&gt; python sample.py Chinese CHI</div><div class="line">Chan</div><div class="line">Hang</div><div class="line">Iun</div></pre></td></tr></table></figure></p>
