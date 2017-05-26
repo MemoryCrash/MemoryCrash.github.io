@@ -4,9 +4,46 @@
     
     <entry>
       <title><![CDATA[Translation with a Sequence to Sequence Network and Attention(翻译)]]></title>
-      <url>/2017/05/24/TransRnn/</url>
+      <url>/2017/05/26/TransRnn/</url>
       <content type="html"><![CDATA[<p>原文链接：<a href="http://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html" target="_blank" rel="external">Translation with a Sequence to Sequence Network and Attention</a><br>作者：<a href="https://github.com/spro/practical-pytorch" target="_blank" rel="external">Sean Robertson</a></p>
-<a id="more"></a>]]></content>
+<p>在这个项目中我们将训练一个神经网络将法语翻译为英语。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">[KEY: &gt; input, = target, &lt; output]</div><div class="line"></div><div class="line">&gt; il est en train de peindre un tableau .</div><div class="line">= he is painting a picture .</div><div class="line">&lt; he is painting a picture .</div><div class="line"></div><div class="line">&gt; pourquoi ne pas essayer ce vin delicieux ?</div><div class="line">= why not try that delicious wine ?</div><div class="line">&lt; why not try that delicious wine ?</div><div class="line"></div><div class="line">&gt; elle n est pas poete mais romanciere .</div><div class="line">= she is not a poet but a novelist .</div><div class="line">&lt; she not not a poet but a novelist .</div><div class="line"></div><div class="line">&gt; vous etes trop maigre .</div><div class="line">= you re too skinny .</div><div class="line">&lt; you re all alone .</div></pre></td></tr></table></figure></p>
+<p>…不同程度的成功。<br><a id="more"></a><br>一个简单但是有力的<a href="http://arxiv.org/abs/1409.3215" target="_blank" rel="external">序列到序列网络</a>的想法让翻译变的可能，它由两个循环神经网络组成一起将一个序列翻译为另外一个序列。一个编码网络将输入序列凝聚为向量，一个解码网络将向量张开为新的序列。</p>
+<p><img src="/image/seq2seq/seq2seq.png"></p>
+<p>为了改善上面的模型我们将使用<a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="external">注意力机制</a>，它将使得解码器学会将注意力集中在输入学历的特定部分。</p>
+<h2 id="Recommended-Reading-推荐阅读"><a href="#Recommended-Reading-推荐阅读" class="headerlink" title="Recommended Reading(推荐阅读)"></a>Recommended Reading(推荐阅读)</h2><p>我假设你目前至少安装来PyTorch，了解Python，并且理解Tensor：  </p>
+<ul>
+<li><a href="http://pytorch.org" target="_blank" rel="external">http://pytorch.org</a>从这里获取安装指导</li>
+<li><a href="http://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html" target="_blank" rel="external">Deep Learning with PyTorch: A 60 Minute Blitz</a>一般从这里开始PyToch</li>
+<li><a href="http://pytorch.org/tutorials/beginner/pytorch_with_examples.html" target="_blank" rel="external">Learning PyTorch with Examples</a>获取更有广度和深度的概述</li>
+<li><a href="http://pytorch.org/tutorials/beginner/former_torchies_tutorial.html" target="_blank" rel="external">PyTorch for former Torch users</a>如果你是Lua Torch用户</li>
+</ul>
+<p>了解序列到序列神经网络和它们是如何工作对后面的学习将非常有用。</p>
+<ul>
+<li><a href="http://arxiv.org/abs/1406.1078" target="_blank" rel="external">Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation</a></li>
+<li><a href="http://arxiv.org/abs/1409.3215" target="_blank" rel="external">Sequence to Sequence Learning with Neural Networks</a></li>
+<li><a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="external">Neural Machine Translation by Jointly Learning to Align and Translate</a></li>
+<li><a href="http://arxiv.org/abs/1506.05869" target="_blank" rel="external">A Neural Conversational Model</a></li>
+</ul>
+<p>你将会发现前面的指导<a href="http://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html" target="_blank" rel="external">Classifying Names with a Character-Level RNN</a>和<a href="http://pytorch.org/tutorials/intermediate/char_rnn_generation_tutorial.html" target="_blank" rel="external">Generating Names with a Character-Level RNN</a>很有用因为这两篇文章的一些概念和本文编码解码模型中的概念非常相似。</p>
+<p>关于这个主题更多的信息，可以阅读下面的这些论文：</p>
+<ul>
+<li><a href="http://arxiv.org/abs/1406.1078" target="_blank" rel="external">Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation</a></li>
+<li><a href="http://arxiv.org/abs/1409.3215" target="_blank" rel="external">Sequence to Sequence Learning with Neural Networks</a></li>
+<li><a href="https://arxiv.org/abs/1409.0473" target="_blank" rel="external">Neural Machine Translation by Jointly Learning to Align and Translate</a></li>
+<li><a href="http://arxiv.org/abs/1506.05869" target="_blank" rel="external">A Neural Conversational Model</a></li>
+</ul>
+<p><strong>Requirements(依赖)</strong><br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> __future__ <span class="keyword">import</span> unicode_literals, print_function, division</div><div class="line"><span class="keyword">from</span> io <span class="keyword">import</span> open</div><div class="line"><span class="keyword">import</span> unicodedata</div><div class="line"><span class="keyword">import</span> string</div><div class="line"><span class="keyword">import</span> re</div><div class="line"><span class="keyword">import</span> random</div><div class="line"></div><div class="line"><span class="keyword">import</span> torch</div><div class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</div><div class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</div><div class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> optim</div><div class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</div><div class="line"></div><div class="line">use_cuda = torch.cuda.is_available()</div></pre></td></tr></table></figure></p>
+<h2 id="Loading-data-files-加载文件"><a href="#Loading-data-files-加载文件" class="headerlink" title="Loading data files(加载文件)"></a>Loading data files(加载文件)</h2><p>这个项目的数据是数以千计的英语到法语翻译组合的数据集。</p>
+<p>在问答平台<a href="http://opendata.stackexchange.com/questions/3888/dataset-of-sentences-translated-into-many-languages" target="_blank" rel="external">Open Data Stack Exchange</a>得到了一个开源翻译网站<a href="http://tatoeba.org/" target="_blank" rel="external">http://tatoeba.org/</a>可以下载获取数据在这个路径<a href="http://tatoeba.org/eng/downloads" target="_blank" rel="external">http://tatoeba.org/eng/downloads</a>-更好的是，一些人做了些额外的工作将切分语言组合到独立的文件：<br><a href="http://www.manythings.org/anki/" target="_blank" rel="external">http://www.manythings.org/anki/</a></p>
+<p>英语到法语对因为太大不便放到库中，因此在继续开始前下载<code>data/eng-fra.txt</code>文件。这个文件使用tab键来分割翻译对：</p>
+<blockquote>
+<p>I am cold.    Je suis froid.</p>
+</blockquote>
+<p><strong>Note</strong></p>
+<blockquote>
+<p>从<a href="https://download.pytorch.org/tutorial/data.zip" target="_blank" rel="external">这里</a>下载文件并解压到当前路径。</p>
+</blockquote>
+]]></content>
       
         <categories>
             
