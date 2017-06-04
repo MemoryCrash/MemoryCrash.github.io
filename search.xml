@@ -3,6 +3,26 @@
   
     
     <entry>
+      <title><![CDATA[Tensorflow学习笔记]]></title>
+      <url>/2017/06/04/tensorflow/</url>
+      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> frame </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tensorflow </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Translation with a Sequence to Sequence Network and Attention(翻译)]]></title>
       <url>/2017/05/26/TransRnn/</url>
       <content type="html"><![CDATA[<p>原文链接：<a href="http://pytorch.org/tutorials/intermediate/seq2seq_translation_tutorial.html" target="_blank" rel="external">Translation with a Sequence to Sequence Network and Attention</a><br>作者：<a href="https://github.com/spro/practical-pytorch" target="_blank" rel="external">Sean Robertson</a></p>
