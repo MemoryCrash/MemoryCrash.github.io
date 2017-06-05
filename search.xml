@@ -33,6 +33,19 @@
 <li><code>shape</code>：tensor的尺寸，如果将某个大小填写为None表示这个位置由系统根据条件给出。类似reshape操作中如果是tf.reshape(a, [-1,9])中-1表示系统自行根据元素个数决定行数，只要保证列数位9即可。   </li>
 <li><code>name</code>：操作的名称</li>
 </ul>
+<h3 id="部分函数"><a href="#部分函数" class="headerlink" title="部分函数"></a>部分函数</h3><p><code>tf.reduce_sum()</code>作为求和函数<br><code>tf.train.GradientDescentOptimizer(0.01).minimize(cross_entropy)</code>表示一个使用梯度下降的优化方法。优化的步长是0.01，优化的对象是最小化cross_entropy函数，这个函数cross_entropy需要你自行定义。</p>
+<p>举例：这里表现的是神经网络中进行训练的代码<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">train_step = tf.train.GradientDescentOptimizer(<span class="number">0.01</span>).minimize(cross_entropy)</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1000</span>):</div><div class="line">  <span class="comment"># 将输入数据按照batch来拆分</span></div><div class="line">  batch = mnist.train.next_batch(<span class="number">50</span>)</div><div class="line">  <span class="comment"># 将一个batch的输入输入到train操作中</span></div><div class="line">  train_step.run(feed_dict=&#123;x: batch[<span class="number">0</span>], y_: batch[<span class="number">1</span>]&#125;)</div></pre></td></tr></table></figure></p>
+<p><strong>注意</strong> feed_dict这个不仅可以用来作为占位符的具体输入，也可以用来替换其它tensor。</p>
+<p><code>tf.argmax(input, axis=None, name=None, dimension=None)</code>可以用来获取最大值所在的位置，如果输入是一个向量，axis填写位0。axis为1返回每行的最大值位置索引。通过这个函数可以实现对模型的正确率的评估。</p>
+<h3 id="权值初始化"><a href="#权值初始化" class="headerlink" title="权值初始化"></a>权值初始化</h3><p>因为是一个神经网络将权值初始化为0学习过程将无法开始，这里我们使用<code>tf.truncated_normal(shape, mean=0.0, stddev=1.0)</code>(这里只列出需要的两个参数)来进行初始化，因为希望初始化后的值小点，所以将stddev标准差设置为0.1也就是使用更加集中在0附近的点的进行初始化。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">weight_variable</span><span class="params">(shape)</span>:</span></div><div class="line">  initial = tf.truncated_normal(shape, stddev=<span class="number">0.1</span>)</div><div class="line">  <span class="keyword">return</span> tf.Variable(initial)</div></pre></td></tr></table></figure>
+<h3 id="卷积层和池化层"><a href="#卷积层和池化层" class="headerlink" title="卷积层和池化层"></a>卷积层和池化层</h3><p>使用<code>tf.nn.conv2d()</code>来定义卷积层，主要用来获取特征。<br>使用<code>tf.nn.max_pool()</code>来定义池化层，池化层的作用主要用来进行下采样，进一步降低数据量。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">conv2d(input, filter, strides, padding)这里只介绍这几个参数。</div></pre></td></tr></table></figure></p>
+<ul>
+<li>input：Tensor。必须是：half，float，float64 类型。一个4D tensor。</li>
+<li>filter：Tensor。类型和input一致。一个4D tensor，大小满足[filter_height, filter_width, in_channels, out_channels]</li>
+<li>strides：ints的列表。长度为4的1D tensor。表示输入的每个维度的滑动距离。</li>
+<li>padding：类型字符层，可选“SAME”“VALID”，比如6的长度，窗口是4每次滑动4。如果是“SAME”就会补差的值，如果是“VALID”就会抛弃差的值。</li>
+</ul>
 <p>参考文档:<a href="http://www.tensorfly.cn/tfdoc/get_started/basic_usage.html" target="_blank" rel="external">Tensorflow官方文档中文版</a></p>
 ]]></content>
       
