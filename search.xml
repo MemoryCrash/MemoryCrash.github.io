@@ -22,6 +22,16 @@
 <li><code>&quot;/gpu:1&quot;</code>:机器的第二个GPU。</li>
 </ul>
 <p>对于变量还需要特别说明下，变量在使用前都需要进行初始化。当在图中使用一个创建一个变量的时候我们会给这个变量指定一个初始值或者初始化的方式，但是要记住的是这个时候只是一个管道结构而已实际上这个变量还并没有执行初始化操作，我们需要在使用变量前通过<code>tf.initialize_all_variables() sess.run(init_op)</code>操作将所有的变量进行一次执行初始化操作。</p>
+<p>##搭建神经网络注意项<br>具体搭建过程参考这篇<a href="http://www.tensorfly.cn/tfdoc/tutorials/mnist_pros.html" target="_blank" rel="external">文章</a>，<br>tf.Session() 和 tf.InteractiveSession()的区别：Session()的方式可以使用python中with…as的形式，这样就可以不用单独执行close()操作，但是在每次需要执行图计算的时候需要以sess.run()的形式进行，对于tf.InteractiveSession()来说，不能使用with…as的形式，所以在最后都需要进行显式的close()操作，但是它可以让每次要进行图计算的时候只进行Tensor.eval()即可，这样更灵活。</p>
+<p>在tensorflow中使用tensor来表示所有数据，这点和pytorch不同，tensorflow不需要通过一个变量来单独定义tensor，因为在tensorflow看来这些数据都是tensor。</p>
+<p>###占位符<br>tf.placeholder作用是为一个将被频繁使用的tensor插入一个占位符。这个占位符实际也是一个tensor只是不能直接使用。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">placeholder(dtype, shape=<span class="keyword">None</span>, name=<span class="keyword">None</span>)</div></pre></td></tr></table></figure></p>
+<p><strong>注意</strong>直接使用placeholder定义的tensor会返回错误，你需要在<code>Session.run()</code>，<code>Tensor.eval()</code>或者<code>Operation.run()</code>通过<code>feed_dict</code>参数传入符合placeholder定义的tensor才行。<br>举例：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">x = tf.placeholder(tf.float32, shape=(<span class="number">1024</span>, <span class="number">1024</span>))</div><div class="line">y = tf.matmul(x, x)</div><div class="line"></div><div class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</div><div class="line">  print(sess.run(y))  <span class="comment"># ERROR: will fail because x was not fed.</span></div><div class="line"></div><div class="line">  rand_array = np.random.rand(<span class="number">1024</span>, <span class="number">1024</span>)</div><div class="line">  print(sess.run(y, feed_dict=&#123;x: rand_array&#125;))  <span class="comment"># Will succeed.</span></div></pre></td></tr></table></figure></p>
+<p>参数：</p>
+<ul>
+<li><code>dtype</code>：tensor的元素类型</li>
+<li><code>shape</code>：tensor的尺寸，如果将某个大小填写为None表示这个位置由系统根据条件给出。类似reshape操作中如果是tf.reshape(a, [-1,9])中-1表示系统自行根据元素个数决定行数，只要保证列数位9即可。</li>
+<li><code>name</code>：操作的名称</li>
+</ul>
 <p>参考文档:<a href="http://www.tensorfly.cn/tfdoc/get_started/basic_usage.html" target="_blank" rel="external">Tensorflow官方文档中文版</a></p>
 ]]></content>
       
