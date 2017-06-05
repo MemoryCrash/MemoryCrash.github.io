@@ -90,14 +90,17 @@
 
 
 
+<meta name="description" content="Tensorflow基本使用 使用图(graph)来表示计算任务。 在被称之为会话(Session)的上下文(context)中执行图。 使用tensor来表示数据。 通过变量(Variable)维护状态。 通过feed和fetch可以为任意的操作(arbitrary operation)赋值或者从其中获取数据。">
 <meta name="keywords" content="tensorflow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tensorflow学习笔记">
 <meta property="og:url" content="http://yoursite.com/2017/06/04/tensorflow/index.html">
 <meta property="og:site_name" content="MemoryCrash">
-<meta property="og:updated_time" content="2017-06-04T08:15:34.000Z">
+<meta property="og:description" content="Tensorflow基本使用 使用图(graph)来表示计算任务。 在被称之为会话(Session)的上下文(context)中执行图。 使用tensor来表示数据。 通过变量(Variable)维护状态。 通过feed和fetch可以为任意的操作(arbitrary operation)赋值或者从其中获取数据。">
+<meta property="og:updated_time" content="2017-06-05T02:42:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tensorflow学习笔记">
+<meta name="twitter:description" content="Tensorflow基本使用 使用图(graph)来表示计算任务。 在被称之为会话(Session)的上下文(context)中执行图。 使用tensor来表示数据。 通过变量(Variable)维护状态。 通过feed和fetch可以为任意的操作(arbitrary operation)赋值或者从其中获取数据。">
 
 
 
@@ -422,7 +425,25 @@
       
 
       
-        <a id="more"></a>
+        <h2 id="Tensorflow基本使用"><a href="#Tensorflow基本使用" class="headerlink" title="Tensorflow基本使用"></a>Tensorflow基本使用</h2><ul>
+<li>使用图(graph)来表示计算任务。</li>
+<li>在被称之为<code>会话(Session)的上下文(context)</code>中执行图。</li>
+<li>使用tensor来表示数据。</li>
+<li>通过<code>变量(Variable)</code>维护状态。</li>
+<li>通过feed和fetch可以为任意的操作(arbitrary operation)赋值或者从其中获取数据。<a id="more"></a>
+在Tensorflow图由它的操作和变量/常量构成。操作就比如普通的矩阵乘法<code>matmul</code>等，变量指那些可以用来保存状态并进行更新的值<code>Variable</code>，常量是<code>constant</code>。这个图可以理解为一个管道结构，我们的目的是根据这个图来计算更新变量或者得到这个图的输出值，但是仅仅靠一个图结构还不能完成这个工作。我们还需要输入数据，类比着看就是有了管道以后还需要向管道中通水。</li>
+</ul>
+<p>这就引出了Tensorflow的<code>Session</code>我们的图结构需要在这个<code>Session</code>中运行。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</div><div class="line"><span class="comment"># 创建一个1X2的常量矩阵</span></div><div class="line">matrix1 = tf.constant([[<span class="number">3.</span>, <span class="number">3.</span>]])</div><div class="line"><span class="comment"># 创建一个2X1的常量矩阵</span></div><div class="line">matrix2 = tf.constant([[<span class="number">2.</span>], [<span class="number">2.</span>]])</div><div class="line"><span class="comment"># 执行矩阵乘法</span></div><div class="line">product = tf.matmul(matrix1, matrix2)</div><div class="line"><span class="comment"># 创建session这里使用了with as 的方法，如果没有的话记得sess.close()关闭session</span></div><div class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</div><div class="line">	<span class="comment"># 执行图</span></div><div class="line">	result = sess.run(product)</div><div class="line">	<span class="comment"># 打印结果</span></div><div class="line">	print(result)</div></pre></td></tr></table></figure>
+<p>tensorflow会在运行的机器上寻找GPU如果有的话会优先使用GPU，如果没有会找CPU使用。如果有多个GPU可用，tensorflow会默认使用第一个找到的GPU，当然你可以指定。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</div><div class="line">	<span class="keyword">with</span> tf.device(<span class="string">"/gpu:1"</span>):</div><div class="line">	...</div><div class="line">	...</div></pre></td></tr></table></figure></p>
+<ul>
+<li><code>&quot;/cpu:0&quot;</code>:机器的CPU。</li>
+<li><code>&quot;/gpu:0&quot;</code>:机器的第一个GPU。</li>
+<li><code>&quot;/gpu:1&quot;</code>:机器的第二个GPU。</li>
+</ul>
+<p>对于变量还需要特别说明下，变量在使用前都需要进行初始化。当在图中使用一个创建一个变量的时候我们会给这个变量指定一个初始值或者初始化的方式，但是要记住的是这个时候只是一个管道结构而已实际上这个变量还并没有执行初始化操作，我们需要在使用变量前通过<code>tf.initialize_all_variables() sess.run(init_op)</code>操作将所有的变量进行一次执行初始化操作。</p>
+<p>参考文档:<a href="http://www.tensorfly.cn/tfdoc/get_started/basic_usage.html" target="_blank" rel="external">Tensorflow官方文档中文版</a></p>
+
       
     </div>
 
@@ -526,8 +547,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/storm-soldier.png"
@@ -600,6 +630,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensorflow基本使用"><span class="nav-number">1.</span> <span class="nav-text">Tensorflow基本使用</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
