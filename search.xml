@@ -5,7 +5,9 @@
     <entry>
       <title><![CDATA[迁移学习Tensorflow]]></title>
       <url>/2017/06/06/TransLearnByTF/</url>
-      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      <content type="html"><![CDATA[<p>参考：<a href="https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/08_Transfer_Learning.ipynb" target="_blank" rel="external">Transfer Learning</a><br>在先前的<a href="http://www.memorycrash.cn/2017/05/21/TransLearning/" target="_blank" rel="external">文章</a>有涉及到使用Pytorch实现迁移学习。迁移学习的思路是基于一个在大量数据上训练好的神经网络，通过它作为一个特征提取器，将提取出来的特征输入一个新的神经网络中进一步训练得到我们需要的结果。这样做比起完全的从头开始训练一个神经网络可以节约很大一部分的时间。<br><a id="more"></a></p>
+<h2 id="基于Tensorflow"><a href="#基于Tensorflow" class="headerlink" title="基于Tensorflow"></a>基于Tensorflow</h2><p>我们准备基于<code>inception v3</code>的迁移学习再去训练<code>cifar10</code>的分类，如何去实现？我们首先选择<code>inception v3</code> 这个基于imageNet的大量文件训练好的神经网络。这个网络并不会在tensorflow中提供，需要单独下载。参考文件中提供了一个<a href="https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/inception.py" target="_blank" rel="external">inception.py</a>文件里面集成了<code>inception v3</code>的下载地址和解析加载模型的方法。下面给出inception v3的大致结构图。<br><img src="/image/transLearnTF/inceptionV3Trans.png"><br>从这个图中根据图例我们可以看出来最后是选择了<code>AvgPool</code>的输出作为特征进行重新训练。<br><strong>注意1</strong>：graph.get_tensor_by_name(name)可以根据名称来获得输出Tensor。我们基于这个函数实现特征的获取。<a href="https://stackoverflow.com/questions/35336648/list-of-tensor-names-in-graph-in-tensorflow/" target="_blank" rel="external">参考stackoverflow</a> 。<br><strong>注意2</strong>：我们需要获取的层是除开作为输出softmax层和全连接层后的最后一层。通过graph.get_operations()来获取层名称信息。<a href="https://stackoverflow.com/questions/35336648/list-of-tensor-names-in-graph-in-tensorflow/" target="_blank" rel="external">参考1 stackoverflow</a><a href="https://github.com/AKSHAYUBHAT/VisualSearchServer/blob/master/notebooks/notebook_network.ipynb" target="_blank" rel="external">参考2 inception v3模型结构信息</a>。</p>
+]]></content>
       
         <categories>
             

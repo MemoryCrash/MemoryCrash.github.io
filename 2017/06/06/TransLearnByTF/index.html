@@ -90,14 +90,19 @@
 
 
 
+<meta name="description" content="参考：Transfer Learning在先前的文章有涉及到使用Pytorch实现迁移学习。迁移学习的思路是基于一个在大量数据上训练好的神经网络，通过它作为一个特征提取器，将提取出来的特征输入一个新的神经网络中进一步训练得到我们需要的结果。这样做比起完全的从头开始训练一个神经网络可以节约很大一部分的时间。">
 <meta name="keywords" content="tensorflow,transfer learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="迁移学习Tensorflow">
 <meta property="og:url" content="http://yoursite.com/2017/06/06/TransLearnByTF/index.html">
 <meta property="og:site_name" content="MemoryCrash">
-<meta property="og:updated_time" content="2017-06-06T02:15:15.000Z">
+<meta property="og:description" content="参考：Transfer Learning在先前的文章有涉及到使用Pytorch实现迁移学习。迁移学习的思路是基于一个在大量数据上训练好的神经网络，通过它作为一个特征提取器，将提取出来的特征输入一个新的神经网络中进一步训练得到我们需要的结果。这样做比起完全的从头开始训练一个神经网络可以节约很大一部分的时间。">
+<meta property="og:image" content="http://yoursite.com/image/transLearnTF/inceptionV3Trans.png">
+<meta property="og:updated_time" content="2017-06-06T12:52:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="迁移学习Tensorflow">
+<meta name="twitter:description" content="参考：Transfer Learning在先前的文章有涉及到使用Pytorch实现迁移学习。迁移学习的思路是基于一个在大量数据上训练好的神经网络，通过它作为一个特征提取器，将提取出来的特征输入一个新的神经网络中进一步训练得到我们需要的结果。这样做比起完全的从头开始训练一个神经网络可以节约很大一部分的时间。">
+<meta name="twitter:image" content="http://yoursite.com/image/transLearnTF/inceptionV3Trans.png">
 
 
 
@@ -422,7 +427,9 @@
       
 
       
-        <a id="more"></a>
+        <p>参考：<a href="https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/08_Transfer_Learning.ipynb" target="_blank" rel="external">Transfer Learning</a><br>在先前的<a href="http://www.memorycrash.cn/2017/05/21/TransLearning/" target="_blank" rel="external">文章</a>有涉及到使用Pytorch实现迁移学习。迁移学习的思路是基于一个在大量数据上训练好的神经网络，通过它作为一个特征提取器，将提取出来的特征输入一个新的神经网络中进一步训练得到我们需要的结果。这样做比起完全的从头开始训练一个神经网络可以节约很大一部分的时间。<br><a id="more"></a></p>
+<h2 id="基于Tensorflow"><a href="#基于Tensorflow" class="headerlink" title="基于Tensorflow"></a>基于Tensorflow</h2><p>我们准备基于<code>inception v3</code>的迁移学习再去训练<code>cifar10</code>的分类，如何去实现？我们首先选择<code>inception v3</code> 这个基于imageNet的大量文件训练好的神经网络。这个网络并不会在tensorflow中提供，需要单独下载。参考文件中提供了一个<a href="https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/inception.py" target="_blank" rel="external">inception.py</a>文件里面集成了<code>inception v3</code>的下载地址和解析加载模型的方法。下面给出inception v3的大致结构图。<br><img src="/image/transLearnTF/inceptionV3Trans.png"><br>从这个图中根据图例我们可以看出来最后是选择了<code>AvgPool</code>的输出作为特征进行重新训练。<br><strong>注意1</strong>：graph.get_tensor_by_name(name)可以根据名称来获得输出Tensor。我们基于这个函数实现特征的获取。<a href="https://stackoverflow.com/questions/35336648/list-of-tensor-names-in-graph-in-tensorflow/" target="_blank" rel="external">参考stackoverflow</a> 。<br><strong>注意2</strong>：我们需要获取的层是除开作为输出softmax层和全连接层后的最后一层。通过graph.get_operations()来获取层名称信息。<a href="https://stackoverflow.com/questions/35336648/list-of-tensor-names-in-graph-in-tensorflow/" target="_blank" rel="external">参考1 stackoverflow</a><a href="https://github.com/AKSHAYUBHAT/VisualSearchServer/blob/master/notebooks/notebook_network.ipynb" target="_blank" rel="external">参考2 inception v3模型结构信息</a>。</p>
+
       
     </div>
 
@@ -528,8 +535,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/storm-soldier.png"
@@ -602,6 +618,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于Tensorflow"><span class="nav-number">1.</span> <span class="nav-text">基于Tensorflow</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
