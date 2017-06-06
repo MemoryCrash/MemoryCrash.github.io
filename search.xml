@@ -3,6 +3,28 @@
   
     
     <entry>
+      <title><![CDATA[迁移学习Tensorflow]]></title>
+      <url>/2017/06/06/TransLearnByTF/</url>
+      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> deep learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tensorflow </tag>
+            
+            <tag> transfer learning </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Tensorflow学习笔记]]></title>
       <url>/2017/06/04/tensorflow/</url>
       <content type="html"><![CDATA[<h2 id="Tensorflow基本使用"><a href="#Tensorflow基本使用" class="headerlink" title="Tensorflow基本使用"></a>Tensorflow基本使用</h2><ul>
