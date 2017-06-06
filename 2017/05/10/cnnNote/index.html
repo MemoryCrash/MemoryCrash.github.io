@@ -102,7 +102,8 @@
 <meta property="og:image" content="http://yoursite.com/image/relu.png">
 <meta property="og:image" content="http://yoursite.com/image/no_padding.gif">
 <meta property="og:image" content="http://yoursite.com/image/padding.gif">
-<meta property="og:updated_time" content="2017-05-21T01:44:18.000Z">
+<meta property="og:image" content="http://yoursite.com/image/mulMap.png">
+<meta property="og:updated_time" content="2017-06-06T15:03:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卷积神经网络简略笔记">
 <meta name="twitter:description" content="卷积神经网络与神经网络神经网络和卷积神经网络的关系可以理解过卷积神经网络是为了可以更好处理图片而对神经网络进行了相应的改造和特殊化。这里以卷积来为这个新的神经网络进行命名，可能是卷积神经网络的卷积层在对原始数据的处理上类似于卷积操作。但是如果本身对数学上的卷积操作不怎么了解，其实也不影响对卷积神经网络的理解。">
@@ -463,6 +464,8 @@
 <p>可以直观的看到经过过滤器处理以后的图像的大小变小了，同时多个过滤器也可以获得到图片的多种特征。同时可以看出来我们需要仔细设计过滤器的大小以及每次滑动的距离以使的在原始图像中每个像素都可以涉及到。但是可能真就存在冲突的情况或者我希望过滤器处理后图片的大小不发生改变，这个时候可以适当的在待过滤的图片边缘添加0来实现。</p>
 <p><img src="/image/padding.gif" width="50%" height="50%/"></p>
 <p>这些处理得到特征map一般还需要通过池化来进行采样，其中一个目的就是进一步减小图片大小。一般的池化方法就是最大池化。比如使用2*2大小的框格在特制map上每次移动2格，将22在特征map范围上的最大的数据返回。这样处理以后的数据可能是作为下一个卷积层的输入也可能作为全连接层的输入。</p>
+<p>在实际中卷积层的输入可能是多个通道的输入，输出也可能是多个通道的。这个时候针对输入的每个通道都会有一个卷积核然后各个输入通道卷积核每次滑动得到的结果相加得到输出的某一层的特征值。如果是多个输出通道那么也就需要多组输入的卷积核。</p>
+<p><img src="/image/mulMap.png"></p>
 
       
     </div>
