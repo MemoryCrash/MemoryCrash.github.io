@@ -90,18 +90,19 @@
 
 
 
-<meta name="description" content="在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。">
+<meta name="description" content="在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。以下例子中的代码和图形引用自此文章">
 <meta name="keywords" content="matplot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="matplotlib笔记">
 <meta property="og:url" content="http://yoursite.com/2017/06/07/matplot/index.html">
 <meta property="og:site_name" content="MemoryCrash">
-<meta property="og:description" content="在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。">
+<meta property="og:description" content="在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。以下例子中的代码和图形引用自此文章">
 <meta property="og:image" content="http://yoursite.com/image/confusion.png">
-<meta property="og:updated_time" content="2017-06-07T08:31:00.000Z">
+<meta property="og:image" content="http://yoursite.com/image/plotweight.png">
+<meta property="og:updated_time" content="2017-06-07T09:00:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="matplotlib笔记">
-<meta name="twitter:description" content="在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。">
+<meta name="twitter:description" content="在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。以下例子中的代码和图形引用自此文章">
 <meta name="twitter:image" content="http://yoursite.com/image/confusion.png">
 
 
@@ -427,7 +428,8 @@
       
 
       
-        <p>在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。<br><a id="more"></a></p>
+        <p>在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。<br>以下例子中的代码和图形引用自此<a href="https://zhuanlan.zhihu.com/p/26660699" target="_blank" rel="external">文章</a></p>
+<a id="more"></a>
 <h2 id="显示多子图"><a href="#显示多子图" class="headerlink" title="显示多子图"></a>显示多子图</h2><p>在matplotlib中，整个图像为一个Figure对象。在Figure对象中可以包含一个，或者多个Axes对象。每个Axes对象都是一个拥有自己坐标系统的绘图区域。</p>
 <p><code>ax.imshow(images[i].reshape(img_shape), cmap=&#39;binary&#39;)</code>这个函数是在axes中绘制图像，第一个参数是传入来整理过形状的绘制数据，cmap是color map可以<a href="http://matplotlib.org/examples/color/colormaps_reference.html" target="_blank" rel="external">对照</a>选择你喜欢的颜色，这里选择的 binary 就是普通的黑白。在python3中很多使用来<code>format</code>来进行格式化可以参考此<a href="关于format的用法可以参考http://blog.xiayf.cn/2013/01/26/python-string-format/">文章</a></p>
 <p>绘图举例：</p>
@@ -436,6 +438,9 @@
 <p>举例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_confusion_matrix</span><span class="params">()</span>:</span></div><div class="line">    cls_true = data.test.cls</div><div class="line"></div><div class="line">    cls_pred = session.run(y_pred_cls, feed_dict=feed_dict_test)</div><div class="line">    <span class="comment"># 输入分布是实际的标签值，和模型预测的标签值。</span></div><div class="line">    cm = confusion_matrix(y_true=cls_true, y_pred=cls_pred)</div><div class="line">    <span class="comment"># 绘制图片interpolation='nearest'是图像处理的一种方式</span></div><div class="line">    <span class="comment"># 选择你喜欢的颜色，这里选择的 binary 就是普通的黑白</span></div><div class="line">    plt.imshow(cm, interpolation=<span class="string">'nearest'</span>, cmap=plt.cm.Blues)</div><div class="line">    <span class="comment"># 自动调整图片如果是多个图片的话会自动调整图片的间距具体可以查看此链接</span></div><div class="line">    plt.tight_layout()</div><div class="line">    <span class="comment"># 添加一个色条</span></div><div class="line">    plt.colorbar()</div><div class="line">    tick_marks = np.arange(num_classes)</div><div class="line">    <span class="comment"># 将tick_marks对应位置表示为num_classes，也就是画出标尺</span></div><div class="line">    plt.xticks(tick_marks, range(num_classes))</div><div class="line">    plt.yticks(tick_marks, range(num_classes))</div><div class="line"></div><div class="line">    <span class="comment"># 设置x轴标签为预测</span></div><div class="line">    plt.xlabel(<span class="string">'Predicted'</span>)</div><div class="line">    <span class="comment"># 设置y轴标签为真实</span></div><div class="line">    plt.ylabel(<span class="string">'True'</span>)</div><div class="line">    <span class="comment"># 展示图片</span></div><div class="line">    plt.show()</div></pre></td></tr></table></figure>
 <p><img src="/image/confusion.png"></p>
+<p>举例：<br>下图是可视化权值的分布情况。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 绘制权值变化</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_weights</span><span class="params">()</span>:</span></div><div class="line">    w = session.run(weights)</div><div class="line">    <span class="comment"># 获取权值的最大和最小值作为后续画图的范围使用。</span></div><div class="line">    w_min = np.min(w)</div><div class="line">    w_max = np.max(w)</div><div class="line"></div><div class="line">    fig, axes = plt.subplots(<span class="number">3</span>, <span class="number">4</span>)</div><div class="line">    fig.subplots_adjust(hspace=<span class="number">0.3</span>, wspace=<span class="number">0.3</span>)</div><div class="line"> </div><div class="line">    <span class="keyword">for</span> i, ax <span class="keyword">in</span> enumerate(axes.flat):</div><div class="line">        <span class="keyword">if</span> i&lt;<span class="number">10</span>:</div><div class="line">            <span class="comment"># 一个数字一个子图</span></div><div class="line">            image = w[:, i].reshape(img_shape)</div><div class="line"> </div><div class="line">            ax.set_xlabel(<span class="string">"Weights: &#123;0&#125;"</span>.format(i))</div><div class="line">            <span class="comment"># 可以在上文中的颜色列表中看到'seismic'是一种一半蓝色一半红色的渐变颜色</span></div><div class="line">            <span class="comment"># 用来做对比很合适，这里vmin=w_min, vmax=w_max也设定了每个子图的变化</span></div><div class="line">            <span class="comment"># 都是在一个范围的。</span></div><div class="line">            ax.imshow(image, vmin=w_min, vmax=w_max, cmap=<span class="string">'seismic'</span>)</div><div class="line"></div><div class="line">        ax.set_xticks([])</div><div class="line">        ax.set_yticks([]) </div><div class="line"></div><div class="line">    plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/image/plotweight.png"></p>
 
       
     </div>
