@@ -3,6 +3,26 @@
   
     
     <entry>
+      <title><![CDATA[matplotlib笔记]]></title>
+      <url>/2017/06/07/matplot/</url>
+      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> tool </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> matplot </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[迁移学习Tensorflow]]></title>
       <url>/2017/06/06/TransLearnByTF/</url>
       <content type="html"><![CDATA[<p>参考：<a href="https://github.com/Hvass-Labs/TensorFlow-Tutorials/blob/master/08_Transfer_Learning.ipynb" target="_blank" rel="external">Transfer Learning</a><br>在先前的<a href="http://www.memorycrash.cn/2017/05/21/TransLearning/" target="_blank" rel="external">文章</a>有涉及到使用Pytorch实现迁移学习。迁移学习的思路是基于一个在大量数据上训练好的神经网络，通过它作为一个特征提取器，将提取出来的特征输入一个新的神经网络中进一步训练得到我们需要的结果。这样做比起完全的从头开始训练一个神经网络可以节约很大一部分的时间。<br><a id="more"></a></p>
