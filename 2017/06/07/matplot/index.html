@@ -97,10 +97,12 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/07/matplot/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。">
-<meta property="og:updated_time" content="2017-06-07T04:09:10.000Z">
+<meta property="og:image" content="http://yoursite.com/image/confusion.png">
+<meta property="og:updated_time" content="2017-06-07T08:31:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="matplotlib笔记">
 <meta name="twitter:description" content="在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。">
+<meta name="twitter:image" content="http://yoursite.com/image/confusion.png">
 
 
 
@@ -425,11 +427,16 @@
       
 
       
-        <p>在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。<br><a id="more"></a><br>在matplotlib中，整个图像为一个Figure对象。在Figure对象中可以包含一个，或者多个Axes对象。每个Axes对象都是一个拥有自己坐标系统的绘图区域。</p>
-<p>可以<a href="http://matplotlib.org/examples/color/colormaps_reference.html" target="_blank" rel="external">对照</a>选择你喜欢的颜色，这里选择的 binary 就是普通的黑白<code>ax.imshow(images[i].reshape(img_shape), cmap=&#39;binary&#39;)</code></p>
-<p>在python3中很多使用来<code>format</code>来进行格式化可以参考此<a href="关于format的用法可以参考http://blog.xiayf.cn/2013/01/26/python-string-format/">文章</a></p>
+        <p>在机器学习或者深度学习中，matplotlib都是一个可视化数据的好工具。它可以辅助开发者了解数据的情况，下面我们就简单的以一些列子来学习matplotlib。<br><a id="more"></a></p>
+<h2 id="显示多子图"><a href="#显示多子图" class="headerlink" title="显示多子图"></a>显示多子图</h2><p>在matplotlib中，整个图像为一个Figure对象。在Figure对象中可以包含一个，或者多个Axes对象。每个Axes对象都是一个拥有自己坐标系统的绘图区域。</p>
+<p><code>ax.imshow(images[i].reshape(img_shape), cmap=&#39;binary&#39;)</code>这个函数是在axes中绘制图像，第一个参数是传入来整理过形状的绘制数据，cmap是color map可以<a href="http://matplotlib.org/examples/color/colormaps_reference.html" target="_blank" rel="external">对照</a>选择你喜欢的颜色，这里选择的 binary 就是普通的黑白。在python3中很多使用来<code>format</code>来进行格式化可以参考此<a href="关于format的用法可以参考http://blog.xiayf.cn/2013/01/26/python-string-format/">文章</a></p>
 <p>绘图举例：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">plot_images</span><span class="params">(images, cls_true, cls_pred=None)</span>:</span></div><div class="line">    <span class="keyword">assert</span> len(images) == len(cls_true) == <span class="number">9</span></div><div class="line">    <span class="comment"># 创建一个拥有子图的图片，返回图片对象和轴</span></div><div class="line">    fig, axes = plt.subplots(<span class="number">3</span>, <span class="number">3</span>)</div><div class="line">    <span class="comment"># 调整子图在整个图片中的宽和高的间隔</span></div><div class="line">    fig.subplots_adjust(hspace=<span class="number">0.2</span>, wspace=<span class="number">0.3</span>)</div><div class="line">    <span class="comment"># 使用flat属性来提取子对象，flat数组元素的迭代器</span></div><div class="line">    <span class="comment"># enumerate 返回位置索引和该位置上的对象</span></div><div class="line">    <span class="keyword">for</span> i, ax <span class="keyword">in</span> enumerate(axes.flat):</div><div class="line">        <span class="comment"># 在ax中展示图形。输入第一个参数是子图片的尺寸。cmap是color map</span></div><div class="line">        <span class="comment"># 选择你喜欢的颜色，这里选择的 binary 就是普通的黑白</span></div><div class="line">        ax.imshow(images[i].reshape(img_shape), cmap=<span class="string">'binary'</span>)</div><div class="line">        <span class="comment"># ax.imshow(images[i].reshape(img_shape), cmap='summer')</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> cls_pred <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">            xlabel = <span class="string">"True:&#123;0&#125;"</span>.format(cls_true[i])</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            xlabel = <span class="string">"True:&#123;0&#125;, Pred:&#123;1&#125;"</span>.format(cls_true[i], cls_pred[i])</div><div class="line">        <span class="comment"># 在x方向设置label</span></div><div class="line">        ax.set_xlabel(xlabel)</div><div class="line">        <span class="comment"># 设定x和y轴的标签，这里[]是空意思就是不现实这些标签。</span></div><div class="line">        ax.set_xticks([])</div><div class="line">        ax.set_yticks([])</div><div class="line">    <span class="comment"># 展示图片</span></div><div class="line">    plt.show()</div></pre></td></tr></table></figure>
+<h2 id="绘制混淆矩阵"><a href="#绘制混淆矩阵" class="headerlink" title="绘制混淆矩阵"></a>绘制混淆矩阵</h2><p>在机器学习或者深度学习中我们也存在需要去查看绘制的一个混淆矩阵的需求，用来可视化预测值和实际值之间的差异。方法是先<a href="http://scikit-learn.org/stable/modules/generated/sklearn.metrics.confusion_matrix.html" target="_blank" rel="external">生成一个混淆矩阵</a>，再将它绘制出来。下面的例子中涉及到一个<code>plt.tight_layout</code>是用来对图片进行<a href="https://stackoverflow.com/questions/9603230/how-to-use-matplotlib-tight-layout-with-figure" target="_blank" rel="external">细微调整</a>。同时说明下<code>plt.imshow(cm, interpolation=&#39;nearest&#39;, cmap=plt.cm.Blues)</code>这里的cmap可以填写字符串<code>Blues</code>也可以填写<code>plt.cm.Blues</code>。具体颜色可以参考此<a href="http://matplotlib.org/examples/color/colormaps_reference.html" target="_blank" rel="external">表</a>。</p>
+<p>举例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> confusion_matrix</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">print_confusion_matrix</span><span class="params">()</span>:</span></div><div class="line">    cls_true = data.test.cls</div><div class="line"></div><div class="line">    cls_pred = session.run(y_pred_cls, feed_dict=feed_dict_test)</div><div class="line">    <span class="comment"># 输入分布是实际的标签值，和模型预测的标签值。</span></div><div class="line">    cm = confusion_matrix(y_true=cls_true, y_pred=cls_pred)</div><div class="line">    <span class="comment"># 绘制图片interpolation='nearest'是图像处理的一种方式</span></div><div class="line">    <span class="comment"># 选择你喜欢的颜色，这里选择的 binary 就是普通的黑白</span></div><div class="line">    plt.imshow(cm, interpolation=<span class="string">'nearest'</span>, cmap=plt.cm.Blues)</div><div class="line">    <span class="comment"># 自动调整图片如果是多个图片的话会自动调整图片的间距具体可以查看此链接</span></div><div class="line">    plt.tight_layout()</div><div class="line">    <span class="comment"># 添加一个色条</span></div><div class="line">    plt.colorbar()</div><div class="line">    tick_marks = np.arange(num_classes)</div><div class="line">    <span class="comment"># 将tick_marks对应位置表示为num_classes，也就是画出标尺</span></div><div class="line">    plt.xticks(tick_marks, range(num_classes))</div><div class="line">    plt.yticks(tick_marks, range(num_classes))</div><div class="line"></div><div class="line">    <span class="comment"># 设置x轴标签为预测</span></div><div class="line">    plt.xlabel(<span class="string">'Predicted'</span>)</div><div class="line">    <span class="comment"># 设置y轴标签为真实</span></div><div class="line">    plt.ylabel(<span class="string">'True'</span>)</div><div class="line">    <span class="comment"># 展示图片</span></div><div class="line">    plt.show()</div></pre></td></tr></table></figure>
+<p><img src="/image/confusion.png"></p>
+
       
     </div>
 
@@ -533,8 +540,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/storm-soldier.png"
@@ -607,6 +623,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#显示多子图"><span class="nav-number">1.</span> <span class="nav-text">显示多子图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绘制混淆矩阵"><span class="nav-number">2.</span> <span class="nav-text">绘制混淆矩阵</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
