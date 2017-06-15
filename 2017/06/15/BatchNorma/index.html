@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="参考文件列表：[0] 什么是 Batch Normalization 批标准化 (深度学习 deep learning)[1] CS231n课程笔记翻译：反向传播笔记[2] 深度学习中 Batch Normalization为什么效果好？-魏秀参答[3] Must Know Tips/Tricks in Deep Neural Networks (by Xiu-Shen Wei)[4] 深度学习（">
 <meta property="og:image" content="http://yoursite.com/image/batchNorm/batchnoram.jpg">
-<meta property="og:updated_time" content="2017-06-15T06:15:16.000Z">
+<meta property="og:updated_time" content="2017-06-15T06:37:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Batch Normalization 学习笔记">
 <meta name="twitter:description" content="参考文件列表：[0] 什么是 Batch Normalization 批标准化 (深度学习 deep learning)[1] CS231n课程笔记翻译：反向传播笔记[2] 深度学习中 Batch Normalization为什么效果好？-魏秀参答[3] Must Know Tips/Tricks in Deep Neural Networks (by Xiu-Shen Wei)[4] 深度学习（">
@@ -431,7 +431,9 @@
 <h2 id="神经网络训练"><a href="#神经网络训练" class="headerlink" title="神经网络训练"></a>神经网络训练</h2><p>我们基本上可以对神经网络的形成一个印象，就是其训练过程对超参数配置有较为严格的要求，比如一般需要一个比较小的学习率，但是学习率小了也意味着训练时间的变长。同时需要警惕梯度消散的问题，因此添加了drop out或者l2正则化来减少影响，选择合适的激活函数比如relu。同时也包括对于输入数据的预处理比如“白化”。可以看出这个过程充满了各种技巧。</p>
 <p>后面就有人去思考一些简单的方法来改变这个复杂的训练过程，其中一个就是Batch Normalization。这个可以同数据预处理中的归一化处理联系起来，一般我们经过归一化处理后的数据输入数据可以得到一个更好的训练结果(我猜)，既然可以对输入数据做这样的处理，那是不是也可以对卷积层，全连接层也做这样的处理呢？</p>
 <h2 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h2><p>在对数据进行预处理的时候，我们将它们进行归一化后，这样如果是一个有效的变化区间在-1到1之间的tanh激活函数就很有利。如果没有这样操作输入的数据如果过大能直接落到了激活函数对于梯度感觉不明显的区域后续的训练就会变的很慢。所以实际上我们也是将这样的处理方式推广到了卷积层或者全连接层。</p>
-<p>在训练的过程中数据是一批批的进入。所以我们也是对数据进行一批批的归一化处理。具体来说是对每个神经元接受的数据进行归一化，而且是在数据进入到激活函数前完成归一化操作。也就是对$Wx+b$这个阶段。Batch Normalization涉及到的主要公式如下：<br><img src="/image/batchNorm/batchnoram.jpg" weight="50%" height="50%/"><br>$\mu _{\beta }\leftarrow \frac{1}{m}\sum_{i=1}^{m}x_{i}$ 公式1.<br>$\sigma ^{2}_{\beta }\leftarrow \frac{1}{m}\sum_{i=1}^{m}(x_{i}-\mu_{ \beta})^{2}$ 公式2.<br>$\hat{x}_{i}\leftarrow \frac{x_{i}-\mu _{\beta }}{\sqrt{\sigma ^{2}_{\beta }+\epsilon }}$ 公式3.<br>$y_{i}\leftarrow \gamma x_{i}+\beta $ 公式4. </p>
+<p>在训练的过程中数据是一批批的进入。所以我们也是对数据进行一批批的归一化处理。具体来说是对每个神经元接受的数据进行归一化，而且是在数据进入到激活函数前完成归一化操作。也就是对$Wx+b$这个阶段。Batch Normalization涉及到的主要公式如下：<br><img src="/image/batchNorm/batchnoram.jpg" weight="50%" height="50%/"><br>$$\mu _{\beta }\leftarrow \frac{1}{m}\sum_{i=1}^{m}x_{i}$$ <strong>公式1.</strong><br>$$\sigma ^{2}_{\beta }\leftarrow \frac{1}{m}\sum_{i=1}^{m}(x_{i}-\mu_{ \beta})^{2}$$ <strong>公式2.</strong><br>$$\hat{x}_{i}\leftarrow \frac{x_{i}-\mu _{\beta }}{\sqrt{\sigma ^{2}_{\beta }+\epsilon }}$$ <strong>公式3.</strong><br>$$y_{i}\leftarrow \gamma x_{i}+\beta $$ <strong>公式4.</strong><br>注意在公式中的$\epsilon$表示为了避免出现除0出现添加的一个很小的值，比如0.001。前三个公式表示了公式1求取平均值，公式2表示求取方差，公式3进行归一化将均值归为0将方差归为1。这里需要特别注意下公式4的作用是设置两个可学习参数$\beta$和$\gamma$，神经网络通过对者两个参数的学习将归一化的值回退为归一化前的值，这样增加了添加Batch Normalization之后的兼容性。</p>
+<h3 id="Batch-Normalization-的计算"><a href="#Batch-Normalization-的计算" class="headerlink" title="Batch Normalization 的计算"></a>Batch Normalization 的计算</h3><p>其计算过程依然是普通的反向传播过程，参考[7]有完整的链式求导推导过程。以及配合参考[1]学习到使用计算图的方式理解反向传播的方式。</p>
+<h3 id="Batch-Normalization-的实现"><a href="#Batch-Normalization-的实现" class="headerlink" title="Batch Normalization 的实现"></a>Batch Normalization 的实现</h3><p>其全连接层实现以及如何得到测试的时候的均值和方差可以参考[6]，关于在卷积层上的实现可以参考[4]。简单说在测试集使用的均值和方差来自训练时候对各个训练batch中均值和方差的平均值。而在卷积层上的时候是配套参数共享的特点将每个卷积层中的特征map视为一个神经元对其输入求均值和方差。</p>
 
       
     </div>
@@ -629,7 +631,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络训练"><span class="nav-number">1.</span> <span class="nav-text">神经网络训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">2.</span> <span class="nav-text">Batch Normalization</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络训练"><span class="nav-number">1.</span> <span class="nav-text">神经网络训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">2.</span> <span class="nav-text">Batch Normalization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch-Normalization-的计算"><span class="nav-number">2.1.</span> <span class="nav-text">Batch Normalization 的计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Batch-Normalization-的实现"><span class="nav-number">2.2.</span> <span class="nav-text">Batch Normalization 的实现</span></a></li></ol></li></ol></div>
             
 
           </div>
