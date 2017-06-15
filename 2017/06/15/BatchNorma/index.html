@@ -97,10 +97,12 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/15/BatchNorma/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="参考文件列表：[0] 什么是 Batch Normalization 批标准化 (深度学习 deep learning)[1] CS231n课程笔记翻译：反向传播笔记[2] 深度学习中 Batch Normalization为什么效果好？-魏秀参答[3] Must Know Tips/Tricks in Deep Neural Networks (by Xiu-Shen Wei)[4] 深度学习（">
-<meta property="og:updated_time" content="2017-06-15T03:39:44.000Z">
+<meta property="og:image" content="http://yoursite.com/image/batchNorm/batchnoram.jpg">
+<meta property="og:updated_time" content="2017-06-15T06:11:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Batch Normalization 学习笔记">
 <meta name="twitter:description" content="参考文件列表：[0] 什么是 Batch Normalization 批标准化 (深度学习 deep learning)[1] CS231n课程笔记翻译：反向传播笔记[2] 深度学习中 Batch Normalization为什么效果好？-魏秀参答[3] Must Know Tips/Tricks in Deep Neural Networks (by Xiu-Shen Wei)[4] 深度学习（">
+<meta name="twitter:image" content="http://yoursite.com/image/batchNorm/batchnoram.jpg">
 
 
 
@@ -428,8 +430,8 @@
         <p>参考文件列表：<br>[0] <a href="https://www.youtube.com/watch?v=-5hESl-Lj-4" target="_blank" rel="external">什么是 Batch Normalization 批标准化 (深度学习 deep learning)</a><br>[1] <a href="https://zhuanlan.zhihu.com/p/21407711?refer=intelligentunit" target="_blank" rel="external">CS231n课程笔记翻译：反向传播笔记</a><br>[2] <a href="https://www.zhihu.com/question/38102762" target="_blank" rel="external">深度学习中 Batch Normalization为什么效果好？-魏秀参答</a><br>[3] <a href="http://lamda.nju.edu.cn/weixs/project/CNNTricks/CNNTricks.html" target="_blank" rel="external">Must Know Tips/Tricks in Deep Neural Networks (by Xiu-Shen Wei)</a><br>[4] <a href="http://blog.csdn.net/hjimce/article/details/50866313" target="_blank" rel="external">深度学习（二十九）Batch Normalization 学习笔记</a><br>[5] <a href="http://www.jianshu.com/p/0312e04e4e83" target="_blank" rel="external">谈谈Tensorflow的Batch Normalization</a><br>[6] <a href="https://r2rt.com/implementing-batch-normalization-in-tensorflow.html" target="_blank" rel="external">Implementing Batch Normalization in Tensorflow</a><br>[7] <a href="https://kratzert.github.io/2016/02/12/understanding-the-gradient-flow-through-the-batch-normalization-layer.html" target="_blank" rel="external">Understanding the backward pass through Batch Normalization Layer</a><br>[8] <a href="https://arxiv.org/pdf/1502.03167.pdf" target="_blank" rel="external">Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift</a><br> <a id="more"></a><br>感激上面的这些参考文件，对于了解和学习Batch Normalization起到了很大的帮助。如果有人意外的看到了我这边笔记，我的建议是可以先看上面的这些参考文件。下面的内容主要是为了方便自己查阅Batch Normalization的内容而做的相关笔记。</p>
 <h2 id="神经网络训练"><a href="#神经网络训练" class="headerlink" title="神经网络训练"></a>神经网络训练</h2><p>我们基本上可以对神经网络的形成一个印象，就是其训练过程对超参数配置有较为严格的要求，比如一般需要一个比较小的学习率，但是学习率小了也意味着训练时间的变长。同时需要警惕梯度消散的问题，因此添加了drop out或者l2正则化来减少影响，选择合适的激活函数比如relu。同时也包括对于输入数据的预处理比如“白化”。可以看出这个过程充满了各种技巧。</p>
 <p>后面就有人去思考一些简单的方法来改变这个复杂的训练过程，其中一个就是Batch Normalization。这个可以同数据预处理中的归一化处理联系起来，一般我们经过归一化处理后的数据输入数据可以得到一个更好的训练结果(我猜)，既然可以对输入数据做这样的处理，那是不是也可以对卷积层，全连接层也做这样的处理呢？</p>
-<h2 id="Batch-Noramalization"><a href="#Batch-Noramalization" class="headerlink" title="Batch Noramalization"></a>Batch Noramalization</h2><p>在对数据进行预处理的时候，我们将它们进行归一化后，这样如果是一个有效的变化区间在-1到1之间的tanh激活函数就很有利。如果没有这样操作输入的数据如果过大能直接落到了激活函数对于梯度感觉不明显的区域后续的训练就会变的很慢。所以实际上我们也是将这样的处理方式推广到了卷积层或者全连接层。</p>
-<p>在训练的过程中数据是一批批的进入。所以我们也是对数据进行一批批的归一化处理。具体来说是对每个神经元接受的数据进行归一化，而且是在数据进入到激活函数前完成归一化操作。也就是对$Wx+b$这个阶段。</p>
+<h2 id="Batch-Normalization"><a href="#Batch-Normalization" class="headerlink" title="Batch Normalization"></a>Batch Normalization</h2><p>在对数据进行预处理的时候，我们将它们进行归一化后，这样如果是一个有效的变化区间在-1到1之间的tanh激活函数就很有利。如果没有这样操作输入的数据如果过大能直接落到了激活函数对于梯度感觉不明显的区域后续的训练就会变的很慢。所以实际上我们也是将这样的处理方式推广到了卷积层或者全连接层。</p>
+<p>在训练的过程中数据是一批批的进入。所以我们也是对数据进行一批批的归一化处理。具体来说是对每个神经元接受的数据进行归一化，而且是在数据进入到激活函数前完成归一化操作。也就是对$Wx+b$这个阶段。Batch Normalization涉及到的主要公式如下：<br><img src="/image/batchNorm/batchnoram.jpg" weight="50%" height="50%/"><br>$\mu _{\beta }\leftarrow \frac{1}{m}\sum_{i=1}^{m}x_{i}$ 公式1.<br>$\sigma ^{2}_{\beta }\leftarrow \frac{1}{m}\sum_{i=1}^{m}(x_{i}-\mu_{ \beta})^{2}$ 公式2.<br>$\hat{x}_{i}\leftarrow \frac{x_{i}-\mu _{\beta }}{\sqrt{\sigma ^{2}_{\beta }+\epsilon }}$ 公式3.<br>$y_{i}\leftarrow \gamma x_{i}+\beta $ 公式4. </p>
 
       
     </div>
@@ -627,7 +629,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络训练"><span class="nav-number">1.</span> <span class="nav-text">神经网络训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-Noramalization"><span class="nav-number">2.</span> <span class="nav-text">Batch Noramalization</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络训练"><span class="nav-number">1.</span> <span class="nav-text">神经网络训练</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Batch-Normalization"><span class="nav-number">2.</span> <span class="nav-text">Batch Normalization</span></a></li></ol></div>
             
 
           </div>
