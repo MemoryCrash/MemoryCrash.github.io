@@ -6,8 +6,18 @@
       <title><![CDATA[word embedding学习笔记]]></title>
       <url>/2017/06/17/wordembedding/</url>
       <content type="html"><![CDATA[<p>我们在进行神经网络的训练时，输入的数据可以是图片，也可以是文字。对于图片来讲，图片拥有的所有的信息都已经存在，就是那些色彩通道值和像素点。我们可以将一个图片的信息放置在一个高维空间作为一个点，而很多个类似的图片可能在空间中就会出现某个固定的分布。但是对于文字呢？文字是人创造出来的符号。这个符号背后的意义是我们人赋予的，但是机器并不了解，或者说单个的词本身并没有含义。就像我们看到一个非母语词汇也会完全摸不到头脑一样。<br><a id="more"></a></p>
-<h2 id="ONE-HOT"><a href="#ONE-HOT" class="headerlink" title="ONE-HOT"></a>ONE-HOT</h2><p>我们要做事情是第一让机器可以理解词，其中一个方法就是使用词向量，将一个词表示为一个向量的意思。一种最简单的方式是one-hot。实现方式是建立一个词表V，|V|表示词表的大小。用长度是|V|的且第n个位置是1词向量来表示一个在词表V中索引是n的单词。但是这种方法并不能体现出词与词之间的关系，因为它们都各自占据了一个位置完全没有交集，比如说“黑猫”，“白猫”在使用one-hot表示体现不出这两个词都表示猫这样的相似性。而且这样的表示对空间的需求量极大。</p>
-<h2 id="word2vector"><a href="#word2vector" class="headerlink" title="word2vector"></a>word2vector</h2><p>word2vector是word embedding思想的一种实现，我们的目的就是让一个词向量可以表示一个词更多的信息。然后这个获得的过程可以通过训练得到。</p>
+<h2 id="one-hot"><a href="#one-hot" class="headerlink" title="one-hot"></a>one-hot</h2><p>我们要做事情是第一让机器可以理解词，其中一个方法就是使用词向量，将一个词表示为一个向量的意思。一种最简单的方式是one-hot。实现方式是建立一个词表V，|V|表示词表的大小。用长度是|V|的且第n个位置是1词向量来表示一个在词表V中索引是n的单词。但是这种方法并不能体现出词与词之间的关系，因为它们都各自占据了一个位置完全没有交集，比如说“黑猫”，“白猫”在使用one-hot表示体现不出这两个词都表示猫这样的相似性。而且这样的表示对空间的需求量极大。</p>
+<h2 id="word2vector"><a href="#word2vector" class="headerlink" title="word2vector"></a>word2vector</h2><p>word2vector是word embedding思想的一种实现(以下以CBOW举例)，我们的目的就是让一个词向量可以表示一个词更多的信息。然后这个获得的过程可以通过训练得到，过程是这样的。首先我们创建两个矩阵$\nu \in R^{n\times |V|}$和$\upsilon \in R^{|V|\times n}$其中n表示词向量的维度。$\nu$是输入词矩阵，$\upsilon$是输出词矩阵。</p>
+<ol>
+<li>我们从输入的上下文中产生one-hot词向量，m:($x^(c-m),…x^(c-1),x^(c+1),…x^(c+m)\in R^{|V|}$).</li>
+<li>获得前入词向量($v_{c-m}=\nu x^(c-m),v_{c-m+1}=\nu x^(c-m+1),…,v_{c+m}=\nu x^(c+m)\in R^{n}$).</li>
+<li>取这些向量的平均值$\hat{v}=\frac{v_{c-m}+v_{c-m+1}…v_{c+m}}{2m}\in R^n$.</li>
+<li>参生一个得分矩阵$z=\upsilon \hat{v}\in R^{|V|}$.相似的向量的点积结果更大，相似的单词得分也会相近也就会倾向分布在同一个区域。</li>
+<li>将得分进行转换为概率$\hat{y}=softmax(z)\in R^|V|$.</li>
+<li>希望这样产生的概率$\hat{y}\in R^|V|$，和真实的概率，$y\in R^|V|$匹配。而真实的概率就是对应词的one-hot向量。</li>
+</ol>
+<p>对应的图形是：<br><img src="/image/wordembd/cbow.png">  </p>
+<p>在训练过程中我们还需要一个损失函数，很自然的就可以想到交叉熵损失函数。<br>$$H(\hat{y},y)=-\sum_{j=1}^{|V|}y_{j}log(\hat{y}_{j})$$<br>因为y是一个one-hot向量实际只有一个位置是1，所以上面的式子可以进一步化简为。<br>$$H(\hat{y},y)=-y_{j}log(\hat{y}_{j})$$<br>接下来我们最小化的对象就变成了如下形式：<br>$$min J=-logP(w_c|w_{c-m},…,w_{c-1},w_{c+1},…,w_{c+m})$$<br>$$=-logP(u_c|\hat{v})$$<br>$$=-log\frac{exp(u^{T}_{c}\hat{v})}{\sum_{j=1}^{V}exp(u^{T}_{j}\hat{v})}$$<br>$$=-u^{T}_{c}\hat{v}+log\sum_{j=1}^{|V|}exp(u^{T}_{j}\hat{v})$$<br>我们可以使用随机梯度下降来进行计算更新$u_{c}$和$v_{j}$。$u_{c}$就是我们需要的词向量。    </p>
 <p>参考文件：<br><a href="http://web.stanford.edu/class/cs224n/lecture_notes/cs224n-2017-notes1.pdf" target="_blank" rel="external">[1] cs224n-2017-notes1</a><br><a href="http://blog.csdn.net/han_xiaoyang/article/details/51567822" target="_blank" rel="external">[2] 深度学习与自然语言处理(1)_斯坦福cs224d Lecture 1</a></p>
 ]]></content>
       
