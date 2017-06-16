@@ -3,6 +3,26 @@
   
     
     <entry>
+      <title><![CDATA[word embedding学习笔记]]></title>
+      <url>/2017/06/17/wordembedding/</url>
+      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> deep learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> word embedding </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[GANs对抗生成网络学习笔记]]></title>
       <url>/2017/06/16/GANs/</url>
       <content type="html"><![CDATA[<p>对抗生成网络主要由两部分组成，分别是Generator(生成器)和Discriminator(判别器)。提供一个随机噪声文件给G以后就会生成图片出来当然也可能是生成文字等其它信息，这里我们以生成图片为列子。然后D去判断这个生成的图片是真的还是假的。<br><a id="more"></a></p>
