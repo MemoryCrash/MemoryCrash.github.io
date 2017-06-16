@@ -5,7 +5,9 @@
     <entry>
       <title><![CDATA[GANs对抗生成网络学习笔记]]></title>
       <url>/2017/06/16/GANs/</url>
-      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      <content type="html"><![CDATA[<p>对抗生成网络主要由两部分组成，分布是Generator(生成器)和Discriminator(判别器)。提供一个随机噪声文件给G以后就会生成图片出来当然也可能是生成文字等其它信息，这里我们以生成图片为列子。然后D去判断这个生成的图片是真的还是假的。<br><a id="more"></a></p>
+<p>参考文件列表：<br><a href="https://zhuanlan.zhihu.com/p/24767059" target="_blank" rel="external">[1] GAN学习指南：从原理入门到制作生成Demo</a><br><a href="https://zhuanlan.zhihu.com/p/25071913" target="_blank" rel="external">[2] 令人拍案叫绝的Wasserstein GAN</a><br><a href="https://www.youtube.com/watch?v=0CKeqXl5IY0" target="_blank" rel="external">[3] MLDS Lecture 9: Generative Adversarial Network</a><br><a href="https://www.youtube.com/watch?v=KSN4QYgAtao" target="_blank" rel="external">[4] MLDS Lecture 10: Improved Generative Adversarial Network</a>  </p>
+]]></content>
       
         <categories>
             
@@ -116,9 +118,9 @@
         
         <tags>
             
-            <tag> tensorflow </tag>
-            
             <tag> transfer learning </tag>
+            
+            <tag> tensorflow </tag>
             
         </tags>
         
