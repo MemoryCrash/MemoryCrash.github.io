@@ -3,6 +3,26 @@
   
     
     <entry>
+      <title><![CDATA[强化学习笔记]]></title>
+      <url>/2017/06/19/reinforcementLearning/</url>
+      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> deep learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> reinforcement learning </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[word embedding学习笔记]]></title>
       <url>/2017/06/17/wordembedding/</url>
       <content type="html"><![CDATA[<p>我们在进行神经网络的训练时，输入的数据可以是图片，也可以是文字。对于图片来讲，图片拥有的所有的信息都已经存在，就是那些色彩通道值和像素点。我们可以将一个图片的信息放置在一个高维空间作为一个点，而很多个类似的图片可能在空间中就会出现某个固定的分布。但是对于文字呢？文字是人创造出来的符号。这个符号背后的意义是我们人赋予的，但是机器并不了解，或者说单个的词本身并没有含义。就像我们看到一个非母语词汇也会完全摸不到头脑一样。<br><a id="more"></a></p>
