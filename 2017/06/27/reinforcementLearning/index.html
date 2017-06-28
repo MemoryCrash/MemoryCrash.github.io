@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="reinforcement learning," />
+  <meta name="keywords" content="tensorflow," />
 
 
 
@@ -90,14 +90,17 @@
 
 
 
-<meta name="keywords" content="reinforcement learning">
+<meta name="description" content="大概有5天的时候花在购置的组装设备的软件安装上，有点费时间。主机的硬件配置如下。显卡：GTX 1080Ti AORUS系统：ubuntu 16.04.2内存：16G*2（安装两倍显存来配置）Kingston Fury DDR4 2400 16G机械硬盘：SEAGATE 2TB 7200 转 64M SATA3固态硬盘：SAMSUNG 850 EVO 250G SATA3主板：z270-Gaming">
+<meta name="keywords" content="tensorflow">
 <meta property="og:type" content="article">
-<meta property="og:title" content="强化学习笔记">
-<meta property="og:url" content="http://yoursite.com/2017/06/19/reinforcementLearning/index.html">
+<meta property="og:title" content="ubuntu上安装tensorflow笔记">
+<meta property="og:url" content="http://yoursite.com/2017/06/27/reinforcementLearning/index.html">
 <meta property="og:site_name" content="MemoryCrash">
-<meta property="og:updated_time" content="2017-06-19T01:40:23.000Z">
+<meta property="og:description" content="大概有5天的时候花在购置的组装设备的软件安装上，有点费时间。主机的硬件配置如下。显卡：GTX 1080Ti AORUS系统：ubuntu 16.04.2内存：16G*2（安装两倍显存来配置）Kingston Fury DDR4 2400 16G机械硬盘：SEAGATE 2TB 7200 转 64M SATA3固态硬盘：SAMSUNG 850 EVO 250G SATA3主板：z270-Gaming">
+<meta property="og:updated_time" content="2017-06-28T07:17:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="强化学习笔记">
+<meta name="twitter:title" content="ubuntu上安装tensorflow笔记">
+<meta name="twitter:description" content="大概有5天的时候花在购置的组装设备的软件安装上，有点费时间。主机的硬件配置如下。显卡：GTX 1080Ti AORUS系统：ubuntu 16.04.2内存：16G*2（安装两倍显存来配置）Kingston Fury DDR4 2400 16G机械硬盘：SEAGATE 2TB 7200 转 64M SATA3固态硬盘：SAMSUNG 850 EVO 250G SATA3主板：z270-Gaming">
 
 
 
@@ -125,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/19/reinforcementLearning/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/06/27/reinforcementLearning/"/>
 
 
 
 
 
-  <title>强化学习笔记 | MemoryCrash</title>
+  <title>ubuntu上安装tensorflow笔记 | MemoryCrash</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -314,7 +317,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/19/reinforcementLearning/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/27/reinforcementLearning/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dailei">
@@ -331,7 +334,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">强化学习笔记</h1>
+          <h1 class="post-title" itemprop="name headline">ubuntu上安装tensorflow笔记</h1>
         
 
         <div class="post-meta">
@@ -343,8 +346,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-19T00:00:00+08:00">
-                2017-06-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-27T00:00:00+08:00">
+                2017-06-27
               </time>
             
 
@@ -366,8 +369,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/deep-learning/" itemprop="url" rel="index">
-                    <span itemprop="name">deep learning</span>
+                  <a href="/categories/tool/" itemprop="url" rel="index">
+                    <span itemprop="name">tool</span>
                   </a>
                 </span>
 
@@ -384,9 +387,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/19/reinforcementLearning/#comments" itemprop="discussionUrl">
+                <a href="/2017/06/27/reinforcementLearning/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/19/reinforcementLearning/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/06/27/reinforcementLearning/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -394,7 +397,7 @@
 
           
           
-             <span id="/2017/06/19/reinforcementLearning/" class="leancloud_visitors" data-flag-title="强化学习笔记">
+             <span id="/2017/06/27/reinforcementLearning/" class="leancloud_visitors" data-flag-title="ubuntu上安装tensorflow笔记">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -422,7 +425,23 @@
       
 
       
-        <a id="more"></a>
+        <p>大概有5天的时候花在购置的组装设备的软件安装上，有点费时间。主机的硬件配置如下。<br>显卡：GTX 1080Ti AORUS<br>系统：ubuntu 16.04.2<br>内存：16G*2（安装两倍显存来配置）Kingston Fury DDR4 2400 16G<br>机械硬盘：SEAGATE 2TB 7200 转 64M SATA3<br>固态硬盘：SAMSUNG 850 EVO 250G SATA3<br>主板：z270-Gaming<br>cpu：i7-7700k<br>机箱：技嘉和谐号黑色（机箱没有自带散热扇）<br>cpu散热器：DeepCool 大霜塔<br><a id="more"></a><br>总价：14000RMB。因为各个部件的价格随着时间变化会比较大比如GPU，内存条，固态硬盘，所以也就没有贴出各个零部件的单价只是贴出了总价。零部件购置回来后请店家帮助完成装机后就自己来安装系统和软件</p>
+<p>###ubuntu系统安装<br>使用UltralOS制作U盘引导盘，详细可以百度。<br>在安装系统的时候我选择系统默认分区。并没有自己去分区。安装好系统后需要主机修改启动引导也就是将让BIOS从安装了系统的硬盘启动对于我来说就是从SAMSUNG的那个固态硬盘去启动具体方法是在启动的时候按F12进入boot menu 选择SETUP然后将有系统的硬盘放置在第一个优先启动位置</p>
+<p>###机械硬盘挂载<br>安装好系统后对<a href="http://www.cnblogs.com/hnrainll/archive/2012/02/27/2369331.html" target="_blank" rel="external">机械硬盘挂载</a></p>
+<p>###开启SSH服务<br>安装ssh服务可以方便远程连接主机在ubuntu下使用<code>sudo apt-get install openssh-server</code>命令，通过<code>ps -e | grep ssh</code>查看ssh是否启动，如果显示<code>sshd</code>便是已经成功启动。如果出现<code>WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!</code> 的错误，可以选择将known_hosts文件,把里面与所要连接IP相关的内容删掉即可</p>
+<p>###其它设置<br>查看主机名称：hostname<br>可能需要设置主机名称，临时修改使用<code>hostname YOURHOSTNAME</code>即可，永久修改主机名称对此文件<code>/etc/hostname</code>进行修改。<br>修改ubuntu终端目录颜色，将<code>export LS_COLORS=${LS_COLORS}&#39;di=01;36&#39;:</code>输入到<code>~/.bashrc</code>中设置目录颜色为清蓝色。</p>
+<p>###GPU驱动安装<br>第一步禁用 nouveau 驱动打开终端，输入<code>$ sudo gedit /etc/modprobe.d/blacklist-nouveau.conf</code>,输入：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">blacklist nouveau</div><div class="line">options nouveau modset=0</div></pre></td></tr></table></figure></p>
+<p>保存退出，执行<code>$ sudo update-initramfs -u</code>，禁用结束。重启电脑。验证驱动是否禁用成功输入<code>sudo lspci | grep nouveau</code>如果没有内容，则禁用成功。</p>
+<p>第二步 lspci | grep -i nvidia 通过此命令查看nvidia显卡的类型，在没有安装驱动的时候也应该可以查看到显卡型号信息。如果是1080ti的显卡：<code>01:00。0 VGA compatible controller:NVIDIA Corporation GP102[GeForce GTX 1080 Ti] (rev a1)</code><br>如果没有出现这些信息可以尝试<code>sudo update-pciids</code>来更新下PCI试试。此处<a href="http://docs.nvidia.com/cuda/cuda-installation-guide-linux/#axzz4VZnqTJ2A" target="_blank" rel="external">参考</a></p>
+<p>第三步在<a href="http://www.geforce.cn/drivers" target="_blank" rel="external">nvidia官网</a>查看对应型号GPU的驱动程序，我这里使用的是381。当然我参考的其它安装教程也有使用378的，我也试过也可以使用但是安装后使用<code>nvidia-smi</code>来查看显卡信息时，显卡型号在378驱动下显示的是<code>GraphicDevice</code>而381可以显示<code>1080ti</code>。<br>显卡驱动安装381<br><code>sudo apt install nvidia-381</code><br>查看显卡驱动信息可以使用<code>nvidia-smi</code>查看显卡驱动是否安装好可以使用<code>glxinfo | head</code>得到输出信息中<code>direct rendering：Yes</code> 表示安装好了。如果对于安装不满意可以使用下面的命令卸载:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get remove --purge nvidia*</div><div class="line">sudo apt-get autoremove</div><div class="line">sudo reboot</div></pre></td></tr></table></figure></p>
+<p>我是在第三步中先关闭图形界面<code>sudo service lightdm stop</code>完成显卡安装后再打开<code>sudo service lightdm start</code>。在安装了显卡以后需要安装<a href="https://developer.nvidia.com/cuda-downloads" target="_blank" rel="external">cuda</a>和<a href="https://developer.nvidia.com/rdp/cudnn-download" target="_blank" rel="external">cudnn</a>其中cuda安装cuda 8.0然后cudnn安装cudnn 5.1。<br>cuda下载下来后使用<code>sudo sh cuda_8.0.61_375.26_linux.run</code>进行安装，在安装过程中遇到让你选择是否安装显卡驱动时记得选择否，因为我们已经安装了显卡驱动。安装完cuda后将这些路径添加到~/.bashrc文件中去</p>
+<blockquote>
+<p>export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}<br>export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}<br>再执行<code>source ~/.bashrc</code></p>
+</blockquote>
+<p><code>tar -zxvf cudnn-8.0-linux-x64-v5.1.tgz</code>解压cudnn压缩包，然后使用下面的命令进行拷贝：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo cp cuda/include/cudnn.h /usr/local/cuda/include/</div><div class="line">sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/</div><div class="line">sudo chmod a+r /usr/local/cuda/include/cudnn.h</div><div class="line">sudo chmod a+r /usr/local/cuda/lib64/libcudnn*</div></pre></td></tr></table></figure></p>
+<p>###安装tensorflow<br>因为ubuntu 16.04.2已经自带了python3.5所以我就不需要重复安装了，但是pip3需要安装pip3<br><code>sudo apt install python3-pip</code>，然后使用pip3 install tensorflow-gpu的方式来安装tensorflow，这里我并没有选择使用bazel编译tensorflow源码来进行安装的形式。当安装好后可以试试<code>import tensorflow as tf</code>在一些教程中提到这样会提示<code>successfully opened CUDA library</code>但是我安装好以后并没有出现这个提示，主要就是纠结在这里，然后使用<code>watch nvidia-smi</code>查看在运行tensorflow源码中的mnist例子时gpu的使用情况，发现会有28%左右的显存被使用，应该是在利用gpu。后来看到一个tensorflow源码github库上有个issue<a href="https://github.com/tensorflow/tensorflow/issues/10827" target="_blank" rel="external">version 1.2 doesn’t show CUDA and cuDNN information</a>似乎是当前这个1.2版本的tensorflow都有这个情况。所以我暂时也就没有管了。</p>
+<p>参考文章:<br><a href="https://www.tensorflow.org/install/install_linux" target="_blank" rel="external">Installing TensorFlow on Ubuntu</a><br><a href="http://www.52nlp.cn/深度学习主机环境配置-ubuntu16-04-geforce-gtx1080-tensorflow" target="_blank" rel="external">深度学习主机环境配置: Ubuntu16.04+GeForce GTX 1080+TensorFlow</a><br><a href="https://blog.slavv.com/the-1700-great-deep-learning-box-assembly-setup-and-benchmarks-148c5ebe6415" target="_blank" rel="external">The $1700 great Deep Learning box: Assembly, setup and benchmarks</a></p>
+
       
     </div>
 
@@ -451,7 +470,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/reinforcement-learning/" rel="tag"># reinforcement learning</a>
+            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
           
         </div>
       
@@ -564,7 +583,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -737,9 +756,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2017/06/19/reinforcementLearning/';
-          this.page.identifier = '2017/06/19/reinforcementLearning/';
-          this.page.title = '强化学习笔记';
+          this.page.url = 'http://yoursite.com/2017/06/27/reinforcementLearning/';
+          this.page.identifier = '2017/06/27/reinforcementLearning/';
+          this.page.title = 'ubuntu上安装tensorflow笔记';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://https-memorycrash-github-io.disqus.com/embed.js';
