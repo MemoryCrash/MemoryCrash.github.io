@@ -3,6 +3,26 @@
   
     
     <entry>
+      <title><![CDATA[《deep learning》笔记]]></title>
+      <url>/2017/07/04/deeplearningNote/</url>
+      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> deep learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> basic skill </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[ubuntu上安装tensorflow笔记]]></title>
       <url>/2017/06/27/reinforcementLearning/</url>
       <content type="html"><![CDATA[<p>大概有5天的时候花在购置的组装设备的软件安装上，有点费时间。主机的硬件配置如下。<br>显卡：GTX 1080Ti AORUS<br>系统：ubuntu 16.04.2<br>内存：16G*2（安装两倍显存来配置）Kingston Fury DDR4 2400 16G<br>机械硬盘：SEAGATE 2TB 7200 转 64M SATA3<br>固态硬盘：SAMSUNG 850 EVO 250G SATA3<br>主板：z270-Gaming<br>cpu：i7-7700k<br>机箱：技嘉和谐号黑色（机箱没有自带散热扇）<br>cpu散热器：DeepCool 大霜塔<br><a id="more"></a><br>总价：14000RMB。因为各个部件的价格随着时间变化会比较大比如GPU，内存条，固态硬盘，所以也就没有贴出各个零部件的单价只是贴出了总价。零部件购置回来后请店家帮助完成装机后就自己来安装系统和软件</p>
