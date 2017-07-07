@@ -3,6 +3,26 @@
   
     
     <entry>
+      <title><![CDATA[《deep learning》--机器学习基础]]></title>
+      <url>/2017/07/07/machinelearningbasic/</url>
+      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> deep learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> basic skill </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[《deep learning》--概率论]]></title>
       <url>/2017/07/06/svd/</url>
       <content type="html"><![CDATA[<p>一种概率和发生的频率相关，称为频率派概率。还有一种涉及到确信的程度(1表示一定发生，0表示一定不发生)称为贝叶斯概率。</p>
