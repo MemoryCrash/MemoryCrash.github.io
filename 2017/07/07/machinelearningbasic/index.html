@@ -90,14 +90,17 @@
 
 
 
+<meta name="description" content="在机器学习中的一些运算需要考虑是否会出现上溢或者下溢的情况，比较好的是一般的框架会处理这些问题。导数：在深度学习中一般我们会获取到一个目标函数或者叫损失函数。然后通过最小化它们来进行优化。优化的过程是迭代进行。${f}’(x)$表示函数f(x)在点x处的斜率。它表明如何缩放输入的小变化才能在输出获得相应的变化：$f(x+\epsilon )\approx f(x)+\epsilon{f}’(x)$">
 <meta name="keywords" content="basic skill">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《deep learning》--机器学习基础">
 <meta property="og:url" content="http://yoursite.com/2017/07/07/machinelearningbasic/index.html">
 <meta property="og:site_name" content="MemoryCrash">
-<meta property="og:updated_time" content="2017-07-07T03:37:15.000Z">
+<meta property="og:description" content="在机器学习中的一些运算需要考虑是否会出现上溢或者下溢的情况，比较好的是一般的框架会处理这些问题。导数：在深度学习中一般我们会获取到一个目标函数或者叫损失函数。然后通过最小化它们来进行优化。优化的过程是迭代进行。${f}’(x)$表示函数f(x)在点x处的斜率。它表明如何缩放输入的小变化才能在输出获得相应的变化：$f(x+\epsilon )\approx f(x)+\epsilon{f}’(x)$">
+<meta property="og:updated_time" content="2017-07-07T06:56:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《deep learning》--机器学习基础">
+<meta name="twitter:description" content="在机器学习中的一些运算需要考虑是否会出现上溢或者下溢的情况，比较好的是一般的框架会处理这些问题。导数：在深度学习中一般我们会获取到一个目标函数或者叫损失函数。然后通过最小化它们来进行优化。优化的过程是迭代进行。${f}’(x)$表示函数f(x)在点x处的斜率。它表明如何缩放输入的小变化才能在输出获得相应的变化：$f(x+\epsilon )\approx f(x)+\epsilon{f}’(x)$">
 
 
 
@@ -422,7 +425,8 @@
       
 
       
-        <a id="more"></a>
+        <p>在机器学习中的一些运算需要考虑是否会出现上溢或者下溢的情况，比较好的是一般的框架会处理这些问题。<br><strong>导数</strong>：在深度学习中一般我们会获取到一个目标函数或者叫损失函数。然后通过最小化它们来进行优化。优化的过程是迭代进行。${f}’(x)$表示函数f(x)在点x处的斜率。它表明如何缩放输入的小变化才能在输出获得相应的变化：$f(x+\epsilon )\approx f(x)+\epsilon{f}’(x)$。然后我们可以通过这样的方式迭代的向一个函数的局部最小值或者最大值进行移动。当到达${f}’(x)=0$时，这个时候就可能到达了一个极值点，也可能在一个鞍点上。<br><a id="more"></a><br><strong>偏导数</strong>：偏导数的概念在多维输入的函数中引入。偏导数$\frac{\partial}{\partial x_{i}}f(x)$衡量点x处只有$x_{i}$增加时f(x)如何变化。梯度是相对一个向量求导的导数：f的导数是包括所有偏导数的向量，记为$\triangledown _xf(x)$。梯度的第i个元素是f关于$x_{i}$的偏导数。在多维的情况下，临界点是梯度中所有元素都为零的点。</p>
+
       
     </div>
 
