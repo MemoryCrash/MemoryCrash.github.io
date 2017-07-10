@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[《deep learning》--机器学习基础]]></title>
+      <title><![CDATA[最大似然估计]]></title>
       <url>/2017/07/10/mechinabasic/</url>
       <content type="html"><![CDATA[<a id="more"></a>]]></content>
       
@@ -296,9 +296,9 @@
         
         <tags>
             
-            <tag> transfer learning </tag>
-            
             <tag> tensorflow </tag>
+            
+            <tag> transfer learning </tag>
             
         </tags>
         
