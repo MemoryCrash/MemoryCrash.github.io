@@ -5,8 +5,16 @@
     <entry>
       <title><![CDATA[最大似然估计]]></title>
       <url>/2017/07/10/mechinabasic/</url>
-      <content type="html"><![CDATA[<p>在已知试验结果的情况下，用来估计满足这些样本分布的参数，把可能性最大的参数作为真实的参数估计。<br><a id="more"></a></p>
-<p><a href="http://www.cnblogs.com/liliu/archive/2010/11/22/1883702.html" target="_blank" rel="external">参考1:最大似然估计(Maximum likelihood estimation)</a><br><a href="https://zh.wikipedia.org/zh-hans/最大似然估计" target="_blank" rel="external">参考2 wikipedia:最大似然估计</a> </p>
+      <content type="html"><![CDATA[<p><strong>独立同分布(IID)</strong>：在概率统计理论中，如果变量序列或者其他随机变量有相同的概率分布，并且互相独立，那么这些随机变量是独立同分布。随机变量独立是指X1的取值不影响X2的取值，X2的取值不影响X1的取值。<br><strong>最大似然估计</strong>：在已知试验结果的情况下，用来估计满足这些样本分布的参数，把可能性最大的参数作为真实的参数估计。最大似然估计中采样，需要假设采样结果都是独立同分布。f是已知模型，$x_1$,$x_2$,…,$x_3$是独立同分布的采样数据。$\theta$是未知的模型参数。<br>$f(x_1,x_2,…x_n|\theta )=f(x_1|\theta )*f(x_2|\theta )…f(x_n|\theta )$<br><a id="more"></a><br>$L(\theta |x_1,x_2…,x_n)=f(x_1,…,x_n|\theta )=\prod_{i=1}^{n}f(x_i|\theta )$<br>取对数将乘法转换为加法方便计算。<br>$ln(\theta |x_1,x_2…,x_n)=\sum_{i=1}^{n}lnf(x_i|\theta)$<br>取对数似然平均值。<br>$\hat{l}=\frac{1}{n}lnL$<br>最大似然估计就是取使得$\hat{l}$获得最大值的$\theta$<br>$\theta _{mle}=argmax\hat{l}(\theta |x_1,…,x_n)$</p>
+<p>最大似然估计一般求解过程：</p>
+<ol>
+<li>写出似然函数；</li>
+<li>对似然函数取对数；</li>
+<li>求导数；</li>
+<li>解似然方程；<br><strong>举例求解高斯分布的最大似然估计</strong>：<br>高斯分布概率密度函数：<br>$f(x)=\frac{1}{\sqrt{2\pi}\sigma }e^{\frac{(x-\mu )^2}{2\sigma ^2}}$<br>将采样的$x_i$带入到似然函数得到：<br>$L(x)=\prod_{i=1}^{n}\frac{1}{\sqrt{2\pi}\sigma }e^{\frac{(x-\mu )^2}{2\sigma ^2}}$<br>两边求对数(l(x)表示log(L(x)))：<br>$l(x)=\sum_{i=1}^{n}log\frac{1}{\sqrt{2\pi}\sigma }e^{\frac{(x-\mu )^2}{2\sigma ^2}}$<br>进一步化简：<br>$l(x)=(\sum_{i}log\frac{1}{\sqrt{2\pi }\sigma})+(\sum_{i}-\frac{(x_i-\mu)^2}{2\simga ^2})$<br>左侧第一项是常数项目因为只有$x_i$是变量，$\mu$和$\simga$是固定但是未知的数据。<br>$l(x)=-\frac{n}{2}log(2\pi \simga ^2)-\frac{1}{2\simga ^2}\sum_{i}(x_i-\mu )^2$ 公式1<br>在公式1基础上对$\mu $和$\simga$求偏导数并令其为0求解到(lnx求导为$\frac{1}{x}$)。<br>$\mu = \frac{1}{n}\sum_{i}x_i$ 公式2<br>$\simga ^2=\frac{1}{n}\sum_{i}(x_i-\mu)^2$ 公式3</li>
+</ol>
+<p>公式2和公式3也是很符合均值和方差的直观感觉。</p>
+<p><a href="http://www.cnblogs.com/liliu/archive/2010/11/22/1883702.html" target="_blank" rel="external">参考1:最大似然估计(Maximum likelihood estimation)</a><br><a href="https://zh.wikipedia.org/zh-hans/最大似然估计" target="_blank" rel="external">参考2 wikipedia:最大似然估计</a><br><a href="http://blog.csdn.net/cheng1988shu/article/details/7905308" target="_blank" rel="external">参考3 什么是独立同分布</a></p>
 ]]></content>
       
         <categories>
@@ -121,10 +129,14 @@
 <p><code>tar -zxvf cudnn-8.0-linux-x64-v5.1.tgz</code>解压cudnn压缩包，然后使用下面的命令进行拷贝：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">sudo cp cuda/include/cudnn.h /usr/local/cuda/include/</div><div class="line">sudo cp cuda/lib64/libcudnn* /usr/local/cuda/lib64/</div><div class="line">sudo chmod a+r /usr/local/cuda/include/cudnn.h</div><div class="line">sudo chmod a+r /usr/local/cuda/lib64/libcudnn*</div></pre></td></tr></table></figure></p>
 <h3 id="安装tensorflow"><a href="#安装tensorflow" class="headerlink" title="安装tensorflow"></a>安装tensorflow</h3><p>因为ubuntu 16.04.2已经自带了python3.5所以我就不需要重复安装了.选择使用bazel编译tensorflow源码来进行安装的形式，安装的bazel是通过pip3的形式来安装这个和一些教程不太一样。当安装好后可以试试<code>import tensorflow as tf</code>在一些教程中提到这样会提示<code>successfully opened CUDA library</code>但是我安装好以后并没有出现这个提示，主要就是纠结在这里，然后使用<code>watch nvidia-smi</code>查看在运行tensorflow源码中的mnist例子时gpu的使用情况，发现会有28%左右的显存被使用，应该是在利用gpu。后来看到一个tensorflow源码github库上有个issue【<a href="https://github.com/tensorflow/tensorflow/issues/10827" target="_blank" rel="external">version 1.2 doesn’t show CUDA and cuDNN information</a>】似乎是当前这个1.2版本的tensorflow都有这个情况。所以我暂时也就没有管了。后来使用<code>git checkout r1.0</code>使用1.0版本来进行安装就能出现<code>successfully opened CUDA library</code>提示信息。</p>
 <p>参考此<a href="http://blog.csdn.net/uselym/article/details/73556511" target="_blank" rel="external">文章</a></p>
-<blockquote>
-<p>更新软连接，这里最好ls一下lib64的内容，防止版本不一致：<br>$cd /usr/local/cuda/lib64/<br>$sudo chmod +r libcudnn.so.5.1.10<br>$sudo ln -sf libcudnn.so.5.1.10 libcudnn.so.5<br>$sudo ln -sf libcudnn.so.5 libcudnn.so<br>更新设置：<br>$sudo ldconfig     </p>
-</blockquote>
-<p>后续在运行一个GAN的样例的时候出现<code>ImportError:libcudart.so.8.0:cannot open shared...</code>的错误。我找到的处理方法是<a href="http://blog.csdn.net/u010454261/article/details/71268325?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="external">cuda执行出错解决方法</a>大概是这样.     </p>
+<pre><code>更新软连接，这里最好ls一下lib64的内容，防止版本不一致：   
+$cd /usr/local/cuda/lib64/  
+$sudo chmod +r libcudnn.so.5.1.10    
+$sudo ln -sf libcudnn.so.5.1.10 libcudnn.so.5     
+$sudo ln -sf libcudnn.so.5 libcudnn.so     
+更新设置：      
+$sudo ldconfig
+</code></pre><p>后续在运行一个GAN的样例的时候出现<code>ImportError:libcudart.so.8.0:cannot open shared...</code>的错误。我找到的处理方法是<a href="http://blog.csdn.net/u010454261/article/details/71268325?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="external">cuda执行出错解决方法</a>大概是这样.     </p>
 <blockquote>
 <p>执行以下命令，将相应的库文件复制到/usr/lib<br>sudo cp /usr/local/cuda-8.0/lib64/libcudart.so.8.0 /usr/local/lib/libcudart.so.8.0 &amp;&amp; sudo ldconfig     </p>
 </blockquote>
