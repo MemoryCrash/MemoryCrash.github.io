@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/06/27/reinforcementLearning/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="大概有5天的时候花在购置的组装设备的软件安装上，有点费时间。主机的硬件配置如下。显卡：GTX 1080Ti AORUS系统：ubuntu 16.04.2内存：16G*2（安装两倍显存来配置）Kingston Fury DDR4 2400 16G机械硬盘：SEAGATE 2TB 7200 转 64M SATA3固态硬盘：SAMSUNG 850 EVO 250G SATA3主板：z270-Gaming">
-<meta property="og:updated_time" content="2017-07-12T09:08:39.000Z">
+<meta property="og:updated_time" content="2017-07-12T09:12:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ubuntu上安装tensorflow笔记">
 <meta name="twitter:description" content="大概有5天的时候花在购置的组装设备的软件安装上，有点费时间。主机的硬件配置如下。显卡：GTX 1080Ti AORUS系统：ubuntu 16.04.2内存：16G*2（安装两倍显存来配置）Kingston Fury DDR4 2400 16G机械硬盘：SEAGATE 2TB 7200 转 64M SATA3固态硬盘：SAMSUNG 850 EVO 250G SATA3主板：z270-Gaming">
@@ -451,7 +451,7 @@ $sudo ln -sf libcudnn.so.5 libcudnn.so
 更新设置：      
 $sudo ldconfig
 </code></pre><p>后续在运行一个GAN的样例的时候出现<code>ImportError:libcudart.so.8.0:cannot open shared...</code>的错误。我找到的处理方法是<a href="http://blog.csdn.net/u010454261/article/details/71268325?utm_source=itdadao&amp;utm_medium=referral" target="_blank" rel="external">cuda执行出错解决方法</a>大概是这样.     </p>
-<p>执行以下命令，将相应的库文件复制到/usr/lib<br><code>sudo cp /usr/local/cuda-8.0/lib64/libcudart.so.8.0 /usr/local/lib/</code>     <code>libcudart.so.8.0 &amp;&amp; sudo ldconfig</code>    </p>
+<p>执行以下命令，将相应的库文件复制到/usr/lib<br><code>sudo cp /usr/local/cuda-8.0/lib64/libcudart.so.8.0 /usr/local/lib/libcudart.so.8.0 &amp;&amp; sudo ldconfig</code>    </p>
 <p>结果是可以正常运行。   </p>
 <h3 id="使用virtualenv安装tensorflow"><a href="#使用virtualenv安装tensorflow" class="headerlink" title="使用virtualenv安装tensorflow"></a>使用virtualenv安装tensorflow</h3><p>在安装好了基于python3的gpu版本的tensorflow后，我再使用virtualenv安装了基于python2.7的cpu版本tensorflow。<br>首先安装python2.7适配的virtualenv：<br><code>sudo apt-get install python-pip python-dev python-virtualenv</code></p>
 <p>然后创建工作目录<code>targetDirectory</code>这个目录我选择的是~/tensorflow.<br><code>virtualenv --system-site-packages targetDirectory</code></p>
