@@ -90,14 +90,17 @@
 
 
 
+<meta name="description" content="以下简单介绍 jupyter notebook、pandas 数据处理包、numpy 科学计算库。 jupyter notebook安装jupyter notebook：对于python3是这样pip3 install jupyter。运行jupyter notebook：客户端输入jupyter notebook。">
 <meta name="keywords" content="basic skill">
 <meta property="og:type" content="article">
 <meta property="og:title" content="jupyter notebook &amp; pandas &amp; numpy">
 <meta property="og:url" content="http://yoursite.com/2017/07/13/JupyterPandasNumpy/index.html">
 <meta property="og:site_name" content="MemoryCrash">
-<meta property="og:updated_time" content="2017-07-13T02:25:43.000Z">
+<meta property="og:description" content="以下简单介绍 jupyter notebook、pandas 数据处理包、numpy 科学计算库。 jupyter notebook安装jupyter notebook：对于python3是这样pip3 install jupyter。运行jupyter notebook：客户端输入jupyter notebook。">
+<meta property="og:updated_time" content="2017-07-13T03:26:46.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jupyter notebook &amp; pandas &amp; numpy">
+<meta name="twitter:description" content="以下简单介绍 jupyter notebook、pandas 数据处理包、numpy 科学计算库。 jupyter notebook安装jupyter notebook：对于python3是这样pip3 install jupyter。运行jupyter notebook：客户端输入jupyter notebook。">
 
 
 
@@ -422,7 +425,13 @@
       
 
       
-        <a id="more"></a>
+        <p>以下简单介绍 jupyter notebook、pandas 数据处理包、numpy 科学计算库。</p>
+<h2 id="jupyter-notebook"><a href="#jupyter-notebook" class="headerlink" title="jupyter notebook"></a>jupyter notebook</h2><p>安装jupyter notebook：对于python3是这样<code>pip3 install jupyter</code>。<br>运行jupyter notebook：客户端输入<code>jupyter notebook</code>。<br><a id="more"></a><br>我的运行环境是macbook，在实际运行jupyter的时候出现<code>execution error: “&quot;http://localhost:8888/tree&quot;”不理解“open location”信息。 (-1708)</code>的错误。解决办法是首先运行这个命令<code>jupyter notebook --generate-config</code>生成<code>~/.jupyter</code>配置文件目录。然后找到<code>jupyter_notebook_config.py</code>文件，并做如下修改：     </p>
+<pre><code>c.NotebookApp.browser = u&apos;Safari&apos;
+c.NotebookApp.token = &apos;&apos;
+c.NotebookApp.password = &apos;&apos;
+</code></pre><p>接下来就可以使用了。使用<code>ctrl+c</code>来发送退出信号，“是否退出”-选择yes完成退出。<br>jupyter notebook 练习参考<a href="http://www.codingpy.com/article/getting-started-with-jupyter-notebook-part-1/?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">Jupyter Notebook 快速入门（上）</a>，<a href="http://www.codingpy.com/article/getting-started-with-jupyter-notebook-part-2/" target="_blank" rel="external">Jupyter Notebook 快速入门（下）</a><br>jupyter notebook 同样支持 markdown 也就支持了 laTex 公式的编辑和使用 HTML 插入图片。习惯使用 markdown 编写文档的话在 jupyter notebook 上也能无缝衔接。<br>嵌入<code>matplotlib</code>进行绘图。写文章做笔记的时候很困扰的一件事件就是将绘制的图形附在文章中。现在jupyter notebook提供了将matplotlib嵌入到笔记中的方式。在单元格中填写<code>%matplotlib inline</code>然后新增一个单元格来进行绘图即可。</p>
+
       
     </div>
 
@@ -526,8 +535,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/storm-soldier.png"
@@ -600,6 +618,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#jupyter-notebook"><span class="nav-number">1.</span> <span class="nav-text">jupyter notebook</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       

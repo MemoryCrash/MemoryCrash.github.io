@@ -5,7 +5,13 @@
     <entry>
       <title><![CDATA[jupyter notebook & pandas & numpy]]></title>
       <url>/2017/07/13/JupyterPandasNumpy/</url>
-      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      <content type="html"><![CDATA[<p>以下简单介绍 jupyter notebook、pandas 数据处理包、numpy 科学计算库。</p>
+<h2 id="jupyter-notebook"><a href="#jupyter-notebook" class="headerlink" title="jupyter notebook"></a>jupyter notebook</h2><p>安装jupyter notebook：对于python3是这样<code>pip3 install jupyter</code>。<br>运行jupyter notebook：客户端输入<code>jupyter notebook</code>。<br><a id="more"></a><br>我的运行环境是macbook，在实际运行jupyter的时候出现<code>execution error: “&quot;http://localhost:8888/tree&quot;”不理解“open location”信息。 (-1708)</code>的错误。解决办法是首先运行这个命令<code>jupyter notebook --generate-config</code>生成<code>~/.jupyter</code>配置文件目录。然后找到<code>jupyter_notebook_config.py</code>文件，并做如下修改：     </p>
+<pre><code>c.NotebookApp.browser = u&apos;Safari&apos;
+c.NotebookApp.token = &apos;&apos;
+c.NotebookApp.password = &apos;&apos;
+</code></pre><p>接下来就可以使用了。使用<code>ctrl+c</code>来发送退出信号，“是否退出”-选择yes完成退出。<br>jupyter notebook 练习参考<a href="http://www.codingpy.com/article/getting-started-with-jupyter-notebook-part-1/?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="external">Jupyter Notebook 快速入门（上）</a>，<a href="http://www.codingpy.com/article/getting-started-with-jupyter-notebook-part-2/" target="_blank" rel="external">Jupyter Notebook 快速入门（下）</a><br>jupyter notebook 同样支持 markdown 也就支持了 laTex 公式的编辑和使用 HTML 插入图片。习惯使用 markdown 编写文档的话在 jupyter notebook 上也能无缝衔接。<br>嵌入<code>matplotlib</code>进行绘图。写文章做笔记的时候很困扰的一件事件就是将绘制的图形附在文章中。现在jupyter notebook提供了将matplotlib嵌入到笔记中的方式。在单元格中填写<code>%matplotlib inline</code>然后新增一个单元格来进行绘图即可。</p>
+]]></content>
       
         <categories>
             
