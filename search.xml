@@ -3,6 +3,26 @@
   
     
     <entry>
+      <title><![CDATA[jupyter notebook & pandas & numpy]]></title>
+      <url>/2017/07/13/JupyterPandasNumpy/</url>
+      <content type="html"><![CDATA[<a id="more"></a>]]></content>
+      
+        <categories>
+            
+            <category> tool </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> basic skill </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[最大似然估计]]></title>
       <url>/2017/07/10/mechinabasic/</url>
       <content type="html"><![CDATA[<p><strong>独立同分布(IID)</strong>：在概率统计理论中，如果变量序列或者其他随机变量有相同的概率分布，并且互相独立，那么这些随机变量是独立同分布。随机变量独立是指X1的取值不影响X2的取值，X2的取值不影响X1的取值。<br><strong>最大似然估计</strong>：在已知试验结果的情况下，用来估计满足这些样本分布的参数，把可能性最大的参数作为真实的参数估计。最大似然估计中采样，需要假设采样结果都是独立同分布。f是已知模型，$x_1$,$x_2$,…,$x_3$是独立同分布的采样数据。$\theta$是未知的模型参数。<br>$f(x_1,x_2,…x_n|\theta )=f(x_1|\theta )*f(x_2|\theta )…f(x_n|\theta )$<br><a id="more"></a><br>$L(\theta |x_1,x_2…,x_n)=f(x_1,…,x_n|\theta )=\prod_{i=1}^{n}f(x_i|\theta )$<br>取对数将乘法转换为加法方便计算。<br>$ln(\theta |x_1,x_2…,x_n)=\sum_{i=1}^{n}lnf(x_i|\theta)$<br>取对数似然平均值。<br>$\hat{l}=\frac{1}{n}lnL$<br>最大似然估计就是取使得$\hat{l}$获得最大值的$\theta$<br>$\theta _{mle}=argmax\hat{l}(\theta |x_1,…,x_n)$</p>
