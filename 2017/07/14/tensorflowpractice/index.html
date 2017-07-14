@@ -90,17 +90,17 @@
 
 
 
-<meta name="description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决">
+<meta name="description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决。">
 <meta name="keywords" content="tensorflow">
 <meta property="og:type" content="article">
 <meta property="og:title" content="tensoflow练习">
 <meta property="og:url" content="http://yoursite.com/2017/07/14/tensorflowpractice/index.html">
 <meta property="og:site_name" content="MemoryCrash">
-<meta property="og:description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决">
-<meta property="og:updated_time" content="2017-07-14T03:09:19.000Z">
+<meta property="og:description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决。">
+<meta property="og:updated_time" content="2017-07-14T07:39:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tensoflow练习">
-<meta name="twitter:description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决">
+<meta name="twitter:description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决。">
 
 
 
@@ -425,7 +425,11 @@
       
 
       
-        <p>使用<code>scp</code>在两台linux机器之间传送文件是一个常用的方式<code>scp localfilepath user@remoteip:filepath</code>如果发现出现了<code>premisson denied</code>权限的错误可以将远程目录的权限改为<code>sudo chmod 777 file</code>一般这样就可以了。<a href="http://www.jianshu.com/p/bb71b43e3389" target="_blank" rel="external">参考:SCP命令之Permission denied-已解决</a><br><a id="more"></a>  </p>
+        <p>使用<code>scp</code>在两台linux机器之间传送文件是一个常用的方式<code>scp localfilepath user@remoteip:filepath</code>如果发现出现了<code>premisson denied</code>权限的错误可以将远程目录的权限改为<code>sudo chmod 777 file</code>一般这样就可以了。<a href="http://www.jianshu.com/p/bb71b43e3389" target="_blank" rel="external">参考:SCP命令之Permission denied-已解决</a>。<br><a id="more"></a><br>这次我们使用的数据是<a href="https://www.cs.toronto.edu/~kriz/cifar.html" target="_blank" rel="external">CIFAR-10</a>它的数据格式是这样多的：</p>
+<blockquote>
+<p>data – a 10000x3072 numpy array of uint8s. Each row of the array stores a 32x32 colour image. The first 1024 entries contain the red channel values, the next 1024 the green, and the final 1024 the blue. The image is stored in row-major order, so that the first 32 entries of the array are the red channel values of the first row of the image.</p>
+</blockquote>
+<p>CIFAR-10的原始数据是按照<code>[image_number，channel，height，width]</code>的形式存储的：留意tensorflow中在处理图像数据的时候要求的数据格式是<code>[image_number,height,width,channel]</code>不符合这样要求的格式需要去调整。这里可以使用transpose来进行调整一个<code>1*2*3</code>的矩阵A调整成<code>3*2*1</code>的矩阵可以使用<code>A_ = A.transpose([2,1,0])</code>这样来调整。元素按照这样来变化$hat{A}_{k,j,i}=A_{i,j,k}$<a href="http://www.cnblogs.com/vin-yuan/p/5066922.html" target="_blank" rel="external">参考:numpy扎记</a>。这里为什么不用<code>reshape</code>呢，我理解<code>reshape</code>比较适合将一个一维的原始数据进行改变。但是如果要在多维数据上进行调整还是需要使用<code>transpose</code>因为它是在了解了原始数据多维结构的基础上进行的调整。</p>
 
       
     </div>
