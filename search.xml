@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title><![CDATA[tensoflow练习]]></title>
+      <url>/2017/07/14/tensorflowpractice/</url>
+      <content type="html"><![CDATA[<p>使用<code>scp</code>在两台linux机器之间传送文件是一个常用的方式<code>scp localfilepath user@remoteip:filepath</code>如果发现出现了<code>premisson denied</code>权限的错误可以将远程目录的权限改为<code>sudo chmod 777 file</code>一般这样就可以了。<a href="http://www.jianshu.com/p/bb71b43e3389" target="_blank" rel="external">参考:SCP命令之Permission denied-已解决</a><br><a id="more"></a>  </p>
+]]></content>
+      
+        <categories>
+            
+            <category> deep learning </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> tensorflow </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[jupyter notebook & pandas & numpy]]></title>
       <url>/2017/07/13/JupyterPandasNumpy/</url>
       <content type="html"><![CDATA[<p>以下简单介绍 jupyter notebook、pandas 数据处理包、numpy 科学计算库。</p>
@@ -388,9 +409,9 @@ $sudo ldconfig
         
         <tags>
             
-            <tag> tensorflow </tag>
-            
             <tag> transfer learning </tag>
+            
+            <tag> tensorflow </tag>
             
         </tags>
         
