@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/14/tensorflowpractice/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决。">
-<meta property="og:updated_time" content="2017-07-14T10:56:15.000Z">
+<meta property="og:updated_time" content="2017-07-14T15:36:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tensoflow练习">
 <meta name="twitter:description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决。">
@@ -432,7 +432,9 @@
 <p>CIFAR-10的原始数据是按照<code>[image_number，channel，height，width]</code>的形式存储的：留意tensorflow中在处理图像数据的时候要求的数据格式是<code>[image_number,height,width,channel]</code>不符合这样要求的格式需要去调整。这里可以使用transpose来进行调整一个<code>1*2*3</code>的矩阵A调整成<code>3*2*1</code>的矩阵可以使用<code>A_ = A.transpose([2,1,0])</code>这样来调整。元素按照这样来变化$hat{A}_{k,j,i}=A_{i,j,k}$<a href="http://www.cnblogs.com/vin-yuan/p/5066922.html" target="_blank" rel="external">参考:numpy扎记</a>。这里为什么不用<code>reshape</code>呢，我理解<code>reshape</code>比较适合将一个一维的原始数据进行改变。但是如果要在多维数据上进行调整还是需要使用<code>transpose</code>因为它是在了解了原始数据多维结构的基础上进行的调整。</p>
 <p><strong>注意</strong>：其实常困惑在一些运算中的参数axis或者dimension也就是维度信息。这个其实就按照维度来进行理解就可以，比如argmax(dimension=0)就是对维度为0上的元素进行取最大值索引操作如果比较的元素是列表就对元素内部的子元素进行逐一的计算。比如</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a=[[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">4</span>,<span class="number">3</span>],[<span class="number">5</span>,<span class="number">6</span>]] </div><div class="line">tf.argmax(a, dimension=<span class="number">0</span>)</div><div class="line">&gt;&gt; <span class="number">2</span>,<span class="number">2</span></div></pre></td></tr></table></figure>
-<h3 id="输入数据"><a href="#输入数据" class="headerlink" title="输入数据"></a>输入数据</h3><p>通过对原始数据的随机裁剪，水平翻转，调整色调、对比度和饱和度来扩充训练图像。对于测试数据只进行裁剪。<br>随机裁剪图片：<code>tf.random_crop</code><br>随机左右翻转图片：<code>tf.image.random_flip_left_right</code><br>随机色调调整：<code>tf.image.random_hue</code><br>随机对比度调整：<code>tf.image.random_contrast</code><br>随机亮度调整：<code>tf.image.random_brightness</code><br>随机饱和度调整：<code>tf.image.random_saturation</code><br>限制大小范围：<br><code>tf.minimum(image, 1.0)</code>：对大于1的数进行截断<br><code>tf.maximum(image, 0.0)</code>：对小于0的数进行截断     </p>
+<h3 id="输入数据"><a href="#输入数据" class="headerlink" title="输入数据"></a>输入数据</h3><p>通过对原始数据的随机裁剪，水平翻转，调整色调、对比度和饱和度来扩充训练图像。对于测试数据只进行裁剪。<br>随机裁剪图片：<code>tf.random_crop</code><br>随机左右翻转图片：<code>tf.image.random_flip_left_right</code><br>随机色调调整：<code>tf.image.random_hue</code><br>随机对比度调整：<code>tf.image.random_contrast</code><br>随机亮度调整：<code>tf.image.random_brightness</code><br>随机饱和度调整：<code>tf.image.random_saturation</code><br>限制大小范围：<br><code>tf.minimum(image, 1.0)</code>：对大于1的数进行截断<br><code>tf.maximum(image, 0.0)</code>：对小于0的数进行截断<br>解压压缩包tar:<code>tar xvf FileName.tar</code>       </p>
+<h3 id="GPU使用"><a href="#GPU使用" class="headerlink" title="GPU使用"></a>GPU使用</h3><p>tensorflow在设备有GPU的情况下会默认调用GPU</p>
+<h3 id="训练中出现的问题"><a href="#训练中出现的问题" class="headerlink" title="训练中出现的问题"></a>训练中出现的问题</h3><p>出现这样的错误：<code>CUDNN_STATUS_INTERNAL_ERROR</code>我这里的原因是运行脚本的时候没有加上<code>sudo</code>。<br>试验了一个网络训练的例子，教程中4核cpu需要15小时训练15万个迭代，使用单个的1080ti的gpu只需要1个小时即可。但是机箱温度上升很快，机箱没有配置自带的散热风扇可能也是温度升高快的原因。     </p>
 
       
     </div>
@@ -630,7 +632,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入数据"><span class="nav-number">1.</span> <span class="nav-text">输入数据</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入数据"><span class="nav-number">1.</span> <span class="nav-text">输入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU使用"><span class="nav-number">2.</span> <span class="nav-text">GPU使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练中出现的问题"><span class="nav-number">3.</span> <span class="nav-text">训练中出现的问题</span></a></li></ol></div>
             
 
           </div>
