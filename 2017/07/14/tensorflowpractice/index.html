@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/14/tensorflowpractice/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决。">
-<meta property="og:updated_time" content="2017-07-14T15:36:30.000Z">
+<meta property="og:updated_time" content="2017-07-14T15:41:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tensoflow练习">
 <meta name="twitter:description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决。">
@@ -434,7 +434,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a=[[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">4</span>,<span class="number">3</span>],[<span class="number">5</span>,<span class="number">6</span>]] </div><div class="line">tf.argmax(a, dimension=<span class="number">0</span>)</div><div class="line">&gt;&gt; <span class="number">2</span>,<span class="number">2</span></div></pre></td></tr></table></figure>
 <h3 id="输入数据"><a href="#输入数据" class="headerlink" title="输入数据"></a>输入数据</h3><p>通过对原始数据的随机裁剪，水平翻转，调整色调、对比度和饱和度来扩充训练图像。对于测试数据只进行裁剪。<br>随机裁剪图片：<code>tf.random_crop</code><br>随机左右翻转图片：<code>tf.image.random_flip_left_right</code><br>随机色调调整：<code>tf.image.random_hue</code><br>随机对比度调整：<code>tf.image.random_contrast</code><br>随机亮度调整：<code>tf.image.random_brightness</code><br>随机饱和度调整：<code>tf.image.random_saturation</code><br>限制大小范围：<br><code>tf.minimum(image, 1.0)</code>：对大于1的数进行截断<br><code>tf.maximum(image, 0.0)</code>：对小于0的数进行截断<br>解压压缩包tar:<code>tar xvf FileName.tar</code>       </p>
 <h3 id="GPU使用"><a href="#GPU使用" class="headerlink" title="GPU使用"></a>GPU使用</h3><p>tensorflow在设备有GPU的情况下会默认调用GPU</p>
-<h3 id="训练中出现的问题"><a href="#训练中出现的问题" class="headerlink" title="训练中出现的问题"></a>训练中出现的问题</h3><p>出现这样的错误：<code>CUDNN_STATUS_INTERNAL_ERROR</code>我这里的原因是运行脚本的时候没有加上<code>sudo</code>。<br>试验了一个网络训练的例子，教程中4核cpu需要15小时训练15万个迭代，使用单个的1080ti的gpu只需要1个小时即可。但是机箱温度上升很快，机箱没有配置自带的散热风扇可能也是温度升高快的原因。     </p>
+<h3 id="训练中出现的问题"><a href="#训练中出现的问题" class="headerlink" title="训练中出现的问题"></a>训练中出现的问题</h3><p>出现这样的错误：<code>CUDNN_STATUS_INTERNAL_ERROR</code>我这里的原因是运行脚本的时候没有加上<code>sudo</code>。<br>试验了一个网络训练的例子，教程中4核cpu需要15小时训练15万个迭代，使用单个的1080ti的gpu只需要1个小时即可。但是机箱温度上升很快，机箱没有配置自带的散热风扇可能也是温度升高快的原因。<br><code>shutdown -h now</code>: 现在立即关机。<br><code>shutdown -r now</code>: 现在立即重启。     </p>
 
       
     </div>
