@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/14/tensorflowpractice/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决。">
-<meta property="og:updated_time" content="2017-07-14T15:41:02.000Z">
+<meta property="og:updated_time" content="2017-07-15T04:57:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tensoflow练习">
 <meta name="twitter:description" content="使用scp在两台linux机器之间传送文件是一个常用的方式scp localfilepath user@remoteip:filepath如果发现出现了premisson denied权限的错误可以将远程目录的权限改为sudo chmod 777 file一般这样就可以了。参考:SCP命令之Permission denied-已解决。">
@@ -434,6 +434,9 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a=[[<span class="number">1</span>,<span class="number">2</span>],[<span class="number">4</span>,<span class="number">3</span>],[<span class="number">5</span>,<span class="number">6</span>]] </div><div class="line">tf.argmax(a, dimension=<span class="number">0</span>)</div><div class="line">&gt;&gt; <span class="number">2</span>,<span class="number">2</span></div></pre></td></tr></table></figure>
 <h3 id="输入数据"><a href="#输入数据" class="headerlink" title="输入数据"></a>输入数据</h3><p>通过对原始数据的随机裁剪，水平翻转，调整色调、对比度和饱和度来扩充训练图像。对于测试数据只进行裁剪。<br>随机裁剪图片：<code>tf.random_crop</code><br>随机左右翻转图片：<code>tf.image.random_flip_left_right</code><br>随机色调调整：<code>tf.image.random_hue</code><br>随机对比度调整：<code>tf.image.random_contrast</code><br>随机亮度调整：<code>tf.image.random_brightness</code><br>随机饱和度调整：<code>tf.image.random_saturation</code><br>限制大小范围：<br><code>tf.minimum(image, 1.0)</code>：对大于1的数进行截断<br><code>tf.maximum(image, 0.0)</code>：对小于0的数进行截断<br>解压压缩包tar:<code>tar xvf FileName.tar</code>       </p>
 <h3 id="GPU使用"><a href="#GPU使用" class="headerlink" title="GPU使用"></a>GPU使用</h3><p>tensorflow在设备有GPU的情况下会默认调用GPU</p>
+<h3 id="tensorboard"><a href="#tensorboard" class="headerlink" title="tensorboard"></a>tensorboard</h3><p>tensorboard是tensorflow提供的一个可视化的工具，通过<code>pip3 install tensorboard</code>来安装。按照好了以后在终端中使用<code>sudo tensorborad --logdir=YouLogDir</code>来运行。然后在chrome浏览器中输入<code>localhost:6006</code>登陆，就可以看到在浏览器中可视化的界面，但是如果你没有在代码中设置需要可视化的对象并且没有运行代码的话也是看不到信息的。</p>
+<p>首先我们可以可视化变量(HISTOGRAMS)就是模型中的权值，可视化常量(SCALARS)如模型中的损失值，还有神经网络的图表示等。</p>
+<p>如何可视化损失的变化呢？<br><code>summary = tf.summary.merge_all()</code>:整合所有需要关注的内容。<br><code>summary = tf.summary.FileWriter(logdir, sess.grahp)</code>:指定保持可视化文件的路径。这个操作应该放在<code>sess = tf.Session()</code>后面。<br>选择一个需要进行记录的位置，比如迭代过程中的时刻，每一百次记录一下。<br><code>summary_str = sess.run(summary, feed_dict=feedict)</code>:summary也是需要传入feed数据的而且就是训练的神经网络的数据。<br><code>summary_write.add_summary(summary_str, step)</code>:将这个步骤的可视化数据和迭代位置传入。<br><code>summary_write.Flush()</code>:刷新缓冲区，写入文件。     </p>
 <h3 id="训练中出现的问题"><a href="#训练中出现的问题" class="headerlink" title="训练中出现的问题"></a>训练中出现的问题</h3><p>出现这样的错误：<code>CUDNN_STATUS_INTERNAL_ERROR</code>我这里的原因是运行脚本的时候没有加上<code>sudo</code>。<br>试验了一个网络训练的例子，教程中4核cpu需要15小时训练15万个迭代，使用单个的1080ti的gpu只需要1个小时即可。但是机箱温度上升很快，机箱没有配置自带的散热风扇可能也是温度升高快的原因。<br><code>shutdown -h now</code>: 现在立即关机。<br><code>shutdown -r now</code>: 现在立即重启。     </p>
 
       
@@ -632,7 +635,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入数据"><span class="nav-number">1.</span> <span class="nav-text">输入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU使用"><span class="nav-number">2.</span> <span class="nav-text">GPU使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练中出现的问题"><span class="nav-number">3.</span> <span class="nav-text">训练中出现的问题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#输入数据"><span class="nav-number">1.</span> <span class="nav-text">输入数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GPU使用"><span class="nav-number">2.</span> <span class="nav-text">GPU使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tensorboard"><span class="nav-number">3.</span> <span class="nav-text">tensorboard</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练中出现的问题"><span class="nav-number">4.</span> <span class="nav-text">训练中出现的问题</span></a></li></ol></div>
             
 
           </div>
