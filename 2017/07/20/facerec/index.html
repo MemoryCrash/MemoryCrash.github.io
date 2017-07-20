@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/20/facerec/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="首先安装dlib来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。安装dlib前先sudo apt-get install libboost-python-dev cmake安装配套文件。然后使用sudo pip3 install dlib即可。">
-<meta property="og:updated_time" content="2017-07-20T06:14:12.000Z">
+<meta property="og:updated_time" content="2017-07-20T14:23:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="人脸识别简单实现">
 <meta name="twitter:description" content="首先安装dlib来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。安装dlib前先sudo apt-get install libboost-python-dev cmake安装配套文件。然后使用sudo pip3 install dlib即可。">
@@ -442,7 +442,7 @@
 <p>执行安装:<code>sudo make install</code>，完整完成后便可以使用。</p>
 <p><a href="http://www.cnblogs.com/arkenstone/p/6490017.html" target="_blank" rel="external">参考:Ubuntu16.04下安装OpenCV3.2.0</a><br><a href="https://github.com/BVLC/caffe/wiki/OpenCV-3.2-Installation-Guide-on-Ubuntu-16.04" target="_blank" rel="external">参考：OpenCV 3.2 Installation Guide on Ubuntu 16.04</a></p>
 <h3 id="获取个人图片"><a href="#获取个人图片" class="headerlink" title="获取个人图片"></a>获取个人图片</h3><p>使用编写的程序获取个人头像，然后再通过对图像的色调修改和对比度或者左右翻转来增加图片的量直到图片有1万张。在个人的macbook pro上执行获取个人图像和将图像随机进行色调，对比度，等的变化特别消耗时间。估计在10个小时范围。在ubuntu下可以使用<code>display xxx.jpg</code>来查看图像。</p>
-<p>在程序中显示图片，使用<code>img = cv2.imread(&#39;path&#39;)</code>读取图片，创建窗口<code>cv2.nameWindow(&#39;Image&#39;)</code>显示图片<code>cv2.imshow(&#39;Image&#39;,img)</code>。等待<code>cv2.waitKey(0)</code>，显示完毕后关闭窗口<code>cv2.destroyAllWindows()</code>。</p>
+<p>在程序中显示图片，使用<code>img = cv2.imread(&#39;path&#39;)</code>读取图片，创建窗口<code>cv2.namedWindow(&#39;Image&#39;)</code>显示图片<code>cv2.imshow(&#39;Image&#39;,img)</code>。等待<code>cv2.waitKey(0)</code>，显示完毕后关闭窗口<code>cv2.destroyAllWindows()</code>。</p>
 <h3 id="生成tfrecord文件"><a href="#生成tfrecord文件" class="headerlink" title="生成tfrecord文件"></a>生成tfrecord文件</h3><p>将训练图像转换为tfrecord文件。</p>
 <h3 id="读取tfrecord文件"><a href="#读取tfrecord文件" class="headerlink" title="读取tfrecord文件"></a>读取tfrecord文件</h3><p>读取tfrecords文件并做简单处理入将数值范围由0到255缩小为0到1。读取tfrecords中会选择使用<code>tf.train.shuffle_batch([image, label], batch_size, capacity, min_after_dequeue)</code>这里<code>[image, label]</code>样本以及其标签数据，batch_size表示输出的一个批次数据，capacity表示队列中数据的最大数，min_after_dequeue表示这个队列开始重新添加数据的最小值。</p>
 <p>在初始化数据的时候似乎需要<code>tf.local_variables_initializer()</code>。<br>启动一个线程：<br><code>coord = tf.train.Coordinator()</code>.<br><code>threads = tf.train.strat_queue_runners(sess=sess, coord=coord)</code>.<br>使用<code>sess.run()</code>来读取数据.<br>数据使用完毕关闭线程：<br><code>coord.request_stop()</code>.<br><code>coord.join(threads)</code>.      </p>
@@ -454,7 +454,10 @@
 <li>初始化。     </li>
 <li>启动QueueRunner。    </li>
 </ul>
-<h3 id="设计神经网络"><a href="#设计神经网络" class="headerlink" title="设计神经网络"></a>设计神经网络</h3><h3 id="训练和验证"><a href="#训练和验证" class="headerlink" title="训练和验证"></a>训练和验证</h3><h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><p>在编写读取tfrecords文件的程序时，进行<code>tf.train.shuffle_batch</code>操作时发生错误<code>All shapes must be fully defined:[TensorShape([Dimension(None)]),TensorShape([])]</code>这样的错误原因有很多。我这里的原因是进行<code>tf.reshpae(img,[64,64,3])</code>这个操作时，没有接收返回值，所以失败。改成这样就好了<code>img = tf.reshpae(img,[64,64,3])</code></p>
+<h3 id="设计神经网络"><a href="#设计神经网络" class="headerlink" title="设计神经网络"></a>设计神经网络</h3><p>使用在tensorflow基础上进行封装的<code>prettytensor</code>来构建神经网络。有两个卷积层每个卷积层配套一个max_pool，然后是两个全连接层接着是输出两个值的softmax层。创建网络的时候设计为训练和测试可以复用的形式。</p>
+<p>增加了一个加载CheckPoint的函数，可以在训练前加载先前保存的训练数据，这样的函数是在长时的训练过程中避免意外导致所以训练功亏一篑。</p>
+<h3 id="训练和验证"><a href="#训练和验证" class="headerlink" title="训练和验证"></a>训练和验证</h3><p>在训练中需要注意将输入到模型label应该转换为one-hot数据。然后使用tfrecords数据来进行训练和测试，在验证测试集的时候选择一次读出指定的数据。最后每次使用最后一次保存的模型信息来进行具体的应用。</p>
+<h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><p>在编写读取tfrecords文件的程序时，进行<code>tf.train.shuffle_batch</code>操作时发生错误<code>All shapes must be fully defined:[TensorShape([Dimension(None)]),TensorShape([])]</code>这样的错误原因有很多。我这里的原因是进行<code>tf.reshpae(img,[64,64,3])</code>这个操作时，没有接收返回值，所以失败。改成这样就好了<code>img = tf.reshpae(img,[64,64,3])</code></p>
 
       
     </div>
