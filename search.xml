@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[人脸识别简单视线]]></title>
+      <title><![CDATA[人脸识别简单实现]]></title>
       <url>/2017/07/20/facerec/</url>
       <content type="html"><![CDATA[<p>首先安装<code>dlib</code>来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。<br>安装<code>dlib</code>前先<code>sudo apt-get install libboost-python-dev cmake</code>安装配套文件。<br>然后使用<code>sudo pip3 install dlib</code>即可。<br><a id="more"></a> </p>
 <h3 id="在mac下安装opencv"><a href="#在mac下安装opencv" class="headerlink" title="在mac下安装opencv"></a>在mac下安装opencv</h3><p>安装opencv使用：<code>sudo pip3 install opencv-python</code>，导入的时候为<code>import cv2</code>。<br>在mac上安装可以参考此<a href="http://www.pyimagesearch.com/2017/03/27/how-to-install-dlib/" target="_blank" rel="external">文章</a><br>简单说如下来安装     </p>
