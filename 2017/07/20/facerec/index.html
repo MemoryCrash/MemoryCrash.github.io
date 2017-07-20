@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/20/facerec/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="首先安装dlib来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。安装dlib前先sudo apt-get install libboost-python-dev cmake安装配套文件。然后使用sudo pip3 install dlib即可。">
-<meta property="og:updated_time" content="2017-07-20T14:23:02.000Z">
+<meta property="og:updated_time" content="2017-07-20T14:38:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="人脸识别简单实现">
 <meta name="twitter:description" content="首先安装dlib来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。安装dlib前先sudo apt-get install libboost-python-dev cmake安装配套文件。然后使用sudo pip3 install dlib即可。">
@@ -458,6 +458,7 @@
 <p>增加了一个加载CheckPoint的函数，可以在训练前加载先前保存的训练数据，这样的函数是在长时的训练过程中避免意外导致所以训练功亏一篑。</p>
 <h3 id="训练和验证"><a href="#训练和验证" class="headerlink" title="训练和验证"></a>训练和验证</h3><p>在训练中需要注意将输入到模型label应该转换为one-hot数据。然后使用tfrecords数据来进行训练和测试，在验证测试集的时候选择一次读出指定的数据。最后每次使用最后一次保存的模型信息来进行具体的应用。</p>
 <h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><p>在编写读取tfrecords文件的程序时，进行<code>tf.train.shuffle_batch</code>操作时发生错误<code>All shapes must be fully defined:[TensorShape([Dimension(None)]),TensorShape([])]</code>这样的错误原因有很多。我这里的原因是进行<code>tf.reshpae(img,[64,64,3])</code>这个操作时，没有接收返回值，所以失败。改成这样就好了<code>img = tf.reshpae(img,[64,64,3])</code></p>
+<p><a href="https://github.com/MemoryCrash/MachineLearningPractice/tree/master/recognizeface" target="_blank" rel="external">实现代码</a></p>
 
       
     </div>
