@@ -472,9 +472,9 @@ $sudo ldconfig
         
         <tags>
             
-            <tag> transfer learning </tag>
-            
             <tag> tensorflow </tag>
+            
+            <tag> transfer learning </tag>
             
         </tags>
         
