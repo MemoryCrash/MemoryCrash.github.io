@@ -74,7 +74,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="word embedding," />
+  <meta name="keywords" content="tensorflow," />
 
 
 
@@ -90,19 +90,17 @@
 
 
 
-<meta name="description" content="我们在进行神经网络的训练时，输入的数据可以是图片，也可以是文字。对于图片来讲，图片拥有的所有的信息都已经存在，就是那些色彩通道值和像素点。我们可以将一个图片的信息放置在一个高维空间作为一个点，而很多个类似的图片可能在空间中就会出现某个固定的分布。但是对于文字呢？文字是人创造出来的符号。这个符号背后的意义是我们人赋予的，但是机器并不了解，或者说单个的词本身并没有含义。就像我们看到一个非母语词汇也会完">
-<meta name="keywords" content="word embedding">
+<meta name="description" content="首先安装dlib来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。安装dlib前先sudo apt-get install libboost-python-dev cmake安装配套文件。然后使用sudo pip3 install dlib即可。">
+<meta name="keywords" content="tensorflow">
 <meta property="og:type" content="article">
-<meta property="og:title" content="word embedding学习笔记">
-<meta property="og:url" content="http://yoursite.com/2017/06/17/wordembedding/index.html">
+<meta property="og:title" content="人脸识别简单视线">
+<meta property="og:url" content="http://yoursite.com/2017/07/20/facerec/index.html">
 <meta property="og:site_name" content="MemoryCrash">
-<meta property="og:description" content="我们在进行神经网络的训练时，输入的数据可以是图片，也可以是文字。对于图片来讲，图片拥有的所有的信息都已经存在，就是那些色彩通道值和像素点。我们可以将一个图片的信息放置在一个高维空间作为一个点，而很多个类似的图片可能在空间中就会出现某个固定的分布。但是对于文字呢？文字是人创造出来的符号。这个符号背后的意义是我们人赋予的，但是机器并不了解，或者说单个的词本身并没有含义。就像我们看到一个非母语词汇也会完">
-<meta property="og:image" content="http://yoursite.com/image/wordembd/cbow.png">
-<meta property="og:updated_time" content="2017-06-16T14:11:08.000Z">
+<meta property="og:description" content="首先安装dlib来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。安装dlib前先sudo apt-get install libboost-python-dev cmake安装配套文件。然后使用sudo pip3 install dlib即可。">
+<meta property="og:updated_time" content="2017-07-20T04:59:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="word embedding学习笔记">
-<meta name="twitter:description" content="我们在进行神经网络的训练时，输入的数据可以是图片，也可以是文字。对于图片来讲，图片拥有的所有的信息都已经存在，就是那些色彩通道值和像素点。我们可以将一个图片的信息放置在一个高维空间作为一个点，而很多个类似的图片可能在空间中就会出现某个固定的分布。但是对于文字呢？文字是人创造出来的符号。这个符号背后的意义是我们人赋予的，但是机器并不了解，或者说单个的词本身并没有含义。就像我们看到一个非母语词汇也会完">
-<meta name="twitter:image" content="http://yoursite.com/image/wordembd/cbow.png">
+<meta name="twitter:title" content="人脸识别简单视线">
+<meta name="twitter:description" content="首先安装dlib来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。安装dlib前先sudo apt-get install libboost-python-dev cmake安装配套文件。然后使用sudo pip3 install dlib即可。">
 
 
 
@@ -130,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/17/wordembedding/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/07/20/facerec/"/>
 
 
 
 
 
-  <title>word embedding学习笔记 | MemoryCrash</title>
+  <title>人脸识别简单视线 | MemoryCrash</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -319,7 +317,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/17/wordembedding/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/20/facerec/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Dailei">
@@ -336,7 +334,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">word embedding学习笔记</h1>
+          <h1 class="post-title" itemprop="name headline">人脸识别简单视线</h1>
         
 
         <div class="post-meta">
@@ -348,8 +346,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-17T00:00:00+08:00">
-                2017-06-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-20T00:00:00+08:00">
+                2017-07-20
               </time>
             
 
@@ -389,9 +387,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/06/17/wordembedding/#comments" itemprop="discussionUrl">
+                <a href="/2017/07/20/facerec/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/06/17/wordembedding/" itemprop="commentCount"></span>
+                        data-disqus-identifier="2017/07/20/facerec/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -399,7 +397,7 @@
 
           
           
-             <span id="/2017/06/17/wordembedding/" class="leancloud_visitors" data-flag-title="word embedding学习笔记">
+             <span id="/2017/07/20/facerec/" class="leancloud_visitors" data-flag-title="人脸识别简单视线">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -427,20 +425,35 @@
       
 
       
-        <p>我们在进行神经网络的训练时，输入的数据可以是图片，也可以是文字。对于图片来讲，图片拥有的所有的信息都已经存在，就是那些色彩通道值和像素点。我们可以将一个图片的信息放置在一个高维空间作为一个点，而很多个类似的图片可能在空间中就会出现某个固定的分布。但是对于文字呢？文字是人创造出来的符号。这个符号背后的意义是我们人赋予的，但是机器并不了解，或者说单个的词本身并没有含义。就像我们看到一个非母语词汇也会完全摸不到头脑一样。<br><a id="more"></a></p>
-<h2 id="one-hot"><a href="#one-hot" class="headerlink" title="one-hot"></a>one-hot</h2><p>我们要做事情是第一让机器可以理解词，其中一个方法就是使用词向量，将一个词表示为一个向量的意思。一种最简单的方式是one-hot。实现方式是建立一个词表V，|V|表示词表的大小。用长度是|V|的且第n个位置是1词向量来表示一个在词表V中索引是n的单词。但是这种方法并不能体现出词与词之间的关系，因为它们都各自占据了一个位置完全没有交集，比如说“黑猫”，“白猫”在使用one-hot表示体现不出这两个词都表示猫这样的相似性。而且这样的表示对空间的需求量极大。</p>
-<h2 id="word2vector"><a href="#word2vector" class="headerlink" title="word2vector"></a>word2vector</h2><p>word2vector是word embedding思想的一种实现(以下以CBOW举例)，我们的目的就是让一个词向量可以表示一个词更多的信息。然后这个获得的过程可以通过训练得到，过程是这样的。首先我们创建两个矩阵$\nu \in R^{n\times |V|}$和$\upsilon \in R^{|V|\times n}$其中n表示词向量的维度。$\nu$是输入词矩阵，$\upsilon$是输出词矩阵。</p>
-<ol>
-<li>我们从输入的上下文中产生one-hot词向量，m:($x^(c-m),…x^(c-1),x^(c+1),…x^(c+m)\in R^{|V|}$).</li>
-<li>获得前入词向量($v_{c-m}=\nu x^(c-m),v_{c-m+1}=\nu x^(c-m+1),…,v_{c+m}=\nu x^(c+m)\in R^{n}$).</li>
-<li>取这些向量的平均值$\hat{v}=\frac{v_{c-m}+v_{c-m+1}…v_{c+m}}{2m}\in R^n$.</li>
-<li>参生一个得分矩阵$z=\upsilon \hat{v}\in R^{|V|}$.相似的向量的点积结果更大，相似的单词得分也会相近也就会倾向分布在同一个区域。</li>
-<li>将得分进行转换为概率$\hat{y}=softmax(z)\in R^|V|$.</li>
-<li>希望这样产生的概率$\hat{y}\in R^|V|$，和真实的概率，$y\in R^|V|$匹配。而真实的概率就是对应词的one-hot向量。</li>
-</ol>
-<p>对应的图形是：<br><img src="/image/wordembd/cbow.png" width="60%" height="60%/">  </p>
-<p>在训练过程中我们还需要一个损失函数，很自然的就可以想到交叉熵损失函数。<br>$$H(\hat{y},y)=-\sum_{j=1}^{|V|}y_{j}log(\hat{y}_{j})$$<br>因为y是一个one-hot向量实际只有一个位置是1，所以上面的式子可以进一步化简为。<br>$$H(\hat{y},y)=-y_{j}log(\hat{y}_{j})$$<br>接下来我们最小化的对象就变成了如下形式：<br>$min J=-logP(w_c|w_{c-m},…,w_{c-1},w_{c+1},…,w_{c+m})$<br>$=-logP(u_c|\hat{v})$<br>$=-log\frac{exp(u^{T}_{c}\hat{v})}{\sum_{j=1}^{V}exp(u^{T}_{j}\hat{v})}$<br>$=-u^{T}_{c}\hat{v}+log\sum_{j=1}^{|V|}exp(u^{T}_{j}\hat{v})$<br>我们可以使用随机梯度下降来进行计算更新$u_{c}$和$v_{j}$。$u_{c}$就是我们需要的词向量。    </p>
-<p>参考文件：<br><a href="http://web.stanford.edu/class/cs224n/lecture_notes/cs224n-2017-notes1.pdf" target="_blank" rel="external">[1] cs224n-2017-notes1</a><br><a href="http://blog.csdn.net/han_xiaoyang/article/details/51567822" target="_blank" rel="external">[2] 深度学习与自然语言处理(1)_斯坦福cs224d Lecture 1</a></p>
+        <p>首先安装<code>dlib</code>来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。<br>安装<code>dlib</code>前先<code>sudo apt-get install libboost-python-dev cmake</code>安装配套文件。<br>然后使用<code>sudo pip3 install dlib</code>即可。<br><a id="more"></a> </p>
+<h3 id="在mac下安装opencv"><a href="#在mac下安装opencv" class="headerlink" title="在mac下安装opencv"></a>在mac下安装opencv</h3><p>安装opencv使用：<code>sudo pip3 install opencv-python</code>，导入的时候为<code>import cv2</code>。<br>在mac上安装可以参考此<a href="http://www.pyimagesearch.com/2017/03/27/how-to-install-dlib/" target="_blank" rel="external">文章</a><br>简单说如下来安装     </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">brew install cmake</div><div class="line">brew install boost</div><div class="line">brew install boost-python --with-python3</div><div class="line">pip3 install dlib</div></pre></td></tr></table></figure>
+<p>在mac上安装opencv需要先在系统中安装。<br><code>brew tap homebrew/science</code><br><code>brew install opencv3 --with-python3 --with-contrib --without-python</code><br>安装完成后添加执行此命令添加路径信息。      </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo &apos;export PATH=&quot;/usr/local/opt/opencv3/bin:$PATH&quot;&apos; &gt;&gt; ~/.bash_profile</div></pre></td></tr></table></figure>
+<p>这样安装后仍然在<code>import cv2</code>的时候失败，然后将<code>cp cv2.cpython-35m-darwin.so numpy in /Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages</code>执行，可解决问题。       </p>
+<p><strong>注意</strong>：在python3上安装opencv需要添加参数<code>--without-python</code>否则会出现错误<code>Error: opencv3: Does not support building both Python 2 and 3 wrappers</code>。<code>--with-contrib</code>指代新加不稳定的库，如果不需要可以不添加此参数。</p>
+<h3 id="在ubuntu下安装opencv"><a href="#在ubuntu下安装opencv" class="headerlink" title="在ubuntu下安装opencv"></a>在ubuntu下安装opencv</h3><p>安装依赖文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install --assume-yes build-essential cmake git</div><div class="line">sudo apt-get install --assume-yes pkg-config unzip ffmpeg qtbase5-dev python-dev python3-dev python-numpy python3-numpy</div><div class="line">sudo apt-get install --assume-yes libopencv-dev libgtk-3-dev libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff5-dev libjasper-dev</div><div class="line">sudo apt-get install --assume-yes libavcodec-dev libavformat-dev libswscale-dev libxine2-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev</div><div class="line">sudo apt-get install --assume-yes libv4l-dev libtbb-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev</div><div class="line">sudo apt-get install --assume-yes libvorbis-dev libxvidcore-dev v4l-utils python-vtk</div><div class="line">sudo apt-get install --assume-yes liblapacke-dev libopenblas-dev checkinstall</div><div class="line">sudo apt-get install --assume-yes libgdal-dev</div></pre></td></tr></table></figure></p>
+<p>下载源码:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/opencv/opencv.git</div><div class="line">git clone https://github.com/opencv/opencv_contrib.git</div></pre></td></tr></table></figure>
+<p>完成编译配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local PYTHON3_EXECUTABLE = /usr/bin/python3 PYTHON_INCLUDE_DIR = /usr/include/python3.5 PYTHON_INCLUDE_DIR2 = /usr/include/x86_64-linux-gnu/python3.5m PYTHON_LIBRARY = /usr/lib/x86_64-linux-gnu-python3/libpython3.5m.so PYTHON3_NUMPY_INCLUDE_DIRS = /usr/local/lib/python3.5/dist-packages/numpy/core/include/ OPENCV_EXTRA_MODULES_PATH=/home/opencv_contrib-3.2.0/modules WITH_CUDA=ON WITH_CUBLAS=ON DCUDA_NVCC_FLAGS=&quot;-D_FORCE_INLINES&quot; CUDA_ARCH_BIN=&quot;6.1&quot; CUDA_ARCH_PTX=&quot;&quot; CUDA_FAST_MATH=ON WITH_TBB=ON WITH_V4L=ON WITH_GTK=ON WITH_OPENGL=ON BUILD_EXAMPLES=ON ..</div></pre></td></tr></table></figure>
+<p>这里的<code>CUDA_ARCH_BIN=&quot;6.1&quot;</code>信息可以在nvidia的网站<a href="https://developer.nvidia.com/cuda-gpus" target="_blank" rel="external">查看</a></p>
+<p>执行编译:<code>sudo make -j4</code>这的j4表示4核cpu</p>
+<p>执行安装:<code>sudo make install</code>，完整完成后便可以使用。</p>
+<p><a href="http://www.cnblogs.com/arkenstone/p/6490017.html" target="_blank" rel="external">参考:Ubuntu16.04下安装OpenCV3.2.0</a><br><a href="https://github.com/BVLC/caffe/wiki/OpenCV-3.2-Installation-Guide-on-Ubuntu-16.04" target="_blank" rel="external">参考：OpenCV 3.2 Installation Guide on Ubuntu 16.04</a></p>
+<h3 id="获取个人图片"><a href="#获取个人图片" class="headerlink" title="获取个人图片"></a>获取个人图片</h3><p>使用编写的程序获取个人头像，然后再通过对图像的色调修改和对比度或者左右翻转来增加图片的量直到图片有1万张。在个人的macbook pro上执行获取个人图像和将图像随机进行色调，对比度，等的变化特别消耗时间。估计在10个小时范围。在ubuntu下可以使用<code>display xxx.jpg</code>来查看图像。</p>
+<h3 id="生成tfrecord文件"><a href="#生成tfrecord文件" class="headerlink" title="生成tfrecord文件"></a>生成tfrecord文件</h3><p>将训练图像转换为tfrecord文件。</p>
+<h3 id="读取tfrecord文件"><a href="#读取tfrecord文件" class="headerlink" title="读取tfrecord文件"></a>读取tfrecord文件</h3><p>读取tfrecords文件并做简单处理入将数值范围由0到255缩小为0到1。读取tfrecords中会选择使用<code>tf.train.shuffle_batch([image, label], batch_size, capacity, min_after_dequeue)</code>这里<code>[image, label]</code>样本以及其标签数据，batch_size表示输出的一个批次数据，capacity表示队列中数据的最大数，min_after_dequeue表示这个队列开始重新添加数据的最小值。</p>
+<p>在初始化数据的时候似乎需要<code>tf.local_variables_initializer()</code>。<br>启动一个线程：<br><code>coord = tf.train.Coordinator()</code>.<br><code>threads = tf.train.strat_queue_runners(sess=sess, coord=coord)</code>.<br>使用<code>sess.run()</code>来读取数据.<br>数据使用完毕关闭线程：<br><code>coord.request_stop()</code>.<br><code>coord.join(threads)</code>.      </p>
+<p>总结起来：</p>
+<ul>
+<li>生成tfrecords文件。    </li>
+<li>定义解析tfrecords文件。    </li>
+<li>构造批数据。    </li>
+<li>初始化。     </li>
+<li>启动QueueRunner。    </li>
+</ul>
+<h3 id="设计神经网络"><a href="#设计神经网络" class="headerlink" title="设计神经网络"></a>设计神经网络</h3><h3 id="训练和验证"><a href="#训练和验证" class="headerlink" title="训练和验证"></a>训练和验证</h3><h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><p>在编写读取tfrecords文件的程序时，进行<code>tf.train.shuffle_batch</code>操作时发生错误<code>All shapes must be fully defined:[TensorShape([Dimension(None)]),TensorShape([])]</code>这样的错误原因有很多。我这里的原因是进行<code>tf.reshpae(img,[64,64,3])</code>这个操作时，没有接收返回值，所以失败。改成这样就好了<code>img = tf.reshpae(img,[64,64,3])</code></p>
 
       
     </div>
@@ -470,7 +483,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/word-embedding/" rel="tag"># word embedding</a>
+            <a href="/tags/tensorflow/" rel="tag"># tensorflow</a>
           
         </div>
       
@@ -483,8 +496,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/06/16/GANs/" rel="next" title="GANs对抗生成网络学习笔记">
-                <i class="fa fa-chevron-left"></i> GANs对抗生成网络学习笔记
+              <a href="/2017/07/14/tensorflowpractice/" rel="next" title="tensoflow练习">
+                <i class="fa fa-chevron-left"></i> tensoflow练习
               </a>
             
           </div>
@@ -492,10 +505,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/06/27/reinforcementLearning/" rel="prev" title="ubuntu上安装tensorflow笔记">
-                ubuntu上安装tensorflow笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -642,7 +651,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#one-hot"><span class="nav-number">1.</span> <span class="nav-text">one-hot</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#word2vector"><span class="nav-number">2.</span> <span class="nav-text">word2vector</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#在mac下安装opencv"><span class="nav-number">1.</span> <span class="nav-text">在mac下安装opencv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在ubuntu下安装opencv"><span class="nav-number">2.</span> <span class="nav-text">在ubuntu下安装opencv</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取个人图片"><span class="nav-number">3.</span> <span class="nav-text">获取个人图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成tfrecord文件"><span class="nav-number">4.</span> <span class="nav-text">生成tfrecord文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取tfrecord文件"><span class="nav-number">5.</span> <span class="nav-text">读取tfrecord文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计神经网络"><span class="nav-number">6.</span> <span class="nav-text">设计神经网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#训练和验证"><span class="nav-number">7.</span> <span class="nav-text">训练和验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#出现的问题"><span class="nav-number">8.</span> <span class="nav-text">出现的问题</span></a></li></ol></div>
             
 
           </div>
@@ -785,9 +794,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://yoursite.com/2017/06/17/wordembedding/';
-          this.page.identifier = '2017/06/17/wordembedding/';
-          this.page.title = 'word embedding学习笔记';
+          this.page.url = 'http://yoursite.com/2017/07/20/facerec/';
+          this.page.identifier = '2017/07/20/facerec/';
+          this.page.title = '人脸识别简单视线';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://https-memorycrash-github-io.disqus.com/embed.js';
