@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/20/facerec/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="首先安装dlib来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。安装dlib前先sudo apt-get install libboost-python-dev cmake安装配套文件。然后使用sudo pip3 install dlib即可。">
-<meta property="og:updated_time" content="2017-07-20T14:38:19.000Z">
+<meta property="og:updated_time" content="2017-07-21T14:31:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="人脸识别简单实现">
 <meta name="twitter:description" content="首先安装dlib来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。安装dlib前先sudo apt-get install libboost-python-dev cmake安装配套文件。然后使用sudo pip3 install dlib即可。">
@@ -455,8 +455,10 @@
 <li>启动QueueRunner。    </li>
 </ul>
 <h3 id="设计神经网络"><a href="#设计神经网络" class="headerlink" title="设计神经网络"></a>设计神经网络</h3><p>使用在tensorflow基础上进行封装的<code>prettytensor</code>来构建神经网络。有两个卷积层每个卷积层配套一个max_pool，然后是两个全连接层接着是输出两个值的softmax层。创建网络的时候设计为训练和测试可以复用的形式。</p>
-<p>增加了一个加载CheckPoint的函数，可以在训练前加载先前保存的训练数据，这样的函数是在长时的训练过程中避免意外导致所以训练功亏一篑。</p>
-<h3 id="训练和验证"><a href="#训练和验证" class="headerlink" title="训练和验证"></a>训练和验证</h3><p>在训练中需要注意将输入到模型label应该转换为one-hot数据。然后使用tfrecords数据来进行训练和测试，在验证测试集的时候选择一次读出指定的数据。最后每次使用最后一次保存的模型信息来进行具体的应用。</p>
+<p>增加了一个加载CheckPoint的函数，可以在训练前加载先前保存的训练数据<code>saver = tf.train.Saver()</code>，这样的函数是在长时的训练过程中避免意外导致所以训练功亏一篑。</p>
+<p>在创建网络的时候，分为两个一个是训练时的网络一个是测试时的网络。通过设置这个参数来进行切换。同时<code>with tf.variable_scope(&#39;network&#39;, reuse=not training):</code>这里如果<code>training=False</code>那么<code>reuse</code>就是True这个就复用训练的参数。毕竟我们在测试的时候，各个变量是不需要进行改变的。同时在<code>prettytensor</code>中使用<code>pt.defaults_scope(activation_fn=tf.nn.relu, phase=phase)</code>的phase来配置train和测试模式<code>pt.Phase.train</code>/<code>pt.Phase.infer</code>。</p>
+<p><a href="https://zhuanlan.zhihu.com/p/26808093" target="_blank" rel="external">prettytensor可以参考</a></p>
+<h3 id="训练和验证"><a href="#训练和验证" class="headerlink" title="训练和验证"></a>训练和验证</h3><p>在训练中需要注意将输入到模型label应该转换为one-hot数据。然后使用tfrecords数据来进行训练和测试，在验证测试集的时候选择一次读出指定的数据。最后每次使用最后一次保存的模型信息来进行具体的应用。在实际应用时采集到一张图片输入到神经网络进行判断时需要将采集到的数据添加一个图片索引维度<code>img = face[np.newaxis,:]</code>。面对多个项目的输出时，有时需要按照得分输出结果可以使用<code>index_sort = np.argsort(-cls_percent[0])</code>这个函数返回的是排序后索引。</p>
 <h3 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h3><p>在编写读取tfrecords文件的程序时，进行<code>tf.train.shuffle_batch</code>操作时发生错误<code>All shapes must be fully defined:[TensorShape([Dimension(None)]),TensorShape([])]</code>这样的错误原因有很多。我这里的原因是进行<code>tf.reshpae(img,[64,64,3])</code>这个操作时，没有接收返回值，所以失败。改成这样就好了<code>img = tf.reshpae(img,[64,64,3])</code></p>
 <p><a href="https://github.com/MemoryCrash/MachineLearningPractice/tree/master/recognizeface" target="_blank" rel="external">实现代码</a></p>
 
