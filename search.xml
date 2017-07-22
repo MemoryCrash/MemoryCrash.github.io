@@ -3,6 +3,33 @@
   
     
     <entry>
+      <title><![CDATA[dlib & opencv]]></title>
+      <url>/2017/07/22/dlib-opencv/</url>
+      <content type="html"><![CDATA[<p>安装dlib<br>下载源文件：<code>git clone https://github.com/davisking/dlib.git</code><br>进行编译：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">cd dlib/examples</div><div class="line">mkdir build</div><div class="line">cd build</div><div class="line">cmake .. -DUSE_SSE4_INSTRUCTIONS=ON</div><div class="line">cmake --build . --config Release</div></pre></td></tr></table></figure></p>
+<a id="more"></a> 
+<p>安装：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd dlib</div><div class="line">sudo python setup.py install</div></pre></td></tr></table></figure>
+<p>运行程序出现问题：<code>AttributeError: module &#39;dlib&#39; has no attribute &#39;image_window&#39;</code>。</p>
+<p><a href="http://noahsnail.com/2016/12/10/2016-12-11-Mac%E4%B8%8Bdlib%E5%AE%89%E8%A3%85/" target="_blank" rel="external">参考:Mac下dlib安装</a></p>
+<p>在linux的系统可以通过<code>display xx.jpg</code>快速从终端打开一个图片。<br>在maxos的系统可以通过<code>open xx.jpg</code>快速从终端打开一个图片。   </p>
+]]></content>
+      
+        <categories>
+            
+            <category> tool </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> basic skill </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[人脸识别简单实现]]></title>
       <url>/2017/07/20/facerec/</url>
       <content type="html"><![CDATA[<p>首先安装<code>dlib</code>来进行人脸图像的识别截取后续再使用这些数据进行神经网络人脸的分类训练。<br>安装<code>dlib</code>前先<code>sudo apt-get install libboost-python-dev cmake</code>安装配套文件。<br>然后使用<code>sudo pip3 install dlib</code>即可。<br><a id="more"></a> </p>
