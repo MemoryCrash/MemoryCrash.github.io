@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/23/opencv1/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="对图片像素的操作实际是对图片读入后返回的numpy数组进行操作，记住数组格式是[height, width, channels]其中channels是BGR顺序排列。这些对像素的操作归到了对numpy数组的操作。考虑到速度可以使用numpy数组的img.item()或者img.itemset()方法来设置。在numpy中对数组的img.shape，img.size，img.dtype 操作都是可用">
-<meta property="og:updated_time" content="2017-07-23T08:05:46.000Z">
+<meta property="og:updated_time" content="2017-07-23T08:07:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="opencv 图片基本操作">
 <meta name="twitter:description" content="对图片像素的操作实际是对图片读入后返回的numpy数组进行操作，记住数组格式是[height, width, channels]其中channels是BGR顺序排列。这些对像素的操作归到了对numpy数组的操作。考虑到速度可以使用numpy数组的img.item()或者img.itemset()方法来设置。在numpy中对数组的img.shape，img.size，img.dtype 操作都是可用">
@@ -426,7 +426,7 @@
 
       
         <p>对图片像素的操作实际是对图片读入后返回的numpy数组进行操作，记住数组格式是[height, width, channels]其中channels是BGR顺序排列。这些对像素的操作归到了对numpy数组的操作。考虑到速度可以使用numpy数组的img.item()或者img.itemset()方法来设置。在numpy中对数组的img.shape，img.size，img.dtype 操作都是可用的，且很有用。<br><a id="more"></a> </p>
-<h3 id="图片加法"><a href="#图片加法" class="headerlink" title="图片加法"></a>图片加法</h3><p>图片数组(uint8)之间的加法，最好使用cv2.add(x,y)因为图片数组一般的大小在0到255之间，如果加的结果操作了255那么cv2.add会取255，如果是一般的numpy数组加法得到的就是4了。<br>图片加法还存在融合的形式，两个图片按照比例叠加在一起<code>cv2.addWeighted(img1, 0.7, img2, 0.3, 0)</code>最后是常数项$dst=\alpa \dot img1 + \beta \dot img2 + \gamma$。</p>
+<h3 id="图片加法"><a href="#图片加法" class="headerlink" title="图片加法"></a>图片加法</h3><p>图片数组(uint8)之间的加法，最好使用cv2.add(x,y)因为图片数组一般的大小在0到255之间，如果加的结果操作了255那么cv2.add会取255，如果是一般的numpy数组加法得到的就是4了。<br>图片加法还存在融合的形式，两个图片按照比例叠加在一起<code>cv2.addWeighted(img1, 0.7, img2, 0.3, 0)</code>最后是常数项$dst=\alpha <em> img1 + \beta </em> img2 + \gamma$。</p>
 
       
     </div>
