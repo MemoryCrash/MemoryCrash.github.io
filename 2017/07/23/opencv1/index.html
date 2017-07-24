@@ -98,7 +98,7 @@
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="对图片像素的操作实际是对图片读入后返回的numpy数组进行操作，记住数组格式是[height, width, channels]其中channels是BGR顺序排列。这些对像素的操作归到了对numpy数组的操作。考虑到速度可以使用numpy数组的img.item()或者img.itemset()方法来设置。在numpy中对数组的img.shape，img.size，img.dtype 操作都是可用">
 <meta property="og:image" content="http://yoursite.com/image/opencv/shi-tomasi.jpg">
-<meta property="og:updated_time" content="2017-07-24T10:11:42.000Z">
+<meta property="og:updated_time" content="2017-07-24T13:12:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="opencv 图片基本操作">
 <meta name="twitter:description" content="对图片像素的操作实际是对图片读入后返回的numpy数组进行操作，记住数组格式是[height, width, channels]其中channels是BGR顺序排列。这些对像素的操作归到了对numpy数组的操作。考虑到速度可以使用numpy数组的img.item()或者img.itemset()方法来设置。在numpy中对数组的img.shape，img.size，img.dtype 操作都是可用">
@@ -447,7 +447,8 @@
 <h4 id="Shi-Tomasi-Corner-Detector"><a href="#Shi-Tomasi-Corner-Detector" class="headerlink" title="Shi-Tomasi Corner Detector"></a>Shi-Tomasi Corner Detector</h4><p>Shi-Tomasi Corner Detector是对Harris的优化，将以前的$R=\lambda _1\lambda _2 - k(\lambda _1+\lambda _2)^2$修改为$R=min(\lambda _1, \lambda _2)$。优化后可以提供更好的结果。<br>对应函数是<code>cv2.goodFeaturesToTrack()</code>它的参数是一张灰度图片，指定抽取的角点数，最小角点阀值(大于这个数字才进入候选)，角点最小距离(某个角点最小距离范围内如果有更强的角点则删除本角点)</p>
 <p><img src="/image/opencv/shi-tomasi.jpg" height="50%" width="50%/"></p>
 <h4 id="SIFT"><a href="#SIFT" class="headerlink" title="SIFT"></a>SIFT</h4><p>SIFT全称Scale-Invariant Feature Transform，在上面提到的两个算法中它们都具有旋转不变性，但是对于大小发生改变的图像就不能识别同一个角点了。下面我们要学习的算法将具有scale invariant(尺度不变性)。这个是专利保护需要收费的模块。对应有个免费的ORB。在opencv3中<br>ORB模块函数由<code>cv2.ORB()</code>改为<code>orb = cv2.ORB_create()</code></p>
-<h4 id="FAST-Algorithm-for-Corner-Detection"><a href="#FAST-Algorithm-for-Corner-Detection" class="headerlink" title="FAST Algorithm for Corner Detection"></a>FAST Algorithm for Corner Detection</h4><p>在opencv3中部分接口发生了改变。<br><code>fast = cv2.FastFeatureDetector()</code>改变为<code>fast = cv2.FastFeatureDetector_create()</code>.<br><code>fast.setBool(&#39;nonmaxSuppression&#39;,0)</code>改变为<code>fast.setNonmaxSuppression(0)</code>.<br><code>img3 = cv2.drawKeypoints(img, kp, color=(255,0,0))</code>改变为<code>img3 = cv2.drawKeypoints(img, kp, None, color=(255,0,0))</code>.<br>在opencv中很多API接口迁移走了，需要按照contrib才能使用。<br><a href="http://www.pyimagesearch.com/2015/07/16/where-did-sift-and-surf-go-in-opencv-3/" target="_blank" rel="external">参考:Where did SIFT and SURF go in OpenCV 3?</a></p>
+<h4 id="FAST-Algorithm-for-Corner-Detection"><a href="#FAST-Algorithm-for-Corner-Detection" class="headerlink" title="FAST Algorithm for Corner Detection"></a>FAST Algorithm for Corner Detection</h4><p>在opencv3中部分接口发生了改变。<br><code>fast = cv2.FastFeatureDetector()</code>改变为<code>fast = cv2.FastFeatureDetector_create()</code>.<br><code>fast.setBool(&#39;nonmaxSuppression&#39;,0)</code>改变为<code>fast.setNonmaxSuppression(0)</code>.<br><code>img3 = cv2.drawKeypoints(img, kp, color=(255,0,0))</code>改变为<code>img3 = cv2.drawKeypoints(img, kp, None, color=(255,0,0))</code>.<br>在opencv中很多API接口迁移走了，需要按照contrib才能使用。重新安装后记得重新复制<code>cv2.cpython-35m-darwin.so</code>文件。<br><a href="http://www.pyimagesearch.com/2015/07/16/where-did-sift-and-surf-go-in-opencv-3/" target="_blank" rel="external">参考:Where did SIFT and SURF go in OpenCV 3?</a></p>
+<p><a href="http://docs.opencv.org/trunk/d6/d00/tutorial_py_root.html" target="_blank" rel="external">参考:OpenCV-Python Tutorials</a></p>
 
       
     </div>
