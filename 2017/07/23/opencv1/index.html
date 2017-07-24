@@ -97,10 +97,12 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/23/opencv1/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="对图片像素的操作实际是对图片读入后返回的numpy数组进行操作，记住数组格式是[height, width, channels]其中channels是BGR顺序排列。这些对像素的操作归到了对numpy数组的操作。考虑到速度可以使用numpy数组的img.item()或者img.itemset()方法来设置。在numpy中对数组的img.shape，img.size，img.dtype 操作都是可用">
-<meta property="og:updated_time" content="2017-07-23T09:19:22.000Z">
+<meta property="og:image" content="http://yoursite.com/2017/07/23/opencv1/image/opencv/shi-tomasi.jpg">
+<meta property="og:updated_time" content="2017-07-24T07:53:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="opencv 图片基本操作">
 <meta name="twitter:description" content="对图片像素的操作实际是对图片读入后返回的numpy数组进行操作，记住数组格式是[height, width, channels]其中channels是BGR顺序排列。这些对像素的操作归到了对numpy数组的操作。考虑到速度可以使用numpy数组的img.item()或者img.itemset()方法来设置。在numpy中对数组的img.shape，img.size，img.dtype 操作都是可用">
+<meta name="twitter:image" content="http://yoursite.com/2017/07/23/opencv1/image/opencv/shi-tomasi.jpg">
 
 
 
@@ -430,7 +432,21 @@
 <h3 id="程序处理效率"><a href="#程序处理效率" class="headerlink" title="程序处理效率"></a>程序处理效率</h3><p>使用cv2.getTickCount()来获取开始和结束点，然后除频率可以得到程序执行时间。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">e1 = cv2.getTickCount()</div><div class="line">#some processing</div><div class="line">e2 = cv2.getTickCount()</div><div class="line">t = (e2-e1)/cv2.getTickFrequency()</div></pre></td></tr></table></figure>
 <h3 id="图片尺寸改变"><a href="#图片尺寸改变" class="headerlink" title="图片尺寸改变"></a>图片尺寸改变</h3><p>使用<code>res = cv2.resize(img,None,fx=2, fy=2, interpolation = cv2.INTER_CUBIC)</code>或者<code>res = cv2.resize(img,(2*width, 2*height), interpolation = cv2.INTER_CUBIC)</code>都是可以将图片放大为原有尺寸的两倍。</p>
-<h3 id="特征提取"><a href="#特征提取" class="headerlink" title="特征提取"></a>特征提取</h3>
+<h3 id="特征提取和描述"><a href="#特征提取和描述" class="headerlink" title="特征提取和描述"></a>特征提取和描述</h3><p>对于一个图片它独一无二的地方一般是它的边边角角，像是以其连成一块的色彩往往不能表示这个图片。接下来我们要做的就是提取图片的特征并给予它恰当的描述。这样根据特征和描述就可以对两张图片进行匹配等操作。       </p>
+<h4 id="Harris-Corner-Detection"><a href="#Harris-Corner-Detection" class="headerlink" title="Harris Corner Detection"></a>Harris Corner Detection</h4><p>在一个图片上将大小固定的窗口在各个方向上移动如果窗口灰度出现大的变化，则这个很可能就是角点。<br>公式：$E(u,v)=\sum _(x,y) w(x,y)(I(x+u,y+v)-I(x,y))^2$<br>在opencv中<code>cv2.cornerHarris()</code>实现了这个功能，参数有。</p>
+<ul>
+<li><strong>img</strong>-输入图片，需要是float32类型的灰度图 </li>
+<li><strong>blockSize</strong>-角点领区大小     </li>
+<li><strong>ksize</strong>-Sobel的孔径参数(aperture parameter)，也就是Sobel核的半径，如1、3、5、7，用来求导的。</li>
+<li><strong>k</strong>-k是一个经验参数用来调节阀值，一般取值在0.04-0.06之间。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">import cv2</div><div class="line">import numpy as np</div><div class="line"></div><div class="line">filename = &apos;chessboard.jpg&apos;</div><div class="line">img = cv2.imread(filename)</div><div class="line">gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</div><div class="line"></div><div class="line">gray = np.float32(gray)</div><div class="line">dst = cv2.cornerHarris(gray,2,3,0.04)</div><div class="line"></div><div class="line">#这里通过膨胀可以让点看起来更大些</div><div class="line">dst = cv2.dilate(dst,None)</div><div class="line"></div><div class="line">#选取一个dst中最大的点作为基准选择具体点设置为红色来显示。</div><div class="line">img[dst&gt;0.01*dst.max()]=[0,0,255]</div><div class="line"></div><div class="line">cv2.imshow(&apos;dst&apos;,img)</div><div class="line">if cv2.waitKey(0) &amp; 0xff == 27:</div><div class="line">    cv2.destroyAllWindows()</div></pre></td></tr></table></figure>
+<p>优点：具有旋转不变性。<br>缺点：不具有尺度不变性。 </p>
+<p><strong>注意</strong>：在显示一个图片定位的角点的时候一般会设置通道颜色。对于matplotlib是RGB的顺序，对于cv2是BGR的顺序。所以可能出现颜色不一致的情况。</p>
+<h4 id="Shi-Tomasi-Corner-Detector"><a href="#Shi-Tomasi-Corner-Detector" class="headerlink" title="Shi-Tomasi Corner Detector"></a>Shi-Tomasi Corner Detector</h4><p>Shi-Tomasi Corner Detector是对Harris的优化，将以前的$R=\lambda _1\lambda _2 - k(\lambda _1+\lambda _2)^2$修改为$R=min(\lambda _1, \lambda _2)$。优化后可以提供更好的结果。<br>对应函数是<code>cv2.goodFeaturesToTrack()</code>它的参数是一张灰度图片，指定抽取的角点数，最小角点阀值(大于这个数字才进入候选)，角点最小距离(某个角点最小距离范围内如果有更强的角点则删除本角点)</p>
+<p><img src="image/opencv/shi-tomasi.jpg" height="50%" width="50%/"></p>
+<p><a href="http://www.cnblogs.com/ronny/p/4009425.html" target="_blank" rel="external">参考 Harris角点</a><br><a href="http://blog.csdn.net/lql0716/article/details/52628959" target="_blank" rel="external">参考  Harris角点检测(Python-OpenCV)</a></p>
+
       
     </div>
 
@@ -627,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#图片加法"><span class="nav-number">1.</span> <span class="nav-text">图片加法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序处理效率"><span class="nav-number">2.</span> <span class="nav-text">程序处理效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片尺寸改变"><span class="nav-number">3.</span> <span class="nav-text">图片尺寸改变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征提取"><span class="nav-number">4.</span> <span class="nav-text">特征提取</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#图片加法"><span class="nav-number">1.</span> <span class="nav-text">图片加法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#程序处理效率"><span class="nav-number">2.</span> <span class="nav-text">程序处理效率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图片尺寸改变"><span class="nav-number">3.</span> <span class="nav-text">图片尺寸改变</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#特征提取和描述"><span class="nav-number">4.</span> <span class="nav-text">特征提取和描述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Harris-Corner-Detection"><span class="nav-number">4.1.</span> <span class="nav-text">Harris Corner Detection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Shi-Tomasi-Corner-Detector"><span class="nav-number">4.2.</span> <span class="nav-text">Shi-Tomasi Corner Detector</span></a></li></ol></li></ol></div>
             
 
           </div>
