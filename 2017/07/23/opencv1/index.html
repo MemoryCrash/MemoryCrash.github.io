@@ -97,12 +97,12 @@
 <meta property="og:url" content="http://yoursite.com/2017/07/23/opencv1/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="对图片像素的操作实际是对图片读入后返回的numpy数组进行操作，记住数组格式是[height, width, channels]其中channels是BGR顺序排列。这些对像素的操作归到了对numpy数组的操作。考虑到速度可以使用numpy数组的img.item()或者img.itemset()方法来设置。在numpy中对数组的img.shape，img.size，img.dtype 操作都是可用">
-<meta property="og:image" content="http://yoursite.com/2017/07/23/opencv1/image/opencv/shi-tomasi.jpg">
-<meta property="og:updated_time" content="2017-07-24T07:53:40.000Z">
+<meta property="og:image" content="http://yoursite.com/image/opencv/shi-tomasi.jpg">
+<meta property="og:updated_time" content="2017-07-24T07:57:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="opencv 图片基本操作">
 <meta name="twitter:description" content="对图片像素的操作实际是对图片读入后返回的numpy数组进行操作，记住数组格式是[height, width, channels]其中channels是BGR顺序排列。这些对像素的操作归到了对numpy数组的操作。考虑到速度可以使用numpy数组的img.item()或者img.itemset()方法来设置。在numpy中对数组的img.shape，img.size，img.dtype 操作都是可用">
-<meta name="twitter:image" content="http://yoursite.com/2017/07/23/opencv1/image/opencv/shi-tomasi.jpg">
+<meta name="twitter:image" content="http://yoursite.com/image/opencv/shi-tomasi.jpg">
 
 
 
@@ -444,7 +444,7 @@
 <p>优点：具有旋转不变性。<br>缺点：不具有尺度不变性。 </p>
 <p><strong>注意</strong>：在显示一个图片定位的角点的时候一般会设置通道颜色。对于matplotlib是RGB的顺序，对于cv2是BGR的顺序。所以可能出现颜色不一致的情况。</p>
 <h4 id="Shi-Tomasi-Corner-Detector"><a href="#Shi-Tomasi-Corner-Detector" class="headerlink" title="Shi-Tomasi Corner Detector"></a>Shi-Tomasi Corner Detector</h4><p>Shi-Tomasi Corner Detector是对Harris的优化，将以前的$R=\lambda _1\lambda _2 - k(\lambda _1+\lambda _2)^2$修改为$R=min(\lambda _1, \lambda _2)$。优化后可以提供更好的结果。<br>对应函数是<code>cv2.goodFeaturesToTrack()</code>它的参数是一张灰度图片，指定抽取的角点数，最小角点阀值(大于这个数字才进入候选)，角点最小距离(某个角点最小距离范围内如果有更强的角点则删除本角点)</p>
-<p><img src="image/opencv/shi-tomasi.jpg" height="50%" width="50%/"></p>
+<p><img src="/image/opencv/shi-tomasi.jpg" height="50%" width="50%/"></p>
 <p><a href="http://www.cnblogs.com/ronny/p/4009425.html" target="_blank" rel="external">参考 Harris角点</a><br><a href="http://blog.csdn.net/lql0716/article/details/52628959" target="_blank" rel="external">参考  Harris角点检测(Python-OpenCV)</a></p>
 
       
