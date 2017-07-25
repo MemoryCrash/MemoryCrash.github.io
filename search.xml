@@ -3,6 +3,32 @@
   
     
     <entry>
+      <title><![CDATA[opencv 移动物体识别基本操作]]></title>
+      <url>/2017/07/25/trace/</url>
+      <content type="html"><![CDATA[<h2 id="移动物体识别"><a href="#移动物体识别" class="headerlink" title="移动物体识别"></a>移动物体识别</h2><p>在进行移动物体识别的时候这里有<code>Meanshift</code>和<code>Camshift</code>。在实际以一个道路视频跟踪一个汽车时，对于Meanshift是这样处理的。先选择一个方框指定某个汽车，并以此框为跟踪框。<code>Meanshift</code>是固定窗口，<code>Camshift</code>是跟随目标对象大小进行变化。</p>
+<a id="more"></a> 
+<h2 id="背景剔除"><a href="#背景剔除" class="headerlink" title="背景剔除"></a>背景剔除</h2><p>在背景剔除中有三个主要的函数。其中<code>fgbg = cv2.createBackgroundSubtractorMOG()</code>在opencv3中改为了<code>fgbg = cv2.bgsegm.createBackgroundSubtractorMOG()</code>创建了剔除器然后在<code>fgbg.apply(frame)</code>应用在每帧上。</p>
+<p>在对<code>.mp4</code>格式视频中进行移动物体识别时出现错误。     </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">BUG: The current event queue and the main event queue are not the same. Events will not be handled correctly. This is probably because _TSGetMainThread was called for the first time off the main thread.</div></pre></td></tr></table></figure>
+<p>查看解决问题方式是<code>reinstalling opencv3 with --with-ffmpeg flag</code>。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> tool </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> basic skill </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[opencv 图片基本操作]]></title>
       <url>/2017/07/23/opencv1/</url>
       <content type="html"><![CDATA[<p>对图片像素的操作实际是对图片读入后返回的numpy数组进行操作，记住数组格式是[height, width, channels]其中channels是BGR顺序排列。这些对像素的操作归到了对numpy数组的操作。考虑到速度可以使用numpy数组的img.item()或者img.itemset()方法来设置。在numpy中对数组的img.shape，img.size，img.dtype 操作都是可用的，且很有用。<br><a id="more"></a> </p>
@@ -93,7 +119,9 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">brew install cmake</div><div class="line">brew install boost</div><div class="line">brew install boost-python --with-python3</div><div class="line">pip3 install dlib</div></pre></td></tr></table></figure>
 <p>在mac上安装opencv需要先在系统中安装。<br><code>brew tap homebrew/science</code><br><code>brew install opencv3 --with-python3 --with-contrib --without-python</code><br>安装完成后添加执行此命令添加路径信息。      </p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo &apos;export PATH=&quot;/usr/local/opt/opencv3/bin:$PATH&quot;&apos; &gt;&gt; ~/.bash_profile</div></pre></td></tr></table></figure>
-<p>这样安装后仍然在<code>import cv2</code>的时候失败，然后将<code>cp cv2.cpython-35m-darwin.so /Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages</code>执行，可解决问题。       </p>
+<p>这样安装后仍然在<code>import cv2</code>的时候失败，然后将。      </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp /usr/local/opt/opencv3/lib/python3.5/site-packages／cv2.cpython-35m-darwin.so /Library/Frameworks/Python.framework/Versions/3.5/lib/python3.5/site-packages</div></pre></td></tr></table></figure>
+<p>执行，可解决问题。       </p>
 <p><strong>注意</strong>：在python3上安装opencv需要添加参数<code>--without-python</code>否则会出现错误<code>Error: opencv3: Does not support building both Python 2 and 3 wrappers</code>。<code>--with-contrib</code>指代新加不稳定的库，如果不需要可以不添加此参数。</p>
 <h3 id="在ubuntu下安装opencv"><a href="#在ubuntu下安装opencv" class="headerlink" title="在ubuntu下安装opencv"></a>在ubuntu下安装opencv</h3><p>安装依赖文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install --assume-yes build-essential cmake git</div><div class="line">sudo apt-get install --assume-yes pkg-config unzip ffmpeg qtbase5-dev python-dev python3-dev python-numpy python3-numpy</div><div class="line">sudo apt-get install --assume-yes libopencv-dev libgtk-3-dev libdc1394-22 libdc1394-22-dev libjpeg-dev libpng12-dev libtiff5-dev libjasper-dev</div><div class="line">sudo apt-get install --assume-yes libavcodec-dev libavformat-dev libswscale-dev libxine2-dev libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev</div><div class="line">sudo apt-get install --assume-yes libv4l-dev libtbb-dev libfaac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev libtheora-dev</div><div class="line">sudo apt-get install --assume-yes libvorbis-dev libxvidcore-dev v4l-utils python-vtk</div><div class="line">sudo apt-get install --assume-yes liblapacke-dev libopenblas-dev checkinstall</div><div class="line">sudo apt-get install --assume-yes libgdal-dev</div></pre></td></tr></table></figure></p>
 <p>下载源码:</p>
