@@ -3,6 +3,27 @@
   
     
     <entry>
+      <title><![CDATA[Mongodb 学习]]></title>
+      <url>/2017/09/09/mongodb/</url>
+      <content type="html"><![CDATA[<p>mongodb学习内容总结<br><a id="more"></a></p>
+]]></content>
+      
+        <categories>
+            
+            <category> Database </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> mongodb </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[tank battle 和强化学习]]></title>
       <url>/2017/08/02/tank/</url>
       <content type="html"><![CDATA[<p>下载tank battle city <a href="https://github.com/raitisg/battle-city-tanks" target="_blank" rel="external">代码</a><br>在mac上安装pygame需要保证安装了<code>brew install sdl sdl_image sdl_mixer sdl_ttf portmidi</code><br>安装PyUserInput<code>pip3 install PyUserInput</code>来模拟按键。发现没有方向键，后来在mac.py文件中添加<code>&#39;left&#39; : 0x7B,&#39;right&#39; : 0x7C,&#39;down&#39; : 0x7D,&#39;up&#39; : 0x7E,</code>即可。<a href="http://www.guanggua.com/question/10734349-simulate-keypress-for-system-wide-hotkeys.html" target="_blank" rel="external">mac按键与事件对应信息表</a><br><a id="more"></a> </p>
