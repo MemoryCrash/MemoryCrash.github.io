@@ -3,7 +3,7 @@
   
     
     <entry>
-      <title><![CDATA[Jenkins配置单机过程]]></title>
+      <title><![CDATA[Jenkins配置过程]]></title>
       <url>/2017/09/16/jenkins/</url>
       <content type="html"><![CDATA[<p>Jenkins是持续集成工具中的佼佼者，并且因为是一个开源项目所以它拥有丰富的插件。下面的文章主要目的是配置一个可以在本地进行进行自动构建C#工程的Jenkins。<br><a id="more"></a></p>
 <h2 id="安装环境准备"><a href="#安装环境准备" class="headerlink" title="安装环境准备"></a>安装环境准备</h2><p>首先检查windows是否安装了java，如果没有请安装jre或者jdk。这两个都可以用来支持jenkins。我安装的是java8的jre。通过在cmd中输入<code>java -version</code>可以查看java是否安装。</p>
