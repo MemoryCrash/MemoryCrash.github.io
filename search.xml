@@ -3,6 +3,40 @@
   
     
     <entry>
+      <title><![CDATA[Jenkins配置单机过程]]></title>
+      <url>/2017/09/16/jenkins/</url>
+      <content type="html"><![CDATA[<p>Jenkins是持续集成工具中的佼佼者，并且因为是一个开源项目所以它拥有丰富的插件。下面的文章主要目的是配置一个可以在本地进行进行自动构建C#工程的Jenkins。<br><a id="more"></a></p>
+<h2 id="安装环境准备"><a href="#安装环境准备" class="headerlink" title="安装环境准备"></a>安装环境准备</h2><p>首先检查windows是否安装了java，如果没有请安装jre或者jdk。这两个都可以用来支持jenkins。我安装的是java8的jre。通过在cmd中输入<code>java -version</code>可以查看java是否安装。</p>
+<p>jenkins有两种安装方式一个是直接在windows环境进行安装，一个是先安装tomcat容器然后将jenkins放入其中。我这里采用了第一种直接安装的方式。</p>
+<p>首先在<a href="https://jenkins.io/download/" target="_blank" rel="external">官网下载</a>jenkins.war接着配置jenkins的工作目录。在windows中添加环境变量<code>JENKINS_HOME=YOUPath</code>我这里指定了jenkins的工作目录在<code>F:\jenkins</code>这样当执行安装的时候jenkins的安装信息会放在F盘去，如果没添加这个环境变量，将默认工作目录在C盘这样不好。</p>
+<p>因为我们要编译C#代码，这个需要检查电脑上是否有安装BuildTools_Full.exe和VS2013。</p>
+<h2 id="安装jenkins"><a href="#安装jenkins" class="headerlink" title="安装jenkins"></a>安装jenkins</h2><p>在配置好环境变量后在<code>jenkins.war</code>包所在目录下打开cmd执行<code>java -jar jenkins.war</code>，安装完毕后提示信息<code>Jenkins is fully up and running</code>。这个时候可以检查你设置的工作目录可以看到多了很多信息，其中又个<code>workplace</code>中放置的就是工程信息。</p>
+<p>浏览器中输入<code>localhost:8080</code>可以登录jenkins。会先提示你输入初始化admin密码。输入以后选择<code>skip plugin install</code>。然后设置你的登录名、秘密、全名。可以保持登录名和全名一致。</p>
+<h2 id="插件安装"><a href="#插件安装" class="headerlink" title="插件安装"></a>插件安装</h2><p>点击系统管理找到管理插件，进入可安装插件搜索msbuild和git进行安装。然后回到系统管理点击<code>Configure Global Security</code>去勾选<code>防止跨点请求伪造</code>并保存，这个的目的是解决有时候restart jenkins失败的问题。回到系统管理找到<code>install as windows service</code>这个的目的是安装jenkins为一个windows服务这样在启动系统的时候就会启动jenkins。如果要删除服务在cmd下输入<code>sc delete jenkins</code></p>
+<h2 id="插件配置"><a href="#插件配置" class="headerlink" title="插件配置"></a>插件配置</h2><p>配置msbuild，点击<code>Global Tool Configuration</code>点击<code>MSBuild</code>填入名称<code>MS Build 2013</code>输入msbuild的可执行路径<code>C:\Winodws\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe</code>同样的方式找到git配置项，这里就只填写git的执行路径<code>C:\Program Files\Git\bin\git.exe</code>。</p>
+<p>配置到这一步后我们对jenkins进行一次退出和重启。在浏览器中输入<code>localhost:8080/exit</code>退出，<code>localhost:8080/restart</code>重启jenkins。</p>
+<h2 id="新建任务"><a href="#新建任务" class="headerlink" title="新建任务"></a>新建任务</h2><p>重启登录后，点击新建，在item中输入构建任务名称<code>jenkinsTest</code>并选择freestyle自由模式。进一步配置源码管理为Git，填入<code>Repository URL</code>我自己配置了一个本地裸库<code>F:\jenkinsTest\repoTest.git</code>，配置构建选项在<code>MSBuild Version</code>选择<code>MS Build 2014</code>,<code>MSBuild Build File</code>选择你自己的工程文件，我的是<code>JenkinsTestApp.sln</code>完成配置后保存。</p>
+<p>点击<code>立即构建</code>构建完成后可以查看<code>Console output</code>的构建信息。</p>
+<h2 id="删除jenkins"><a href="#删除jenkins" class="headerlink" title="删除jenkins"></a>删除jenkins</h2><p>如果要删除jenkins可以删除服务再删除jenkins的工作区。</p>
+<h2 id="git本地裸库"><a href="#git本地裸库" class="headerlink" title="git本地裸库"></a>git本地裸库</h2><p>git本地库使用 <code>git init repo</code>生成一个叫repo的库可以执行commit操作。<br>git本地裸库<code>git init --bare repo.git</code>生成一个叫repo.git的裸库，不能直接作裸库执行commit操作。裸库只能作为一个远程库，我们可以克隆裸库到另外的文件区，进行修改然后push到裸库中。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> Continuous integration </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> jenkins </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Mongodb 学习]]></title>
       <url>/2017/09/09/mongodb/</url>
       <content type="html"><![CDATA[<p>mongodb是一种分布式的文件存储数据库。首先分布式是说当数据很大不能在单独一个数据库中存储的时候，我们可以将它分开存储在多个数据库中。文件数据库是说我在数据库中存储的每一条信息都是以文件的形式来存储。mongodb是最像关系数据库的非关系数据库。像是mysql就是关系数据库。关系数据库支持事务操作，但是非关系数据库不支持事务，主要用于超大规模数据的存储。<br><a id="more"></a><br>mongodb的数据存储格式是json键值对的形式。<br>mongodb在mac上的安装：首先在官网下载对应版本<code>curl -O https://fastdl.mongodb.org/osx/mongodb-osx-x86_64-3.4.7.tgz</code>。可以下载到一个压缩包，然后解压压缩包。解压后的文件中有个bin目录，bin目录下的文件mongo表示mongo的shell。mongod表示具体数据库服务。然后创建/data/db目录，用来存放mongodb的数据。给这个/data/db文件777权限。最后将解压的bin目录下的文件拷贝到／usr/local/bin/目录下，这样就可以在终端直接调用mongod和mongo了。</p>
