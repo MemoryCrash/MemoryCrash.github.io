@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/09/16/jenkins/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="Jenkins是持续集成工具中的佼佼者，并且因为是一个开源项目所以它拥有丰富的插件。下面的文章主要目的是配置一个可以在本地进行进行自动构建C#工程的Jenkins。">
-<meta property="og:updated_time" content="2017-09-16T13:22:50.000Z">
+<meta property="og:updated_time" content="2017-09-16T13:57:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins配置过程">
 <meta name="twitter:description" content="Jenkins是持续集成工具中的佼佼者，并且因为是一个开源项目所以它拥有丰富的插件。下面的文章主要目的是配置一个可以在本地进行进行自动构建C#工程的Jenkins。">
@@ -439,6 +439,7 @@
 <p>点击<code>立即构建</code>构建完成后可以查看<code>Console output</code>的构建信息。</p>
 <h2 id="删除jenkins"><a href="#删除jenkins" class="headerlink" title="删除jenkins"></a>删除jenkins</h2><p>如果要删除jenkins可以删除服务再删除jenkins的工作区。</p>
 <h2 id="git本地裸库"><a href="#git本地裸库" class="headerlink" title="git本地裸库"></a>git本地裸库</h2><p>git本地库使用 <code>git init repo</code>生成一个叫repo的库可以执行commit操作。<br>git本地裸库<code>git init --bare repo.git</code>生成一个叫repo.git的裸库，不能直接作裸库执行commit操作。裸库只能作为一个远程库，我们可以克隆裸库到另外的文件区，进行修改然后push到裸库中。</p>
+<p>使用<code>git clone ./repo.git ./localrepo</code>可以将裸库的内容克隆到localrepo文件，现在localrepo就是一个本地库，可以通过push操作和<code>./repo.git</code>交互。</p>
 
       
     </div>
