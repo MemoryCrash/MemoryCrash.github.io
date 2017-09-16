@@ -97,7 +97,7 @@
 <meta property="og:url" content="http://yoursite.com/2017/09/16/jenkins/index.html">
 <meta property="og:site_name" content="MemoryCrash">
 <meta property="og:description" content="Jenkins是持续集成工具中的佼佼者，并且因为是一个开源项目所以它拥有丰富的插件。下面的文章主要目的是配置一个可以在本地进行进行自动构建C#工程的Jenkins。">
-<meta property="og:updated_time" content="2017-09-16T13:57:32.000Z">
+<meta property="og:updated_time" content="2017-09-16T17:08:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Jenkins配置过程">
 <meta name="twitter:description" content="Jenkins是持续集成工具中的佼佼者，并且因为是一个开源项目所以它拥有丰富的插件。下面的文章主要目的是配置一个可以在本地进行进行自动构建C#工程的Jenkins。">
@@ -440,6 +440,16 @@
 <h2 id="删除jenkins"><a href="#删除jenkins" class="headerlink" title="删除jenkins"></a>删除jenkins</h2><p>如果要删除jenkins可以删除服务再删除jenkins的工作区。</p>
 <h2 id="git本地裸库"><a href="#git本地裸库" class="headerlink" title="git本地裸库"></a>git本地裸库</h2><p>git本地库使用 <code>git init repo</code>生成一个叫repo的库可以执行commit操作。<br>git本地裸库<code>git init --bare repo.git</code>生成一个叫repo.git的裸库，不能直接作裸库执行commit操作。裸库只能作为一个远程库，我们可以克隆裸库到另外的文件区，进行修改然后push到裸库中。</p>
 <p>使用<code>git clone ./repo.git ./localrepo</code>可以将裸库的内容克隆到localrepo文件，现在localrepo就是一个本地库，可以通过push操作和<code>./repo.git</code>交互。</p>
+<p>使用<code>git push origin master</code>可以进行代码推送。</p>
+<h2 id="添加单元测试"><a href="#添加单元测试" class="headerlink" title="添加单元测试"></a>添加单元测试</h2><p>首先在jenkins中安装<code>mstest</code>插件。然后我们会去调用vs2013自动安装的MSTest.exe这个单元测试工具。</p>
+<p>在vs2013的工程中，找到工具再点击扩展和更新，选择[联机]再输入<code>Unit Test Generator</code>并安装这个vs插件，这样我们就可以为工程创建单元测试了。</p>
+<p>能创建单元测试的代码需要满足所在类是pubic的，并且这个类存在至少一个public的方法。然后我们就可以在需要关注的代码边右键然后选择<code>Generate Unit Test</code>这个功能会自动生成一个单元测试项目。接着就是编写单元测试代码。</p>
+<p>要使用jenkins调用单元测试代码，首先单元测试的项目也需要上到代码库。然后点击jenkins任务选择配置，点击[增加构建步骤]<code>Execute Windows batch command</code>填写windows命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">if exist &quot;%WORKSPACE%\TestResults.trx&quot; (</div><div class="line">del &quot;%WORKSPACE%\TestResults.trx&quot; </div><div class="line">)</div><div class="line">&quot;D:\Program Files\Microsoft Visual Studio 12.0\Common7\IDE\MSTest.exe&quot; /resultsfile:&quot;%WORKSPACE%\TestResults.trx&quot; /testcontainer:&quot;%WORKSPACE%\JenkinsTestAppTests\bin\Debug\JenkinsTestAppTests.dll&quot; /nologo</div></pre></td></tr></table></figure>
+<p>然后选择新增[构建后操作]在其中添加输出文件<code>TestResults.trx</code>，保存配置。执行构建，结束后可以查看最新测试结果。</p>
+<h2 id="添加git触发时刻"><a href="#添加git触发时刻" class="headerlink" title="添加git触发时刻"></a>添加git触发时刻</h2><p>找到你的远程分支对于我就是<code>repo.git</code>进入hook目录在里面添加一个<code>post-receive</code>文件，注意没有后缀。添加信息如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">#!/bin/sh</div><div class="line"></div><div class="line"># Remember to point this to the correct url and port number! </div><div class="line">JenkinsUrl=&quot;http://localhost:8080&quot;</div><div class="line"></div><div class="line">#watch spaces in Jenkins Project Names, they will need to be url encoded to %20</div><div class="line">ProjectName=&quot;JenkinsTest&quot;</div><div class="line"></div><div class="line">echo &quot;&quot;</div><div class="line">echo &quot;Triggering Build on Jenkins server $JenkinsUrl&quot;</div><div class="line">echo &quot;&quot;</div><div class="line"></div><div class="line">curl &quot;$JenkinsUrl/job/$ProjectName/build?token=BUILD&quot;</div></pre></td></tr></table></figure></p>
+<p>然后进入jenkins的工程配置选择[构建触发器]勾选[触发远程构建]身份验证临牌填写<code>BUILD</code>，保存配置。回到系统管理点击[Configure Global Security]授权策略勾选[Allow anonymous read access]</p>
+<p>然后代码工程文件上库执行push操作可以看到jenkins被触发了。</p>
 
       
     </div>
@@ -637,7 +647,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装环境准备"><span class="nav-number">1.</span> <span class="nav-text">安装环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装jenkins"><span class="nav-number">2.</span> <span class="nav-text">安装jenkins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件安装"><span class="nav-number">3.</span> <span class="nav-text">插件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件配置"><span class="nav-number">4.</span> <span class="nav-text">插件配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建任务"><span class="nav-number">5.</span> <span class="nav-text">新建任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除jenkins"><span class="nav-number">6.</span> <span class="nav-text">删除jenkins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git本地裸库"><span class="nav-number">7.</span> <span class="nav-text">git本地裸库</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装环境准备"><span class="nav-number">1.</span> <span class="nav-text">安装环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装jenkins"><span class="nav-number">2.</span> <span class="nav-text">安装jenkins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件安装"><span class="nav-number">3.</span> <span class="nav-text">插件安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件配置"><span class="nav-number">4.</span> <span class="nav-text">插件配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建任务"><span class="nav-number">5.</span> <span class="nav-text">新建任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除jenkins"><span class="nav-number">6.</span> <span class="nav-text">删除jenkins</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git本地裸库"><span class="nav-number">7.</span> <span class="nav-text">git本地裸库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加单元测试"><span class="nav-number">8.</span> <span class="nav-text">添加单元测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加git触发时刻"><span class="nav-number">9.</span> <span class="nav-text">添加git触发时刻</span></a></li></ol></div>
             
 
           </div>
