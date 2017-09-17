@@ -49,6 +49,7 @@
 </tbody>
 </table>
 <p>参考上图，还是要灵活的理解他们的关系。</p>
+<p>参考文档：<br><a href="https://yq.aliyun.com/articles/101904" target="_blank" rel="external">UML关系(泛化,实现,依赖,关联(聚合,组合))</a><br><a href="https://zhuanlan.zhihu.com/p/24576502" target="_blank" rel="external">设计模式之 UML 类图</a></p>
 ]]></content>
       
         <categories>
