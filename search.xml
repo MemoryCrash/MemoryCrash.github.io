@@ -3,6 +3,70 @@
   
     
     <entry>
+      <title><![CDATA[几种常见UML类图关系]]></title>
+      <url>/2017/09/17/UML/</url>
+      <content type="html"><![CDATA[<p>UML用来标准话的表示类之间的关系。方便互相之间的交流和展现设计中各个结构的静态关系。以下只是对一些简单的类之间关系记录下。</p>
+<a id="more"></a>
+<table>
+<thead>
+<tr>
+<th>UML类图关系</th>
+<th>符号</th>
+<th>实现方法</th>
+<th>特点</th>
+<th>关系举例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>依赖</td>
+<td>虚线箭头指向被依赖</td>
+<td>临时变量，参数传递</td>
+<td>一种偶然不稳定关系，表示A使用了B</td>
+<td>人过河使用船</td>
+</tr>
+<tr>
+<td>关联</td>
+<td>实线箭头指向被关联</td>
+<td>实例变量</td>
+<td>一种稳定平等的关系</td>
+<td>你和你的朋友</td>
+</tr>
+<tr>
+<td>聚合</td>
+<td>空心棱形箭头指向聚合体</td>
+<td>实例变量</td>
+<td>一种不平等的，一对多关系。个体可以单独存在</td>
+<td>公司和员工(都是老板公司)</td>
+</tr>
+<tr>
+<td>组合</td>
+<td>实心棱形箭头指向组合体</td>
+<td>实例变量</td>
+<td>强关系，个体不能单独存在</td>
+<td>身体和大脑(生命周期一致)</td>
+</tr>
+</tbody>
+</table>
+<p>参考上图，还是要灵活的理解他们的关系。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> uml </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> uml </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[Jenkins配置过程]]></title>
       <url>/2017/09/16/jenkins/</url>
       <content type="html"><![CDATA[<p>Jenkins是持续集成工具中的佼佼者，并且因为是一个开源项目所以它拥有丰富的插件。下面的文章主要目的是配置一个可以在本地进行进行自动构建C#工程的Jenkins。<br><a id="more"></a></p>
@@ -732,9 +796,9 @@ $sudo ldconfig
         
         <tags>
             
-            <tag> transfer learning </tag>
-            
             <tag> tensorflow </tag>
+            
+            <tag> transfer learning </tag>
             
         </tags>
         
